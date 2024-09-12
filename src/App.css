@@ -36,3 +36,490 @@
     transform: rotate(360deg);
   }
 }
+
+.grid-body {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.header{
+  background-color: #161439;
+  color: #E6EAEF;
+}
+
+.header-contact {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-size: 12px;
+}
+
+.header-contact span{
+  padding: 0 7px;
+}
+
+.icon-header {
+  padding: 0 5px;
+}
+
+.header-menu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #fff;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  position: relative;
+}
+
+.menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.function>a>button{font-weight: 500;}
+
+.icon-function {
+  color: #B2BBCC;
+  transition: color 0.2s;
+
+}
+.icon-function:hover {
+  color: #5751E1;
+}
+
+.menu-list {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-list li {
+  margin-right: 20px;
+}
+
+.menu-list li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.menu-list li a:hover {
+  color: #5751E1;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.function {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 14px;
+}
+
+.search-function {
+  padding: 5px 20px;
+  border: 0.5px solid #c8c8c8;
+  border-radius: 20px;
+  width: 100%;
+  /* max-width: 400px; */
+}
+
+.button-function button {
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 15px;
+  background-color: #FFC224;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 90px;
+}
+
+.button-function button:hover {
+  background-color: #c09529;
+  color: #fff;
+}
+
+
+@media (min-width: 1025px) {
+  
+  .menu-children {
+      display: none;
+  }
+  .menu-function_moblie{
+      display: none;
+  }
+  .bd-botton{
+      width: 10%;
+  }
+  .value{ 
+      font-size: 14px;
+      padding: 5px 0;
+  }
+  .img-col_footer {
+      padding: 0 auto;
+      width: 100%;
+  }
+  .sreach-by-name_detail{
+      display: none;
+  }
+  .show_list-course {
+      width: 100%;
+      padding-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* Chia thành 3 cột bằng nhau */
+      gap: 10px; /* Khoảng cách giữa các cột */
+  }
+  .courese-value{
+      padding: 20px; /* Khoảng cách trong cột */
+      box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến kích thước cột */
+      margin: 8px 8px;
+      border: 1px solid #B2BBCC;
+      border-radius: 5px;
+      box-shadow: 0.5px 0.5px 0.5px 0.5px #e1e1e1;
+  }
+  .all-course {
+      width: 75%;
+  }
+  
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .body-show {
+      padding: 0 20px;
+  }
+  .menu-function_moblie{
+      display: none;
+  }
+  
+  .menu-children {
+      display: none;
+  }
+  .bd-botton{
+      width: 10%;
+  }
+  .value{ 
+      font-size: 14px;
+      padding: 5px 0;
+  }
+  .img-col_footer {
+      padding: 0 auto;
+      width: 100%;
+  }
+  .sreach-by-name_detail{
+      display: none;
+  }
+  .show_list-course {
+      width: 100%;
+      padding-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* Chia thành 3 cột bằng nhau */
+      gap: 10px; /* Khoảng cách giữa các cột */
+  }
+  .courese-value{
+      padding: 20px; /* Khoảng cách trong cột */
+      box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến kích thước cột */
+      margin: 8px 8px;
+      border: 1px solid #B2BBCC;
+      border-radius: 5px;
+      box-shadow: 0.5px 0.5px 0.5px 0.5px #e1e1e1;
+  }
+  .all-course {
+      width: 75%;
+  }
+}
+
+/* Responsive styles */
+@media (min-width: 481px) and (max-width: 767px){
+  
+  .sreach-by-name{
+      display: none;
+  }
+
+  .body-show {
+      padding: 0 30px;
+  }
+  .menu-function_moblie{
+      display: block;
+  }
+  .button-function, .search-function{
+      display: none;
+  }
+  .menu-list {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background-color: #fff;
+      position: absolute;
+      top: 60px; /* Adjust this value based on the header height */
+      left: 0;
+      padding: 20px 0;
+  }
+
+
+  .menu-list li {
+      margin-right: 0;
+      padding: 10px 20px;
+      text-align: center;
+  }
+
+  .menu-toggle {
+      display: block;
+  }
+
+  .header-menu {
+      position: relative;
+  }
+
+  .header {
+      display: none;
+  }
+  .show_list-course {
+      width: 100%;
+      padding-top: 30px;
+  }
+  .courese-value{
+      padding: 20px; /* Khoảng cách trong cột */
+      margin: 25px 8px;
+      border: 1px solid #B2BBCC;
+      border-radius: 5px;
+      box-shadow: 0.5px 0.5px 0.5px 0.5px #e1e1e1;
+  }
+  .all-course {
+      width: 100%;
+  }
+  .courese-value>img{
+      width: 100%;
+  }
+  
+
+
+  /* Footer */
+  .show_body-footer {
+      flex-direction: column;
+      /* align-items: center;
+      text-align: center; */
+      font-size: 12px;
+  }
+
+  .col {
+      min-width: 100%;
+  }
+
+  .value-col {
+      align-items: center;
+  }
+  .bd-botton{
+      width: 100%;
+  }
+  .end-footer{ display: none;}
+  .img-col_footer {
+      padding: 0 auto;
+      margin-left: 24%;
+      width: 50%;
+  }
+
+}
+
+
+/* Body */
+.body-show {
+  display: flex;
+  margin: 50px 0;
+}
+.sreach-by-name {
+  width: 25%;
+}
+
+.box-sreach {
+  background-color: #F7F7F9;
+  margin-right: 30px;
+  padding: 25px 30px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.name_sreach {
+  font-weight: bold;
+  font-size: 18px;
+  padding-bottom: 10px;
+}
+.button_seach-categories{
+  border: 0;
+  background-color: #F7F7F9;
+  color: #5751E1;
+  margin-top: 10px;
+  line-height: 27px;
+  transition: color 0.3s;
+
+
+}
+
+.button_seach-categories:hover {
+  color: #f17731;
+  cursor: pointer;
+}
+.check-categories, .check-categories>input {
+  padding: 2px 0;
+  color: #6D6C80;
+}
+.check-categories>span{
+  font-size: 13px;
+}
+
+.sreach-by-order{
+  float: right;
+  
+}
+#sort-by_course{
+  padding: 4px 15px;
+  border: 1px solid #c8c8c8;
+  border-radius: 5px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+
+
+.courese-value img {
+  max-width: 100%; /* Đảm bảo hình ảnh không bị tràn ra ngoài */
+}
+
+.footer_list-course span{float: right;}
+.teacher{
+  margin: 10px;
+  justify-content: space-between;
+}
+.language-name{
+  font-size: 13px;
+  background-color: #EFEFF2;
+  padding:4px 15px;
+  border-radius: 20px;
+  font-weight: 500;
+  align-items: center;
+}
+.name-object{
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.enroll-now{
+  padding: 7px 20px;
+  background-color: #FFC224;
+  border: 1px solid #06042E;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.7);
+}
+.name-teacher{
+  font-weight: 500;
+  color: #161439;
+
+}
+.price-course{
+  font-size: 18px;
+  font-weight: 700;
+  color: #5751E1;
+}
+.number-pages{
+  margin: 20px 0;
+  display: flex;
+  justify-content: center; /* Căn giữa các nút theo chiều ngang */
+  align-items: center; /* Căn giữa theo chiều dọc, nếu cần */
+  gap: 10px;
+}
+.numbers{
+  background-color: #5751E1;
+  border: none;
+  border-radius: 100%;
+  padding: 8px 16px;
+  color: #fff;
+  font-weight: 500;
+}
+.evaluate{
+  color: #000;
+  text-decoration: none;
+}
+.evaluate:hover{
+  color: #241cbc;
+  transition: 0.1s color;
+}
+.evaluate>span{
+  font-size: 12px;
+}
+
+
+
+/* Footer */
+.show_body-footer {
+  width: 100%;
+  display: flex;
+  padding: 60px 0;
+  /* font-size: 16px; */
+}
+
+.menu-children{
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+.col {
+  width: 25%;
+  padding: 0 40px;
+}
+.body-footer{
+  background-color: #06042E;
+  color: #E6EAEF;
+}
+
+.value>a, .value {
+  color: #B2BBCC;
+  text-decoration: none;
+}
+.value>a:hover {
+  color: #E6EAEF;
+}
+
+.name-value {
+  padding: 5px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+.bd-botton {
+  border: 1.5px solid #efa592;
+  margin: 5px 0;
+}
+
+
+.end-footer{
+  background-color: #1C1A4A;
+}
+.show_end-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+}
+.icon-footer{
+  padding: 10px 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.show_end-footer span {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+}
+

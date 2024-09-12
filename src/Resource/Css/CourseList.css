@@ -1,0 +1,21 @@
+.text-purple {
+    color: #6f42c1;
+}
+
+.card {
+    border-color: #6f42c1;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.page-link.text-purple {
+    color: #6f42c1 !important;
+}
+
+.page-link.bg-warning {
+    background-color: #ffc107 !important;
+    border-color: #ffc107 !important;
+}
