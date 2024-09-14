@@ -42,6 +42,8 @@ const CourseList = () => {
 
             <HeaderMenu />
 
+            hello viet
+
             <div className="grid-body">
                 <div className="body-show">
                     <div className="sreach-by-name">
