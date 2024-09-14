@@ -42,7 +42,7 @@ const CourseList = () => {
 
             <HeaderMenu />
 
-            HelloWordaád
+            adc
 
             <div className="grid-body">
                 <div className="body-show">
