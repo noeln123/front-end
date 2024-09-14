@@ -39,18 +39,8 @@ const CourseList = () => {
 
     return (
         <>
-            <div className="heaeder">
-                <div className="menu">
-                    <a className="link_menu" href="home.html">Home</a>
-                    <a className="link_menu" href="course.html">Course</a>
-                    <input type="text" value="" placeholder="Sreach content"/>
-                    <a className="button-function" href="#"><i className="fa-solid fa-cart-shopping icon-function"></i></a>
-                    <a className="button-function" href="#"><i className="fa-solid fa-bell icon-function"></i></a>
-                    <button className="button_header">Logn In</button>
-                    <button className="button_header button-signIn">Sign In</button>
-                </div>
-            </div>
 
+            <HeaderMenu />
 
             <div className="grid-body">
                 <div className="body-show">
