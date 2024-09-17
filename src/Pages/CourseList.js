@@ -42,7 +42,6 @@ const CourseList = () => {
 
             <HeaderMenu />
 
-            adc
 
             <div className="grid-body">
                 <div className="body-show">
