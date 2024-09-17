@@ -5,6 +5,7 @@ import CourseList from './Pages/CourseList';
 import CourseCreate from './Pages/CourseCreate';
 import TeacherDashboard from './Pages/TeacherDashboard';
 import './App.css';
+import Home from './Pages/Home';
 
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/courses" element={<CourseList />} />
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Home />} />
         <Route path="/teacher/course/create" element={<CourseCreate />} />
         <Route path="/teacher" element={<TeacherDashboard />} />
       </Routes>
