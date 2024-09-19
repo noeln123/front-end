@@ -144,7 +144,6 @@ const HeaderMenu = () => {
                             <Link className="btn-menuDetail bd-bottom">Sign In</Link>
                         </>
                     )}
-
                     <div className='menu-detail_list'>
                         <h6>Course List</h6>
                         <ul>
