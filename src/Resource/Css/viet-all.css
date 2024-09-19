@@ -619,8 +619,8 @@
   }
   .body-1 {
     width: 600px;
-    margin: 80px auto;
-    margin-top: 100px;
+    margin: 50px auto;
+    /* margin-top: 100px; */
     border: 1px solid #e1e1e1;
     background-color: #f7f7fa;
     border-radius: 5px;
