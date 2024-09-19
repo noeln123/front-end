@@ -130,7 +130,7 @@ const HeaderMenu = () => {
             ) : (
                 <>
                     <Link to="/login" className="button_header inp-none">Log In</Link>
-                    <Link className="button_header button-signIn inp-none">Sign In</Link>
+                    <Link to="/signup"className="button_header button-signIn inp-none">Sign In</Link>
                 </>
             )}
             {isMenuOpen && (
