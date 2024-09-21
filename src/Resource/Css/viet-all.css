@@ -900,6 +900,7 @@
   .menu{
     display: flex;
     margin-top: 82px;
+    
   }
   .menu_title h1{
     white-space: nowrap;
@@ -910,10 +911,11 @@
   }
   .menu_title{
       list-style-type: none;
-      margin: 0;
+      margin: 0 auto;
       padding: 0;
       display: flex;
       justify-content: baseline;
+      text-align: center;
   }
   .content{
     margin-top: 40px;
@@ -983,7 +985,7 @@
   
   .course-promo {
     text-align: center;
-    margin-top: 120px;
+    margin: 100px 0;
   }
   
   .course-promo p {
@@ -1007,7 +1009,7 @@
     cursor: pointer;
     display: flex;
     padding-top: 80px;
-    margin: 100px auto 0 auto ;
+    margin: 100px auto 100px auto ;
     padding: 15px 20px;
     border: none;
     font-weight: 600;
@@ -1219,6 +1221,79 @@
   }
   .text-cart {
     margin-top: 10px; /* Khoảng cách từ ảnh đến text */
+  }
+
+
+  .courses-section{
+    display: flex;
+  
+  }
+  /* Container chứa các khóa học */
+  .course-container {
+    display: flex;
+    flex-wrap: wrap; /* Đảm bảo các thẻ sẽ xuống hàng nếu không đủ không gian */
+    gap: 20px; /* Khoảng cách đều nhau giữa các thẻ khóa học */
+    justify-content: space-between; /* Đảm bảo khoảng cách giữa các thẻ đều nhau */
+    padding: 20px;
+  }
+  
+  /* Thẻ khóa học */
+  .course-card {
+    width: 100%; /* Hoặc bạn có thể điều chỉnh width theo ý muốn */
+    margin: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    background-color: white;
+    overflow: hidden; /* Để che đi phần thừa nếu cần */
+}
+
+.course-image {
+    width: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng */
+    height: auto; /* Để giữ tỷ lệ khung hình */
+    max-height: 200px; /* Giới hạn chiều cao tối đa của hình ảnh */
+    object-fit: cover; /* Giúp hình ảnh được cắt và giữ tỷ lệ */
+    margin-bottom: 15px;
+}
+
+  .course-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    /* Giới hạn hiển thị 2 dòng */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  
+  .course-author {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: auto; /* Đẩy phần này lên để nút dính xuống dưới */
+    margin: 10px 0;
+  }
+  
+  .start-course-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: auto; /* Đẩy nút xuống dưới cùng */
+  }
+  
+  .start-course-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .course-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: fit-content;
   }
   
   

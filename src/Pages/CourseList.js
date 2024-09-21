@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { HeaderMenu } from '../Component/Menu';
 import Footer from '../Component/Footer';
 import '../Resource/Css/tuan-all.css';
+import { Link } from "react-router-dom";
 
 const CourseList = () => {
     const [courses, setCourses] = useState([]);
@@ -75,7 +76,6 @@ const CourseList = () => {
                             </div>
                             <button type="submit" className="button_seach-categories">Show more +</button>
                         </div>
-
                         <div className="sreach-categories box-sreach">
                             <p className="name_sreach">Price</p>
                             <div className="check-categories">
@@ -107,7 +107,8 @@ const CourseList = () => {
                                         <p class="course-teacher"><span>Buy</span>{course.teacher}</p>
                                         <p class="course-price">{course.price} $</p>
                                         <p class="course-desc">{course.description}</p>
-                                        <a href="course_detail.html" class="course-btn_show-detail">See details</a>
+                                        {/* <a href="course_detail.html" class="course-btn_show-detail">See details</a> */}
+                                        <Link to='/courseDetail'  class="course-btn_show-detail">See details</Link>
                                         </div>
                                     </div>
                                 ))}

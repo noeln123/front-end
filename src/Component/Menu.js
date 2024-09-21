@@ -120,7 +120,7 @@ const HeaderMenu = () => {
                         <div ref={dropdownRef} className="dropdown-menu"> {/* Sửa ref cho dropdown */}
                             <ul>
                                 <li><Link to="/profile">Profile</Link></li>
-                                <li><Link to="/my-courses">My Course</Link></li>
+                                <li><Link to="/mycourse">My Course</Link></li>
                                 <li><Link to="/cart">Shopping Cart</Link></li>
                                 <li><button className='btn-logout' onClick={handleLogout}>Logout</button></li> {/* Nút Logout */}
                             </ul>
