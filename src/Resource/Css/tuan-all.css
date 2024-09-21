@@ -982,7 +982,7 @@
   background-color: #fff;
   border: 1px solid #ccc;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
+  margin: 10px;
   z-index: 1000;
   min-width: 150px;
 }
@@ -1020,4 +1020,13 @@
 .col>div>img {
   padding: 0 auto;
   width: 100%;
+}
+
+.start_course{
+  text-align: center;
+  display: block;
+  text-decoration: none;
+  font-size: 23px;
+  border: 1px solid #ccc;
+  margin: 10px 0;
 }
