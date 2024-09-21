@@ -24,6 +24,8 @@ const Login = () => {
 
             if (response.data.code === 1000) {
                 localStorage.setItem('token', response.data.result.token);
+                console.log(response.data.result.token);
+
                 navigate('/');
             } else {
                 alert(`Code: ${response.data.code} \n Msg: ${response.data.message}`);

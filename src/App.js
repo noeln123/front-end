@@ -8,6 +8,8 @@ import TeacherDashboard from './Pages/TeacherDashboard';
 import SignUp from './Pages/Sign-up';
 import './App.css';
 import Home from './Pages/Home';
+import CourseDetail from './Pages/Course_Details'
+import CourseVideo from './Pages/Video_Course';
 
 
 function App() {
@@ -21,6 +23,8 @@ function App() {
         <Route path="/teacher" element={<TeacherDashboard />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/mycourse" element={<MyCourse />} />
+        <Route path="/courseDetail" element={<CourseDetail />} />
+        <Route path="/courseVideo" element={<CourseVideo />} />
 
       </Routes>
     </Router>

@@ -122,7 +122,7 @@ const HeaderMenu = () => {
                                 <li><Link to="/profile">Profile</Link></li>
                                 <li><Link to="/mycourse">My Course</Link></li>
                                 <li><Link to="/cart">Shopping Cart</Link></li>
-                                <li><button className='btn-logout' onClick={handleLogout}>Logout</button></li> {/* Nút Logout */}
+                                <li onClick={handleLogout}><button className='btn-logout' >Logout</button></li> {/* Nút Logout */}
                             </ul>
                         </div>
                     )}
@@ -144,7 +144,6 @@ const HeaderMenu = () => {
                             <Link className="btn-menuDetail bd-bottom">Sign In</Link>
                         </>
                     )}
-
                     <div className='menu-detail_list'>
                         <h6>Course List</h6>
                         <ul>
