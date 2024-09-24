@@ -1484,6 +1484,13 @@ input[type="text"] {
   text-align: left;
   font-family: Arial, sans-serif;
   width: calc(100%/3);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Horizontally center the content */
+  justify-content: center; /* Vertically center the content */
+  text-align: center; /* Align text in the center */
+  padding: 20px; /* Optional: Add some padding for spacing */
+  height: 100%; 
 }
 
 .badge {

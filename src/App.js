@@ -11,7 +11,7 @@ import Home from './Pages/Home';
 import CourseDetail from './Pages/Course_Details'
 import CourseVideo from './Pages/Video_Course';
 import ShoppingCard from './Pages/ShoppingCard'
-
+import TeacherInfor from './Pages/TeacherInfor'
 function App() {
   return (
     <Router>
@@ -26,6 +26,7 @@ function App() {
         <Route path="/courseDetail" element={<CourseDetail />} />
         <Route path="/courseVideo" element={<CourseVideo />} />
         <Route path="/cart" element={<ShoppingCard />} />
+        <Route path="/teacherInfor" element={<TeacherInfor />} />
 
       </Routes>
     </Router>
