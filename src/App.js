@@ -11,7 +11,7 @@ import Home from './Pages/Home';
 import CourseDetail from './Pages/Course_Details'
 import CourseVideo from './Pages/Video_Course';
 import ShoppingCard from './Pages/ShoppingCard'
-
+import TeacherInfor from './Pages/TeacherInfor'
 function App() {
   return (
     <Router>
