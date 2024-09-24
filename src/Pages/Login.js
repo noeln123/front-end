@@ -69,7 +69,7 @@ const Login = () => {
                             </div>
                             <div className="password">
                                 <label for="">Password</label>
-                                <input className="create-account" type="text" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                                <input className="create-account" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                             </div>
                             <div className="forgot-pass">
                                 <div>

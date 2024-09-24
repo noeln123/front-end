@@ -1139,3 +1139,70 @@
 .backToShop:hover {
   color: #007bff;
 }
+
+/* Reset các kiểu mặc định */
+body, h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Container chính */
+.container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 20%;
+  background-color: #f4f4f4;
+  padding: 10px;
+  box-sizing: border-box;
+  border-right: 1px solid #ddd;
+  overflow-y: auto; /* Thêm cuộn dọc nếu danh sách dài */
+}
+
+/* Main content */
+.main-content {
+  width: 80%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+video {
+  width: 100%;
+  height: auto;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .container {
+      flex-direction: column;
+      height: auto; /* Để nội dung có thể cuộn trên điện thoại */
+  }
+
+  .sidebar {
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid #ddd; /* Thay đổi đường viền để phù hợp với layout dọc */
+  }
+
+  .main-content {
+      width: 100%;
+  }
+}
+
+#course-list>li>a {
+  text-decoration: none;
+  display: block;
+  padding: 3px 0;
+}
+.course_listVideo{
+  display: flex;
+}
