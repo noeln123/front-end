@@ -8,12 +8,12 @@ import { faCartShopping, faBell, faBars } from '@fortawesome/free-solid-svg-icon
 const HeaderMenu = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false); 
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const menuRef = useRef(null);
     const buttonRef = useRef(null);
-    const userInfoRef = useRef(null); 
-    const dropdownRef = useRef(null); 
-    const navigate = useNavigate(); 
+    const userInfoRef = useRef(null);
+    const dropdownRef = useRef(null);
+    const navigate = useNavigate();
 
     // Fetch user info
     useEffect(() => {
@@ -73,9 +73,9 @@ const HeaderMenu = () => {
 
     // Handle logout
     const handleLogout = () => {
-        localStorage.removeItem('token'); 
-        setUserInfo(null); 
-        navigate('/login'); 
+        localStorage.removeItem('token');
+        setUserInfo(null);
+        navigate('/login');
     };
 
     useEffect(() => {
@@ -87,11 +87,11 @@ const HeaderMenu = () => {
 
             // Nếu dropdown tràn ra khỏi viền phải của trang
             if (dropdownRect.right > windowWidth) {
-                dropdown.style.right = '0'; 
-                dropdown.style.left = 'auto'; 
+                dropdown.style.right = '0';
+                dropdown.style.left = 'auto';
             } else {
-                dropdown.style.left = '0'; 
-                dropdown.style.right = 'auto'; 
+                dropdown.style.left = '0';
+                dropdown.style.right = 'auto';
             }
         }
     }, [isDropdownOpen]);
@@ -105,9 +105,7 @@ const HeaderMenu = () => {
             <Link className="link_menu" to="/courses">Course</Link>
 
             {/* Thêm nút dẫn tới "Teacher Dashboard" nếu role là TEACHER */}
-            {userInfo?.role === "TEACHER" && (
-                <Link className="link_menu" to="/teacher">Teacher Dashboard</Link>
-            )}
+
 
             <input type="text" placeholder="Search content" />
             <Link className="button-function btn-shopingCart" to='/cart'>
@@ -123,10 +121,27 @@ const HeaderMenu = () => {
                     {isDropdownOpen && (
                         <div ref={dropdownRef} className="dropdown-menu">
                             <ul>
-                                <li><Link to="/profile">Profile</Link></li>
-                                <li><Link to="/mycourse">My Course</Link></li>
-                                <li><Link to="/cart">Shopping Cart</Link></li>
-                                <li onClick={handleLogout}><button className='btn-logout'>Logout</button></li>
+                                <li><Link to="/profile">
+                                    <i class="fa-regular fa-user icon-avt"></i>
+                                    Profile
+                                </Link></li>
+                                <li><Link to="/mycourse">
+                                    <i class="fa-solid fa-book icon-avt"></i>
+                                    My Course</Link>
+                                </li>
+                                <li><Link to="/cart">
+                                    <i class="fa-solid fa-cart-shopping icon-avt"></i>
+                                    Shopping Cart</Link></li>
+                                {userInfo?.role === "TEACHER" && (
+                                    <li><Link className="link_menu" style={{margin: "0"}} to="/teacher">
+                                        <i class="fa-solid fa-gauge-high icon-avt"></i>
+                                        Teacher Dashboard</Link>
+                                    </li>
+                                )}
+                                <li onClick={handleLogout}><button className='btn-logout'>
+                                    <i class="fa-solid fa-right-to-bracket icon-avt"></i>
+                                    Logout
+                                </button></li>
                             </ul>
                         </div>
                     )}

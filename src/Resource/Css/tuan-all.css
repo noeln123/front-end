@@ -57,11 +57,32 @@
   background-color: #333;
   color: white;
   border-radius: 4px;
-  min-width: 200px;
+  /* min-width: 200px; */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   /* Optional: Add shadow for better visibility */
   /* margin-top: 10px; */
 }
+
+.dropdown-menu ul li {
+  white-space: nowrap;    /* Prevents text wrapping */
+  overflow: hidden;       /* Hides overflowing text */
+  text-overflow: ellipsis; /* Adds "..." for overflowing text */
+}
+.dropdown-menu ul li:hover {
+  color: #5751E1;  /* Changes the text color on hover */
+}
+
+.dropdown-menu ul li a {
+  display: inline-block;
+  width: 100%;
+  color: inherit;  /* Inherits color from the li */
+  text-decoration: none; /* Removes underline from links */
+}
+
+.dropdown-menu ul li:hover a {
+  color: inherit;  /* Ensures that the link also changes color */
+}
+
 
 .dropdown-menu p {
   margin: 0;
@@ -1202,4 +1223,8 @@ video {
 }
 .course_listVideo{
   display: flex;
+}
+
+.icon-avt{
+  padding: 0 10px;
 }
