@@ -996,7 +996,7 @@ h3 {
   color: #7b7b7b;
   border: 1px solid #e1e1e1;
   border-radius: 50%;
-  padding: 8px 10px;
+  padding: 5px 10px;
   margin: 10px 3px;
   box-shadow: 2px 2px #7b7b7b;
 }
@@ -1414,10 +1414,10 @@ input[type="text"] {
   width: 100%;
   /* Hoặc bạn có thể điều chỉnh width theo ý muốn */
   margin: 0 10px;
-  border: 1px solid #ccc;
+  border: none;
   border-radius: 10px;
   padding: 20px;
-  text-align: center;
+  /* text-align: center; */
   background-color: white;
   overflow: hidden;
   /* Để che đi phần thừa nếu cần */
@@ -1449,26 +1449,33 @@ input[type="text"] {
 
 .course-author {
   font-size: 14px;
-  color: #666;
+  /* color: #666; */
   margin-bottom: auto;
   /* Đẩy phần này lên để nút dính xuống dưới */
   margin: 10px 0;
 }
 
 .start-course-btn {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
+  /* padding: 10px 20px; */
+  display: block;
+  /* text-align: center; */
+  /* background-color: #007bff; */
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: black;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: auto;
+  /* margin-top: auto; */
   /* Đẩy nút xuống dưới cùng */
 }
 
-.start-course-btn:hover {
+/* .start-course-btn:hover {
   background-color: #0056b3;
-}
+} */
 
 .course-wrapper {
   display: flex;
@@ -1528,6 +1535,7 @@ p {
   border-radius: 25px;
   text-decoration: none;
   font-weight: bold;
+  margin-top: 30px;
 }
 
 .btn-teacherInfor:hover {
