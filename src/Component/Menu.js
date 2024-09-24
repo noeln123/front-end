@@ -106,9 +106,9 @@ const HeaderMenu = () => {
             <Link className="link_menu btn-home" to="/">Home</Link> {/* Updated to use Link */}
             <Link className="link_menu" to="/courses">Course</Link> {/* Updated to use Link */}
             <input type="text" placeholder="Search content" />
-            <a className="button-function btn-shopingCart" href="#">
+            <Link className="button-function btn-shopingCart"  to='/cart'>
                 <FontAwesomeIcon icon={faCartShopping} className="icon-function" />
-            </a>
+            </Link>
             <a className="button-function" href="#">
                 <FontAwesomeIcon icon={faBell} className="icon-function" />
             </a>
