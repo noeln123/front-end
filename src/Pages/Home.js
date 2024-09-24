@@ -1,19 +1,21 @@
 import { HeaderMenu } from "../Component/Menu"
+import axios from 'axios';
 import Footer from "../Component/Footer"
 import "../Resource/Css/tuan-all.css";
 import { Link } from "react-router-dom";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Carousel, Button } from 'react-bootstrap';
 import "../Resource/Css/tuan-all.css";
 import '../Resource/Css/viet-all.css';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+    const [courses, setCourses] = useState([]);
     const [wishList, setWishList] = useState([]);
     const [activeMenu, setActiveMenu] = useState('menu1');
     const [currentPage, setCurrentPage] = useState(1);
     const coursesPerPage = 3; // Số lượng khóa học hiển thị mỗi trang
-    // const paginate = (pageNumber) => setCurrentPage(pageNumber);
+   
 
     const toggleWishList = (course) => {
         setWishList((prevList) =>
@@ -23,12 +25,21 @@ const Home = () => {
         );
     };
 
-    const courses = [
-        { id: 1, title: 'PHP Core', image: '/examples/images/products/ipad.jpg' },
-        { id: 2, title: 'PHP Laravel', image: '/examples/images/products/ipad.jpg' },
-        { id: 3, title: 'Python', image: '/examples/images/products/ipad.jpg' },
-        { id: 4, title: 'C Sharp', image: '/examples/images/products/ipad.jpg' }
-    ];
+    useEffect(() => {
+        const fetchCourses = async () => {
+            const token = localStorage.getItem('token');
+
+            try {
+                const response = await axios.get('http://localhost:8080/api/course');
+                setCourses(response.data.result);
+            } catch (error) {
+                console.error('Error fetching courses', error);
+                alert('Failed to load courses');
+            }
+        };
+
+        fetchCourses();
+    }, []); // Chỉ gọi fetchCourses một lần khi component mount
 
 
 
@@ -101,7 +112,8 @@ const Home = () => {
                                         <img src='/viet-img/khoa_hoc1.png' alt={course.name} className="course-image" />
                                         <h3 className="course-title">{course.title}</h3>
                                         <p className="course-author">By {course.teacherId}</p>
-                                        <button className="start-course-btn">Start Course</button>
+                                        <hr></hr>
+                                        <Link className="start-course-btn">Start Course</Link>
                                     </div>
                                 ))}
                             </div>

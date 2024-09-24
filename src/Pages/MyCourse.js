@@ -7,6 +7,7 @@ import Footer from '../Component/Footer';
 import '../Resource/Css/viet-all.css';
 import '../Resource/Css/tuan-all.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { Link } from 'react-router-dom';
 
 const MyCourse = () => {
     const [activeMenu, setActiveMenu] = useState('menu1');
@@ -106,7 +107,8 @@ const MyCourse = () => {
                                             <img src='/viet-img/khoa_hoc1.png' alt={course.name} className="course-image" />
                                             <h3 className="course-title">{course.title}</h3>
                                             <p className="course-author">By {course.teacherId}</p>
-                                            <button className="start-course-btn">Start Course</button>
+                                            <hr></hr>
+                                            <Link className="start-course-btn">Start Course</Link>
                                         </div>
                                     ))}
                                 </div>
