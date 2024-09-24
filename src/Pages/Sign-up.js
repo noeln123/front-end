@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Resource/Css/viet-all.css';
+import { HeaderMenu } from '../Component/Menu';
+import Footer from '../Component/Footer';
 
 const SignUp = () => {
     // Sử dụng useState để lưu trữ thông tin từ form
@@ -52,7 +54,7 @@ const SignUp = () => {
 
     return (
         <>
-
+            <HeaderMenu/>
             <div className="body-1">
                 <h1>Create Your Account</h1>
                 <div className="text">
@@ -147,8 +149,10 @@ const SignUp = () => {
                     <Link to="/login">Login</Link>
                 </div>
             </div>
+            <Footer/>
         </>
     );
 };
+
 
 export default SignUp;

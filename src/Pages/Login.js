@@ -64,8 +64,8 @@ const Login = () => {
                     <div>
                         <form onSubmit={handleLogin}>
                             <div className="email">
-                                <label for="">Email</label>
-                                <input className="create-account" type="text" placeholder="Email" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                                <label for="">User Name</label>
+                                <input className="create-account" type="text" placeholder="User Name" value={username} onChange={(e) => setUsername(e.target.value)} required />
                             </div>
                             <div className="password">
                                 <label for="">Password</label>

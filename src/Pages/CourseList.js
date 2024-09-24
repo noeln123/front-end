@@ -76,7 +76,6 @@ const CourseList = () => {
                             </div>
                             <button type="submit" className="button_seach-categories">Show more +</button>
                         </div>
-
                         <div className="sreach-categories box-sreach">
                             <p className="name_sreach">Price</p>
                             <div className="check-categories">
