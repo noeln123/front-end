@@ -101,9 +101,6 @@
   z-index: 1000; /* Ensures the menu is on top of other elements */
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional: adds shadow for better visibility */
 }
-.container{
-  display: none;
-}
 
 .side-menu a {
   color: #333; /* Updated to ensure good contrast on a white background */

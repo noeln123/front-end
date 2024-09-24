@@ -51,33 +51,39 @@ const TeacherDashboard = () => {
   return (
     <>
       <HeaderMenu />
-      <div className="container mt-5">
-        <div className="d-flex justify-content-between mb-3">
-          <button className="btn btn-primary">Approved ({approvedCount})</button>
-          <button className="btn btn-danger">Rejected ({rejectedCount})</button>
-          <button className="btn btn-warning">Pending ({pendingCount})</button>
+      <div className=" mt-5">
+        {/* Bộ lọc trạng thái */}
+        <div className="d-flex justify-content-center mb-4">
+          <button className="btn btn-outline-primary mx-2">Approved ({approvedCount})</button>
+          <button className="btn btn-outline-danger mx-2">Rejected ({rejectedCount})</button>
+          <button className="btn btn-outline-warning mx-2">Pending ({pendingCount})</button>
         </div>
 
+        {/* Hiển thị khóa học */}
         <div className="row">
           {currentCourses.map((course) => (
             <div key={course.id} className="col-md-3 mb-4">
-              <div className="card h-100">
+              <div className="card h-100 shadow-sm">
                 <div className="card-body">
                   <h5 className="card-title">{course.title}</h5>
-                  <p className="card-text">{course.description}</p>
-                  <p className="card-text"><strong>Price:</strong> ${course.price}</p>
-                  {/* <p className={`card-text ${course.state.toLowerCase()}`}>{course.state}</p> */}
+                  <p className="card-text text-truncate" title={course.description}>
+                    {course.description.length > 100 ? `${course.description.substring(0, 100)}...` : course.description}
+                  </p>
+                  <p className="card-text">
+                    <strong>Price:</strong> ${course.price}
+                  </p>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="d-flex justify-content-center">
+        {/* Phân trang */}
+        <div className="d-flex justify-content-center mt-4">
           <nav>
             <ul className="pagination">
               {Array.from({ length: Math.ceil(courses.length / coursesPerPage) }, (_, i) => (
-                <li key={i + 1} className="page-item">
+                <li key={i + 1} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
                   <button onClick={() => paginate(i + 1)} className="page-link">
                     {i + 1}
                   </button>
