@@ -3,6 +3,7 @@ import Footer from "../Component/Footer";
 import { HeaderMenu } from "../Component/Menu";
 import "../Resource/Css/tuan-all.css"; // Ensure styles are applied correctly
 import { Link } from "react-router-dom";
+
 const CourseDetail = () => {
   const [toggleInfo, setToggleInfo] = useState({
     info1: false,
@@ -75,18 +76,6 @@ const CourseDetail = () => {
                     </li>
                   ))}
                 </ul>
-                {showDetails && (
-                  <div
-                    id="course-details"
-                    className="details-visible"
-                    style={{
-                      left: `${detailsPosition.left}px`,
-                      top: `${detailsPosition.top}px`,
-                    }}
-                  >
-                    <p>More information about the course...</p>
-                  </div>
-                )}
               </div>
             </div>
 
@@ -102,7 +91,9 @@ const CourseDetail = () => {
                   </div>
                 </button>
                 {toggleInfo.info1 && (
-                  <div className="info-content">This is the information for Introduction.</div>
+                  <div className="info-content">
+                    This is the information for Introduction.
+                  </div>
                 )}
 
                 <button className="toggle-button" onClick={() => handleToggleInfo("info2")}>
@@ -124,6 +115,15 @@ const CourseDetail = () => {
             {/* Expand/Collapse Content Section */}
             <div className={`content-box ${isExpanded ? "expanded" : ""}`}>
               <p id="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit...
               </p>
               <br />
@@ -155,7 +155,9 @@ const CourseDetail = () => {
                   </button>
                 </>
               ) : (
-                <Link className="btn-course_details start_course" to='/courseVideo'>Start Now</Link>
+                <Link className="btn-course_details start_course" to="/courseVideo">
+                  Start Now
+                </Link>
               )}
               <p style={{ textAlign: "center", margin: "20px 0" }}>
                 30-day money-back guarantee
