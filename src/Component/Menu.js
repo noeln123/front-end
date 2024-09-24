@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Link, useNavigate } from 'react-router-dom';
 import "../Resource/Css/tuan-all.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faBell, faBars } from '@fortawesome/free-solid-svg-icons';
@@ -8,12 +8,12 @@ import { faCartShopping, faBell, faBars } from '@fortawesome/free-solid-svg-icon
 const HeaderMenu = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Dropdown for user options
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false); 
     const menuRef = useRef(null);
     const buttonRef = useRef(null);
-    const userInfoRef = useRef(null); // Reference for user info click
-    const dropdownRef = useRef(null); // Thêm tham chiếu cho dropdown
-    const navigate = useNavigate(); // Hook for navigation
+    const userInfoRef = useRef(null); 
+    const dropdownRef = useRef(null); 
+    const navigate = useNavigate(); 
 
     // Fetch user info
     useEffect(() => {
@@ -32,8 +32,6 @@ const HeaderMenu = () => {
                 })
                 .catch(error => {
                     if (error.response && error.response.status === 401) {
-                        // Token không hợp lệ hoặc hết hạn, không làm gì cả
-                    } else {
                         console.error('Error fetching user info:', error);
                     }
                 });
@@ -75,9 +73,9 @@ const HeaderMenu = () => {
 
     // Handle logout
     const handleLogout = () => {
-        localStorage.removeItem('token'); // Remove token from localStorage
-        setUserInfo(null); // Clear user info state
-        navigate('/login'); // Redirect to login page
+        localStorage.removeItem('token'); 
+        setUserInfo(null); 
+        navigate('/login'); 
     };
 
     useEffect(() => {
@@ -89,11 +87,11 @@ const HeaderMenu = () => {
 
             // Nếu dropdown tràn ra khỏi viền phải của trang
             if (dropdownRect.right > windowWidth) {
-                dropdown.style.right = '0'; // Đẩy menu sang phải
-                dropdown.style.left = 'auto'; // Loại bỏ vị trí bên trái
+                dropdown.style.right = '0'; 
+                dropdown.style.left = 'auto'; 
             } else {
-                dropdown.style.left = '0'; // Đặt mặc định căn trái
-                dropdown.style.right = 'auto'; // Loại bỏ căn phải
+                dropdown.style.left = '0'; 
+                dropdown.style.right = 'auto'; 
             }
         }
     }, [isDropdownOpen]);
@@ -103,10 +101,16 @@ const HeaderMenu = () => {
             <button ref={buttonRef} className="show_menuDetails" onClick={toggleMenu}>
                 <FontAwesomeIcon icon={faBars} className="icon-function" />
             </button>
-            <Link className="link_menu btn-home" to="/">Home</Link> {/* Updated to use Link */}
-            <Link className="link_menu" to="/courses">Course</Link> {/* Updated to use Link */}
+            <Link className="link_menu btn-home" to="/">Home</Link>
+            <Link className="link_menu" to="/courses">Course</Link>
+
+            {/* Thêm nút dẫn tới "Teacher Dashboard" nếu role là TEACHER */}
+            {userInfo?.role === "TEACHER" && (
+                <Link className="link_menu" to="/teacher">Teacher Dashboard</Link>
+            )}
+
             <input type="text" placeholder="Search content" />
-            <Link className="button-function btn-shopingCart"  to='/cart'>
+            <Link className="button-function btn-shopingCart" to='/cart'>
                 <FontAwesomeIcon icon={faCartShopping} className="icon-function" />
             </Link>
             <a className="button-function" href="#">
@@ -117,12 +121,12 @@ const HeaderMenu = () => {
                     <img src="/viet-img/anh_tay.jpg" alt="Avatar" className="avatar" style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '10px' }} />
                     <span>{userInfo.username}</span>
                     {isDropdownOpen && (
-                        <div ref={dropdownRef} className="dropdown-menu"> {/* Sửa ref cho dropdown */}
+                        <div ref={dropdownRef} className="dropdown-menu">
                             <ul>
                                 <li><Link to="/profile">Profile</Link></li>
                                 <li><Link to="/mycourse">My Course</Link></li>
                                 <li><Link to="/cart">Shopping Cart</Link></li>
-                                <li onClick={handleLogout}><button className='btn-logout' >Logout</button></li> {/* Nút Logout */}
+                                <li onClick={handleLogout}><button className='btn-logout'>Logout</button></li>
                             </ul>
                         </div>
                     )}
@@ -130,7 +134,7 @@ const HeaderMenu = () => {
             ) : (
                 <>
                     <Link to="/login" className="button_header inp-none">Log In</Link>
-                    <Link to="/signup"className="button_header button-signIn inp-none">Sign In</Link>
+                    <Link to="/signup" className="button_header button-signIn inp-none">Sign Up</Link>
                 </>
             )}
             {isMenuOpen && (
@@ -141,7 +145,7 @@ const HeaderMenu = () => {
                     ) : (
                         <>
                             <Link to="/login" className="btn-menuDetail">Log In</Link>
-                            <Link className="btn-menuDetail bd-bottom">Sign In</Link>
+                            <Link to="/signup" className="btn-menuDetail bd-bottom">Sign Up</Link>
                         </>
                     )}
                     <div className='menu-detail_list'>
@@ -156,7 +160,6 @@ const HeaderMenu = () => {
                     </div>
                 </div>
             )}
-
         </div>
     );
 };
