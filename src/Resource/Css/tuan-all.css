@@ -717,11 +717,12 @@
 
 .body-course_detail {
   display: flex;
+  justify-content: space-between;
+  padding: 20px;
 }
 
 .container_course-detail {
   width: 60%;
-  display: block;
 }
 
 .bdContainer_course-detail {
@@ -730,61 +731,154 @@
 }
 
 .show_course-detail {
-  padding: 30px 30px;
+  padding: 30px;
 }
 
 .content_course-detail {
   columns: 2;
-  /* Tạo hai cột */
   -webkit-columns: 2;
   -moz-columns: 2;
   column-gap: 20px;
-  /* Khoảng cách giữa hai cột */
   list-style-type: none;
-  /* Loại bỏ dấu chấm của danh sách */
   padding: 10px 0;
 }
 
-.content_course-detail>li {
+.content_course-detail > li {
   padding: 7px 0;
   display: flex;
-}
-
-.course-detail_right {
-  margin: 30px 20px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  height: 100%;
-}
-
-.content_course-detail_right {
-  padding: 20px 20px
+  align-items: center;
 }
 
 .icon_content_course-detail {
-  width: 5%;
-  height: 100%;
-  padding-top: 5px;
+  width: 24px;
+  height: 24px;
   margin-right: 10px;
+}
+
+.course-detail_right {
+  width: 35%;
+  margin: 0 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  height: fit-content;
+  background-color: #fff;
+}
+
+.content_course-detail_right {
+  padding: 20px;
 }
 
 .btn-course_details {
   width: 100%;
   font-size: 18px;
   font-weight: 600;
-  padding: 12px 0;
-  margin: 5px;
+  padding: 12px;
+  margin: 5px 0;
+  background-color: #ddd;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease; 
+
 }
 
-.content_course-detail_right>ul>li {
-  list-style: none;
-  margin-left: 15px;
-  padding: 3px 0;
+.btn-course_details:hover {
+  background-color: #5751E1;
 }
 
 .info-content {
   display: none;
   padding: 20px;
   border: 1px solid #ccc;
+  margin: 10px 0;
+  background-color: #f9f9f9;
+}
+
+.details-visible {
+  position: absolute;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.list-content_course {
+  margin: 30px 0;
+}
+
+.list-content_course h2 {
+  margin-bottom: 20px;
+}
+
+.toggle-button {
+  width: 100%;
+  padding: 15px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggle-button:hover {
+  background-color: #e9e9e9;
+}
+
+.toggle-button h3 {
+  margin: 0;
+}
+
+.content-box {
+  margin: 20px 0;
+}
+
+.content-box.expanded {
+  height: auto;
+}
+
+#toggleButton {
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+
+.course-detail_right iframe {
+  width: 100%;
+  height: auto;
+}
+
+.course-detail_right h2 {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.course-detail_right ul {
+  list-style: none;
+  padding: 0;
+}
+
+.course-detail_right ul li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.course-detail_right ul li:last-child {
+  border-bottom: none;
+}
+
+.start_course {
+  background-color: #28a745;
+  color: white;
+  text-align: center;
+  display: block;
+  padding: 12px;
+}
+
+.start_course:hover {
+  background-color: #218838;
 }
 
 .toggle-button {
@@ -831,7 +925,7 @@
   bottom: 0;
   right: 0;
   width: 100%;
-  height: 50px;
+  height: 60px;
   background: linear-gradient(to bottom, transparent, white);
   /* Hiệu ứng mờ dần */
   display: block;
@@ -1029,4 +1123,19 @@
   font-size: 23px;
   border: 1px solid #ccc;
   margin: 10px 0;
+}
+
+.body_shoppingcart{
+  margin: 50px 30px;
+}
+.text-body{
+  text-decoration: none;
+  font-size: 18px;
+}
+.backToShop{
+  padding:0 20px;
+  font-weight: 600;
+}
+.backToShop:hover {
+  color: #007bff;
 }
