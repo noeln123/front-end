@@ -66,7 +66,7 @@ const TeacherDashboard = () => {
                   <h5 className="card-title">{course.title}</h5>
                   <p className="card-text">{course.description}</p>
                   <p className="card-text"><strong>Price:</strong> ${course.price}</p>
-                  <p className={`card-text ${course.state.toLowerCase()}`}>{course.state}</p>
+                  {/* <p className={`card-text ${course.state.toLowerCase()}`}>{course.state}</p> */}
                 </div>
               </div>
             </div>

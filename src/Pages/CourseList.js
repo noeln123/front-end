@@ -107,8 +107,8 @@ const CourseList = () => {
                                         </div> */}
 
                                         <h2 class="course-title">{course.title}</h2>
-                                        <p class="course-teacher">${course.teacher}</p>
-                                        <p class="course-price">{course.price}</p>
+                                        {/* <p class="course-teacher">${course.teacher}</p> */}
+                                        <p class="course-price">{course.price}$</p>
                                         <p class="course-desc">{course.description}</p>
                                         <a href="course_detail.html" class="course-btn_show-detail">See details</a>
 
