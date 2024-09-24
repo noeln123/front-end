@@ -5,9 +5,15 @@ import { Link } from "react-router-dom";
 import React, { useState } from 'react';
 import { Carousel, Button } from 'react-bootstrap';
 import "../Resource/Css/tuan-all.css";
+import '../Resource/Css/viet-all.css';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const [wishList, setWishList] = useState([]);
+    const [activeMenu, setActiveMenu] = useState('menu1');
+    const [currentPage, setCurrentPage] = useState(1);
+    const coursesPerPage = 3; // Số lượng khóa học hiển thị mỗi trang
+    // const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const toggleWishList = (course) => {
         setWishList((prevList) =>
@@ -40,6 +46,18 @@ const Home = () => {
             setStartIndex(startIndex - coursesToShow);
         }
     }
+
+    const indexOfLastCourse = currentPage * coursesPerPage;
+    const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
+    const currentCourses = courses.slice(indexOfFirstCourse, indexOfLastCourse);
+
+    const navigate = useNavigate();
+
+    const handleButtonClick = () => {
+        // Điều hướng đến trang TeacherInfo khi bấm nút
+        navigate('/teacherInfo');
+    };
+
     return (
         <>
             <HeaderMenu />
@@ -71,53 +89,56 @@ const Home = () => {
                         <img src="/tuan-img/contact1_header/volkswagen_logo.svg" alt="Volkswagen" />
                     </div>
                 </div>
-                <div className="container">
-                    <h2>Featured <b>Courses</b></h2>
-                    <Carousel indicators={true} controls={true} interval={null}>
-                        {courses.map((course, index) => (
-                            <Carousel.Item key={index}>
-                                <div className="row">
-                                    {courses.map((item, idx) => (
-                                        <div className="col-sm-3" key={idx}>
-                                            <div className="thumb-wrapper">
-                                                <span
-                                                    className="wish-icon"
-                                                    onClick={() => toggleWishList(item.title)}
-                                                >
-                                                    <i className={`fa ${wishList.includes(item.title) ? 'fa-heart' : 'fa-heart-o'}`}></i>
-                                                </span>
-                                                <div className="img-box">
-                                                    <img src={item.image} className="img-responsive" alt="" />
-                                                </div>
-                                                <div className="thumb-content">
-                                                    <h4>{item.title}</h4>
-                                                    <div className="star-rating">
-                                                        <ul className="list-inline">
-                                                            {[...Array(5)].map((_, i) => (
-                                                                <li className="list-inline-item" key={i}>
-                                                                    <i className={`fa ${i < 4 ? 'fa-star' : 'fa-star-o'}`}></i>
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-                                                    <p className="item-price">
-                                                        <strike>$40.00</strike> <b>$36.00</b>
-                                                    </p>
-                                                    <Button variant="primary">Add to Cart</Button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
+            </div>
+
+            {activeMenu === 'menu1' && (
+                <div id="menu1" className="menu-1">
+                    <div className="course-container list_course">
+                        {courses.length > 0 ? (
+                            <div className="course-wrapper">
+                                {currentCourses.map((course) => (
+                                    <div className="course-card" key={course.id}>
+                                        <img src='/viet-img/khoa_hoc1.png' alt={course.name} className="course-image" />
+                                        <h3 className="course-title">{course.title}</h3>
+                                        <p className="course-author">By {course.teacherId}</p>
+                                        <button className="start-course-btn">Start Course</button>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p style={{ textAlign: 'center', margin: '100px 0' }}>No courses available at the moment.</p>
+                        )}
+                    </div>
+                </div>
+            )}
+
+            <div className="grid-body home_teacher">
+                <div className="instructor-section">
+                    <span className="badge">Skilled Introduce</span>
+                    <h2>Our Top Class & Expert Instructors In One Place</h2>
+                    <p>when an unknown printer took a galley of type and scrambled makespecimen book has survived not only five centuries</p>
+                    <Link className="btn-teacherInfor" to="/teacherInfor">See All Instructors →</Link>
+                </div>
+                <div className="profile-container home" >
+                    {Array.from({ length: 4 }).map((_, index) => (
+                        <div className="select" key={index}>
+                            <div className="img-teacher">
+                                <div className="br-teacher"></div>
+                                <img src={`./viet-img/teacher_${index + 1}.png`} alt="Mark Jukarberg" />
+                            </div>
+                            <div className="teacher-1">
+                                <h3>Mark Jukarberg</h3>
+                                <p className="title">UX Design Lead</p>
+                                <a href="#" className="rating">⭐ (4.8 Ratings)</a>
+                                <div className="social-icons">
+                                    <a href="#"><i className="fa-brands fa-facebook"></i></a>
+                                    <a href="#"><i className="fa-brands fa-twitter"></i></a>
+                                    <a href="#"><i className="fa-brands fa-whatsapp"></i></a>
+                                    <a href="#"><i className="fa-brands fa-instagram"></i></a>
                                 </div>
-                            </Carousel.Item>
-                        ))}
-                    </Carousel>
-                    <a className="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
-                        <i className="fa fa-angle-left"></i>
-                    </a>
-                    <a className="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
-                        <i className="fa fa-angle-right"></i>
-                    </a>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
 

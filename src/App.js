@@ -10,7 +10,7 @@ import './App.css';
 import Home from './Pages/Home';
 import CourseDetail from './Pages/Course_Details'
 import CourseVideo from './Pages/Video_Course';
-
+import TeacherInfor from './Pages/TeacherInfor';
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
         <Route path="/mycourse" element={<MyCourse />} />
         <Route path="/courseDetail" element={<CourseDetail />} />
         <Route path="/courseVideo" element={<CourseVideo />} />
-
+        <Route path="/teacherInfor" element={<TeacherInfor />} />
       </Routes>
     </Router>
   );
