@@ -5,11 +5,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { HeaderMenu } from '../Component/Menu';
 import Footer from '../Component/Footer';
 import '../Resource/Css/tuan-all.css';
+import { Link } from "react-router-dom";
 
 const CourseList = () => {
     const [courses, setCourses] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [coursesPerPage] = useState(5);
+
+    
 
     useEffect(() => {
         const fetchCourses = async () => {
@@ -31,6 +34,8 @@ const CourseList = () => {
 
         fetchCourses();
     }, [currentPage]);
+
+    
 
     const indexOfLastCourse = currentPage * coursesPerPage;
     const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
@@ -91,37 +96,36 @@ const CourseList = () => {
 
                         
                     </div>
-                    <div className="course-container">
+                   <div className='course-body_container'>
+                   <div className="course-container">
                         <div className="course-list" id="course-list">
                             <div className="row">
                                 {currentCourses.map((course) => (
-                                    <div key={course.id} className="col-md-4 mb-4">
-                                        {/* <div className="card shadow-sm">
-                                            <div className="card-body">
-                                                <h5 className="card-title">{course.title}</h5>
-                                                <p className="card-text">{course.description}</p>
-                                                <p className="card-text"><strong>Giá: </strong>${course.price}</p>
-                                                <p className="card-text"><strong>Đánh giá: </strong>{course.rate}</p>
-                                                <button className="btn btn-warning text-white">Đăng ký</button>
-                                            </div>
-                                        </div> */}
-
+                                    <div key={course.id} className="col-md-4 mb-4 col-course">
+                                        <div className='body_col-md4'>
+                                        <img src='/viet-img/404-error.jpg'/>
                                         <h2 class="course-title">{course.title}</h2>
-                                        {/* <p class="course-teacher">${course.teacher}</p> */}
-                                        <p class="course-price">{course.price}$</p>
+                                        <p class="course-teacher"><span>Buy</span>{course.teacher}</p>
+                                        <p class="course-price">{course.price} $</p>
                                         <p class="course-desc">{course.description}</p>
-                                        <a href="course_detail.html" class="course-btn_show-detail">See details</a>
-
+                                        {/* <a href="course_detail.html" class="course-btn_show-detail">See details</a> */}
+                                        <Link to='/courseDetail'  class="course-btn_show-detail">See details</Link>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
-                            <Pagination 
+                                                       
+                        </div>
+                        
+                    </div>
+                    <Pagination 
                                 coursesPerPage={coursesPerPage} 
                                 totalCourses={courses.length} 
                                 paginate={paginate} 
-                            />                            
-                        </div>
-                    </div>
+                                className="btn-pages"
+                            /> 
+                   </div>
+                    
                     
                 </div>
                 

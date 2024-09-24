@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 import { Carousel, Button } from 'react-bootstrap';
 import "../Resource/Css/tuan-all.css";
 
-
 const Home = () => {
     const [wishList, setWishList] = useState([]);
 
