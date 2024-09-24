@@ -117,12 +117,21 @@ const CourseList = () => {
                         </div>
                         
                     </div>
-                    <Pagination 
-                                coursesPerPage={coursesPerPage} 
-                                totalCourses={courses.length} 
-                                paginate={paginate} 
-                                className="btn-pages"
-                            /> 
+
+                    <div className="d-flex justify-content-center">
+                        <nav>
+                            <ul className="pagination">
+                            {Array.from({ length: Math.ceil(courses.length / coursesPerPage) }, (_, i) => (
+                                <li key={i + 1} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
+                                <button onClick={() => paginate(i + 1)} className="page-link">
+                                    {i + 1}
+                                </button>
+                                </li>
+                            ))}
+                            </ul>
+                        </nav>
+                    </div>
+
                    </div>
                     
                     
