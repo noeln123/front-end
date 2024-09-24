@@ -10,7 +10,7 @@ const CourseVideo = () => {
   };
 
   return (
-    <div className="container">
+    <div>
       <div className="main-content">
         {/* Video Player */}
         <video id="video-player" controls>
