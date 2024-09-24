@@ -9,7 +9,7 @@ import './App.css';
 import Home from './Pages/Home';
 import CourseDetail from './Pages/Course_Details'
 import CourseVideo from './Pages/Video_Course';
-
+import ShoppingCard from './Pages/ShoppingCard'
 
 function App() {
   return (
@@ -23,6 +23,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/courseDetail" element={<CourseDetail />} />
         <Route path="/courseVideo" element={<CourseVideo />} />
+        <Route path="/cart" element={<ShoppingCard />} />
 
       </Routes>
     </Router>
