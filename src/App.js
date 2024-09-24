@@ -26,6 +26,7 @@ function App() {
         <Route path="/courseDetail" element={<CourseDetail />} />
         <Route path="/courseVideo" element={<CourseVideo />} />
         <Route path="/cart" element={<ShoppingCard />} />
+        <Route path="/teacherInfor" element={<TeacherInfor />} />
 
       </Routes>
     </Router>
