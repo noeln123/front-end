@@ -121,24 +121,24 @@ const HeaderMenu = () => {
                     {isDropdownOpen && (
                         <div ref={dropdownRef} className="dropdown-menu">
                             <ul>
-                                <li><Link to="/profile">
+                                <li><Link className=' btn1-avt' to="/profile">
                                     <i class="fa-regular fa-user icon-avt"></i>
                                     Profile
                                 </Link></li>
-                                <li><Link to="/mycourse">
+                                <li><Link className=' btn1-avt' to="/mycourse">
                                     <i class="fa-solid fa-book icon-avt"></i>
                                     My Course</Link>
                                 </li>
-                                <li><Link to="/cart">
+                                <li><Link className=' btn1-avt' to="/cart">
                                     <i class="fa-solid fa-cart-shopping icon-avt"></i>
                                     Shopping Cart</Link></li>
                                 {userInfo?.role === "TEACHER" && (
-                                    <li><Link className="link_menu" style={{margin: "0"}} to="/teacher">
+                                    <li><Link  className="link_menu btn1-avt" style={{margin: "0"}} to="/teacher">
                                         <i class="fa-solid fa-gauge-high icon-avt"></i>
                                         Teacher Dashboard</Link>
                                     </li>
                                 )}
-                                <li onClick={handleLogout}><button className='btn-logout'>
+                                <li onClick={handleLogout}><button className='btn-logout btn1-avt'>
                                     <i class="fa-solid fa-right-to-bracket icon-avt"></i>
                                     Logout
                                 </button></li>
