@@ -1,0 +1,45 @@
+/* Định dạng chung cho pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+    list-style: none;
+}
+
+/* Định dạng nút pagination mặc định */
+.pagination .page-item .page-link {
+    border: 1px solid black; /* Viền đen */
+    background-color: transparent; /* Nền trong suốt */
+    color: black; /* Màu chữ đen */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển đổi */
+    padding: 0.75rem 1.25rem; /* Kích thước nút */
+    margin: 0 0.25rem; /* Khoảng cách giữa các nút */
+    border-radius: 4px; /* Bo tròn viền nút */
+}
+
+/* Hiệu ứng hover */
+.pagination .page-item .page-link:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Nền đen nhạt khi hover */
+    color: black; /* Màu chữ giữ nguyên */
+}
+
+/* Định dạng nút phân trang đang được chọn */
+.pagination .page-item.active .page-link {
+    background-color: black; /* Nền đen */
+    color: white; /* Chữ màu trắng */
+    border-color: black; /* Viền đen */
+}
+
+/* Định dạng nút vô hiệu hóa */
+.pagination .page-item.disabled .page-link {
+    color: #6c757d; /* Màu nút bị vô hiệu hóa */
+    pointer-events: none; /* Không thể click */
+    background-color: transparent;
+    border: 1px solid black;
+}
+
+/* Hiệu ứng khi nút active và hover bị vô hiệu hóa */
+.pagination .page-item.disabled .page-link:hover {
+    background-color: transparent;
+    border-color: black;
+}

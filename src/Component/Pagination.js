@@ -1,5 +1,6 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "../Resource/Css/khai-all.css";
+
 
 const Pagination = ({ coursesPerPage, totalCourses, paginate }) => {
     const pageNumbers = [];
@@ -13,7 +14,7 @@ const Pagination = ({ coursesPerPage, totalCourses, paginate }) => {
             <ul className="pagination justify-content-center">
                 {pageNumbers.map(number => (
                     <li key={number} className="page-item">
-                        <a onClick={() => paginate(number)} href="javascript:void(0);" className="page-link text-primary bg-warning">
+                        <a onClick={() => paginate(number)} href="javascript:void(0);" className="page-link">
                             {number}
                         </a>
                     </li>

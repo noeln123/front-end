@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 const CourseList = () => {
     const [courses, setCourses] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [coursesPerPage] = useState(5);
+    const [coursesPerPage] = useState(6);
 
     
 
