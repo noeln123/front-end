@@ -14,6 +14,7 @@ const CourseDetail = () => {
   const [reviewText, setReviewText] = useState(''); // Review content
   const [reviews, setReviews] = useState([]); // List of reviews
   const [token, setToken] = useState(localStorage.getItem('token')); // Check if user is logged in
+  const [showAlert, setShowAlert] = useState(false); // State for alert visibility
 
   const handlePurchase = () => {
     // Simulate purchase
@@ -37,6 +38,27 @@ const CourseDetail = () => {
 
     fetchCourseDetail();
   }, [id, token]);
+
+  const handleAddToCart = async () => {
+    const cartItem = {
+      productId: id,
+      quantity: 1,
+    };
+
+    try {
+      await axios.post('http://localhost:8080/api/cart', cartItem, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // Hiển thị thông báo thành công
+      setShowAlert(true);
+      // Ẩn thông báo sau 5 giây
+      setTimeout(() => setShowAlert(false), 5000);
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+    }
+  };
 
   const handleRatingChange = (value) => {
     setRating(value);
@@ -78,6 +100,14 @@ const CourseDetail = () => {
 
       <div className="mt-5">
         <div className="row">
+          {/* Hiển thị thông báo */}
+          {showAlert && (
+            <div className="alert alert-success alert-dismissible fade show" role="alert">
+              Add product to cart successfully!
+              <button type="button" className="btn-close" onClick={() => setShowAlert(false)}></button>
+            </div>
+          )}
+
           {/* Left content */}
           <div className="col-md-8">
             <div className="card mb-4 shadow-sm">
@@ -170,7 +200,7 @@ const CourseDetail = () => {
                 <h2 className="card-title">${course.price}</h2>
                 {!isPurchased ? (
                   <>
-                    <button className="btn btn-warning mb-2 w-100">
+                    <button className="btn btn-warning mb-2 w-100" onClick={handleAddToCart}>
                       Add to cart
                     </button>
                     <button className="btn btn-success mb-2 w-100" onClick={handlePurchase}>
