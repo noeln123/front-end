@@ -103,12 +103,12 @@ const CourseList = () => {
                                     <div key={course.id} className="col-md-4 mb-4 col-course">
                                         <div className='body_col-md4'>
                                         <img src='/viet-img/404-error.jpg'/>
-                                        <h2 class="course-title">{course.title}</h2>
-                                        <p class="course-teacher"><span>Buy</span>{course.teacher}</p>
-                                        <p class="course-price">{course.price} $</p>
-                                        <p class="course-desc">{course.description}</p>
+                                        <h2 className="course-title">{course.title}</h2>
+                                        <p className="course-teacher"><span>Buy</span>{course.teacher}</p>
+                                        <p className="course-price">{course.price} $</p>
+                                        <p className="course-desc">{course.description}</p>
                                         {/* <a href="course_detail.html" class="course-btn_show-detail">See details</a> */}
-                                        <Link to='/courseDetail'  class="course-btn_show-detail">See details</Link>
+                                        <Link to={`/courseDetail/${course.id}`}  className="course-btn_show-detail">See details</Link>
                                         </div>
                                     </div>
                                 ))}

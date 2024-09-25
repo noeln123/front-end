@@ -17,7 +17,7 @@ const ShoppingCard = () => {
                                         <div className="col-lg-8">
                                             <div className="p-5">
                                                 <div className="d-flex justify-content-between align-items-center mb-5">
-                                                    <h1 className="fw-bold mb-0">Shopping Cart</h1>
+                                                    <h1 className="fw-bold mb-0">Cart</h1>
                                                     <h6 className="mb-0 text-muted">3 items</h6>
                                                 </div>
                                                 <hr className="my-4" />
@@ -68,6 +68,10 @@ const ShoppingCard = () => {
                                                     </div>
                                                 ))}
 
+
+
+                                                
+
                                                 <hr className="my-4" />
 
                                                 <div className="pt-5">
@@ -85,7 +89,7 @@ const ShoppingCard = () => {
                                                 <h3 className="fw-bold mb-5 mt-2 pt-1">Summary</h3>
                                                 <hr className="my-4" />
                                                 <div className="d-flex justify-content-between mb-4">
-                                                    <h5 className="text-uppercase">items 3</h5>
+                                                    <h5 className="text-uppercase">3 items</h5>
                                                     <h5>€ 132.00</h5>
                                                 </div>
 
@@ -99,7 +103,7 @@ const ShoppingCard = () => {
                                                     </select>
                                                 </div>
 
-                                                <h5 className="text-uppercase mb-3">Give code</h5>
+                                                <h5 className="text-uppercase mb-3">coupond code</h5>
                                                 <div className="mb-5">
                                                     <div className="form-outline">
                                                         <input type="text" id="form3Examplea2" className="form-control form-control-lg" />

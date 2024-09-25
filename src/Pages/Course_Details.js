@@ -1,174 +1,198 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../Component/Footer";
 import { HeaderMenu } from "../Component/Menu";
 import "../Resource/Css/tuan-all.css"; // Ensure styles are applied correctly
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap
 
 const CourseDetail = () => {
-  const [toggleInfo, setToggleInfo] = useState({
-    info1: false,
-    info2: false,
-    info3: false,
-  });
-
-  const [isExpanded, setIsExpanded] = useState(false);
+  const { id } = useParams(); // Lấy ID khóa học từ URL
+  const [course, setCourse] = useState(null);
   const [isPurchased, setIsPurchased] = useState(false); // Track purchase state
-  const [showDetails, setShowDetails] = useState(false);
-  const [detailsPosition, setDetailsPosition] = useState({ left: 0, top: 0 });
-
-  const handleToggleInfo = (infoId) => {
-    setToggleInfo((prevState) => ({
-      ...prevState,
-      [infoId]: !prevState[infoId],
-    }));
-  };
-
-  const handleToggleContent = () => {
-    setIsExpanded(!isExpanded);
-  };
-
-  const handleShowDetails = (event) => {
-    const left = event.target.offsetLeft + event.target.offsetWidth;
-    const top = event.target.offsetTop;
-    setDetailsPosition({ left, top });
-    setShowDetails(true);
-  };
-
-  const handleHideDetails = () => {
-    setShowDetails(false);
-  };
+  const [rating, setRating] = useState(0); // Rating from 1 to 5
+  const [reviewText, setReviewText] = useState(''); // Review content
+  const [reviews, setReviews] = useState([]); // List of reviews
+  const [token, setToken] = useState(localStorage.getItem('token')); // Check if user is logged in
 
   const handlePurchase = () => {
     // Simulate purchase
     setIsPurchased(true);
   };
 
+  useEffect(() => {
+    const fetchCourseDetail = async () => {
+      try {
+        // Lấy chi tiết khóa học
+        const response = await axios.get(`http://localhost:8080/api/course/${id}`);
+        setCourse(response.data.result);
+
+        // Lấy danh sách feedbacks
+        const reviewsResponse = await axios.get(`http://localhost:8080/api/courses/${id}/feedbacks`);
+        setReviews(reviewsResponse.data.result);
+      } catch (error) {
+        console.error('Error fetching course details or reviews:', error);
+      }
+    };
+
+    fetchCourseDetail();
+  }, [id, token]);
+
+  const handleRatingChange = (value) => {
+    setRating(value);
+  };
+
+  const handleReviewSubmit = async () => {
+    const newReview = {
+      rating,
+      comment: reviewText,
+    };
+
+    try {
+      await axios.post(`http://localhost:8080/api/courses/${id}/feedbacks`, newReview, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // Lấy lại danh sách reviews sau khi thêm mới
+      const reviewsResponse = await axios.get(`http://localhost:8080/api/courses/${id}/feedbacks`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setReviews(reviewsResponse.data.result);
+      setRating(0);
+      setReviewText('');
+    } catch (error) {
+      console.error('Error submitting review:', error);
+    }
+  };
+
+  if (!course) {
+    return <p>Loading...</p>; // Hiển thị khi chưa có dữ liệu
+  }
+
   return (
     <>
       <HeaderMenu />
 
-      <div className="grid-body">
-        <div className="body-course_detail">
-          <div className="container_course-detail">
-            <div className="bdContainer_course-detail">
-              <div className="show_course-detail">
-                <h1>Lesson Content</h1>
-                <ul className="content_course-detail">
+      <div className="mt-5">
+        <div className="row">
+          {/* Left content */}
+          <div className="col-md-8">
+            <div className="card mb-4 shadow-sm">
+              <div className="card-body">
+                <h1 className="card-title">{course.title}</h1>
+                <p className="card-text">{course.description}</p>
+                <h5 className="card-subtitle mb-2 text-muted">Lessons included:</h5>
+                <ul className="list-group list-group-flush">
                   {[
-                    "You will master the Python programming language by building 100 unique projects over 100 days.",
-                    "You will be able to program in Python professionally",
-                    "Create a portfolio of 100 Python projects to apply for developer jobs",
-                    "You will learn Selenium, Beautiful Soup, Request, Flask, Pandas, NumPy, Scikit Learn, Plotly, and Matplotlib.",
-                    "Be able to build fully fledged websites and web apps with Python",
-                    "Build games like Blackjack, Pong and Snake using Python",
+                    "You will master the Python programming language by building 100 unique projects.",
+                    "Program in Python professionally.",
+                    "Create a portfolio of 100 Python projects.",
+                    "Learn Selenium, Flask, Pandas, NumPy, and more.",
+                    "Build websites and web apps with Python.",
+                    "Build games like Blackjack, Pong, and Snake."
                   ].map((item, index) => (
-                    <li
-                      key={index}
-                      onMouseEnter={handleShowDetails}
-                      onMouseLeave={handleHideDetails}
-                    >
-                      <img
-                        className="icon_content_course-detail"
-                        src="https://png.pngtree.com/png-vector/20230910/ourmid/pngtree-3d-tick-sign-icon-png-image_9225323.png"
-                        alt="Tick Icon"
-                      />
-                      <div>{item}</div>
+                    <li key={index} className="list-group-item">
+                      <i className="bi bi-check-circle-fill text-success"></i> {item}
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
 
-            {/* Course Content Toggle Section */}
-            <div className="list-content_course">
-              <h2>Course Content</h2>
-              <div>
-                <button className="toggle-button" onClick={() => handleToggleInfo("info1")}>
-                  <h3>Introduction</h3>
-                  <div>
-                    <span>5 lessons</span>
-                    <span>7 minutes each</span>
-                  </div>
-                </button>
-                {toggleInfo.info1 && (
-                  <div className="info-content">
-                    This is the information for Introduction.
-                  </div>
-                )}
+            {/* Reviews Section */}
+            <div className="card mb-4">
+              <div className="card-header">
+                <h2>Reviews</h2>
+              </div>
+              <div className="card-body">
+                <h5>Average Rating: {course.rate} / 5</h5>
+                <ul className="list-group">
+                  {reviews.map((review, index) => (
+                    <li key={index} className="list-group-item">
+                      <strong>{review.student.fullName}:</strong> {review.rating} / 5
+                      <p>{review.comment}</p>
+                      <small className="text-muted">Posted on: {review.createdAt}</small>
+                    </li>
+                  ))}
+                </ul>
 
-                <button className="toggle-button" onClick={() => handleToggleInfo("info2")}>
-                  Button 2
-                </button>
-                {toggleInfo.info2 && (
-                  <div className="info-content">This is the information for Button 2.</div>
-                )}
-
-                <button className="toggle-button" onClick={() => handleToggleInfo("info3")}>
-                  Button 3
-                </button>
-                {toggleInfo.info3 && (
-                  <div className="info-content">This is the information for Button 3.</div>
+                {/* Chỉ hiển thị form nếu người dùng đã đăng nhập */}
+                {token && (
+                  <div className="mt-4">
+                    <h5>Leave a review</h5>
+                    <div className="mb-3">
+                      <label htmlFor="rating" className="form-label">Rating</label>
+                      <select
+                        className="form-select"
+                        value={rating}
+                        onChange={(e) => handleRatingChange(e.target.value)}
+                      >
+                        <option value="0">Choose...</option>
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <option key={star} value={star}>{star} star(s)</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="review" className="form-label">Your review</label>
+                      <textarea
+                        className="form-control"
+                        value={reviewText}
+                        onChange={(e) => setReviewText(e.target.value)}
+                        rows="3"
+                      />
+                    </div>
+                    <button className="btn btn-primary" onClick={handleReviewSubmit}>
+                      Submit Review
+                    </button>
+                  </div>
                 )}
               </div>
             </div>
-
-            {/* Expand/Collapse Content Section */}
-            <div className={`content-box ${isExpanded ? "expanded" : ""}`}>
-              <p id="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-              </p>
-              <br />
-              <button id="toggleButton" onClick={handleToggleContent}>
-                {isExpanded ? "Thu gọn" : "Xem thêm"}
-              </button>
-            </div>
           </div>
 
-          {/* Course Details Section */}
-          <div className="course-detail_right">
-            <iframe
-              width="400"
-              height="250"
-              src="https://www.youtube.com/embed/GmWxyjJhYnY?si=lZemTWPTTp6NYx55"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            ></iframe>
-            <div className="content_course-detail_right">
-              <h2>$12.00</h2>
-              {!isPurchased ? (
-                <>
-                  <button className="btn-course_details">Add to cart</button>
-                  <button className="btn-course_details" onClick={handlePurchase}>
-                    Buy
-                  </button>
-                </>
-              ) : (
-                <Link className="btn-course_details start_course" to="/courseVideo">
-                  Start Now
-                </Link>
-              )}
-              <p style={{ textAlign: "center", margin: "20px 0" }}>
-                30-day money-back guarantee
-              </p>
-              <h3>This course includes:</h3>
-              <ul>
-                <li>4 articles</li>
-                <li>Access on mobile devices and TV</li>
-                <li>Lifetime full access</li>
-                <li>Completion certificate</li>
-              </ul>
+          {/* Right content */}
+          <div className="col-md-4">
+            <div className="card mb-4 shadow-sm">
+              <iframe
+                width="100%"
+                height="250"
+                src="https://www.youtube.com/embed/GmWxyjJhYnY"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+              <div className="card-body text-center">
+                <h2 className="card-title">${course.price}</h2>
+                {!isPurchased ? (
+                  <>
+                    <button className="btn btn-warning mb-2 w-100">
+                      Add to cart
+                    </button>
+                    <button className="btn btn-success mb-2 w-100" onClick={handlePurchase}>
+                      Buy Now
+                    </button>
+                  </>
+                ) : (
+                  <Link className="btn btn-primary w-100" to="/courseVideo">
+                    Start Now
+                  </Link>
+                )}
+                <p className="mt-3">
+                  30-day money-back guarantee
+                </p>
+                <h5>This course includes:</h5>
+                <ul className="list-unstyled">
+                  <li>4 articles</li>
+                  <li>Access on mobile and TV</li>
+                  <li>Lifetime access</li>
+                  <li>Certificate of completion</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
