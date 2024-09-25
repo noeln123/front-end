@@ -8,6 +8,7 @@ const CourseCreate = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
+  const [image, setImage] = useState(null); // To store the selected image
   const [lectures, setLectures] = useState([{ title: '', content: '', video: null }]);
   const navigate = useNavigate();
 
@@ -26,28 +27,35 @@ const CourseCreate = () => {
     const token = localStorage.getItem('token');
 
     try {
-      const courseResponse = await axios.post('http://localhost:8080/api/course', {
-        title,
-        description,
-        price,
-      }, {
+      // Create FormData to send data and image
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('description', description);
+      formData.append('price', price);
+      if (image) {
+        formData.append('img', image); // Add image to the form
+      }
+
+      const courseResponse = await axios.post('http://localhost:8080/api/course', formData, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data'
         }
       });
 
       if (courseResponse.data.code === 1000) {
         const courseId = courseResponse.data.result.id;
 
+        // Create lectures
         for (const lecture of lectures) {
           let videoName = 'None';
           if (lecture.video) {
-            const formData = new FormData();
-            formData.append('file', lecture.video);
-      
+            const lectureFormData = new FormData();
+            lectureFormData.append('file', lecture.video);
+
             const uploadResponse = await axios.post(
-              'http://localhost:8080/api/upload-video',
-              formData,
+              `http://localhost:8080/api/upload-video`,
+              lectureFormData,
               {
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -55,7 +63,7 @@ const CourseCreate = () => {
                 }
               }
             );
-      
+
             if (uploadResponse.status === 200) {
               videoName = uploadResponse.data.result;
             } else {
@@ -87,13 +95,13 @@ const CourseCreate = () => {
     <div className="mt-5">
       <h1 className="text-center mb-4">Create New Course</h1>
       
-      {/* Thông tin khóa học */}
+      {/* Course Information */}
       <div className="row">
         <div className="col-md-8 mx-auto">
           <div className="card shadow p-4 mb-5">
-            <h3>Thông tin chung</h3>
+            <h3>General Information</h3>
             <div className="form-group mb-3">
-              <label>Tên khóa học</label>
+              <label>*Course Title</label>
               <input 
                 type="text" 
                 className="form-control" 
@@ -103,7 +111,7 @@ const CourseCreate = () => {
             </div>
 
             <div className="form-group mb-3">
-              <label>Mô tả ngắn gọn khóa học</label>
+              <label>Course Description</label>
               <textarea 
                 className="form-control" 
                 value={description} 
@@ -113,7 +121,7 @@ const CourseCreate = () => {
             </div>
 
             <div className="form-group mb-3">
-              <label>Giá bán khóa học</label>
+              <label>*Course Price</label>
               <input 
                 type="number" 
                 className="form-control" 
@@ -122,19 +130,30 @@ const CourseCreate = () => {
                 min="0"
               />
             </div>
+
+            {/* Add course image */}
+            <div className="form-group mb-3">
+              <label>*Select Course Image</label>
+              <input 
+                type="file" 
+                className="form-control" 
+                accept="image/*" 
+                onChange={(e) => setImage(e.target.files[0])} 
+              />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Chi tiết bài giảng */}
+      {/* Lecture details */}
       <div className="row">
         <div className="col-md-8 mx-auto">
           <div className="card shadow p-4">
-            <h3>Chi tiết khóa học</h3>
+            <h3>Lecture Details</h3>
             {lectures.map((lecture, index) => (
               <div key={index} className="lecture-section mb-4">
                 <div className="form-group mb-3">
-                  <label>Tên bài giảng</label>
+                  <label>*Lecture Title</label>
                   <input 
                     type="text" 
                     className="form-control" 
@@ -144,7 +163,7 @@ const CourseCreate = () => {
                 </div>
 
                 <div className="form-group mb-3">
-                  <label>Nội dung bài giảng</label>
+                  <label>Lecture Description</label>
                   <textarea 
                     className="form-control" 
                     value={lecture.content} 
@@ -153,7 +172,7 @@ const CourseCreate = () => {
                 </div>
 
                 <div className="form-group mb-3">
-                  <label>Video đính kèm</label>
+                  <label>*Attached Video</label>
                   <input 
                     type="file" 
                     className="form-control" 
@@ -165,7 +184,7 @@ const CourseCreate = () => {
             ))}
 
             <button type="button" className="btn btn-success" onClick={handleAddLecture}>
-              + Thêm bài giảng
+              + Add Lecture
             </button>
           </div>
         </div>
