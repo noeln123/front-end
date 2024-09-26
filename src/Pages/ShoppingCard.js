@@ -7,7 +7,7 @@ const ShoppingCard = () => {
     return (
         <>
             <HeaderMenu />
-            <div className='body_shoppingcart'>
+            <div style={{maxWidth: '1200px', width: '100%', margin:'30px auto'}} className='body_shoppingcart'>
                 <section className="h-100 h-custom" >
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col-12">

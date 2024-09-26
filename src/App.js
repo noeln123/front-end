@@ -12,6 +12,7 @@ import CourseDetail from './Pages/Course_Details'
 import CourseVideo from './Pages/Video_Course';
 import ShoppingCard from './Pages/ShoppingCard'
 import TeacherInfor from './Pages/TeacherInfor'
+import AccountInfo from './Pages/Profile';
 function App() {
   return (
     <Router>
@@ -27,6 +28,7 @@ function App() {
         <Route path="/courseVideo" element={<CourseVideo />} />
         <Route path="/cart" element={<ShoppingCard />} />
         <Route path="/teacherInfor" element={<TeacherInfor />} />
+        <Route path="/accoutInfor" element={<AccountInfo />} />
 
       </Routes>
     </Router>
