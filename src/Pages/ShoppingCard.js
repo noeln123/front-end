@@ -57,6 +57,8 @@ const ShoppingCard = () => {
 
         if (cartItems.length > 0) {
             loadCourses();
+        } else {
+            setIsLoading(false);
         }
     }, [cartItems]);
 
@@ -101,10 +103,6 @@ const ShoppingCard = () => {
         }
     };
 
-    // if (isLoading) {
-    //     return <div>Loading...</div>;
-    // }
-
     return (
         <>
             <HeaderMenu />
@@ -123,58 +121,69 @@ const ShoppingCard = () => {
                                                 </div>
                                                 <hr className="my-4" />
 
-                                                {courses.map((course, index) => (
-                                                    <div className="row mb-4 d-flex justify-content-between align-items-center" key={index}>
-                                                        <div className="col-md-2 col-lg-2 col-xl-2">
-                                                            <img
-                                                                src={`http://localhost:8080/uploads/course/${course.img}`}
-                                                                className="img-fluid rounded-3"
-                                                                alt={course.title}
-                                                            />
+                                                {isLoading ? (
+                                                    <div>Loading...</div>
+                                                ) : (
+                                                    courses.length === 0 ? (
+                                                        <div className="text-center">
+                                                            <h5>Oops! Looks like you haven't added anything yet <i class="fa-regular fa-face-sad-tear"></i>
+                                                            </h5>
                                                         </div>
-                                                        <div className="col-md-3 col-lg-3 col-xl-3">
-                                                            <h6 className="text-muted">{course.title}</h6>
-                                                            <h6 className="mb-0">{course.description}</h6>
-                                                        </div>
-                                                        <div className="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                                            <button
-                                                                className="btn btn-link px-2"
-                                                                onClick={() => {
-                                                                    const input = document.querySelectorAll('input[type=number]')[index];
-                                                                    input.stepDown();
-                                                                }}
-                                                            >
-                                                                <i className="fas fa-minus"></i>
-                                                            </button>
-                                                            <input
-                                                                id="form1"
-                                                                min="0"
-                                                                name="quantity"
-                                                                value={cartItems[index].quantity}
-                                                                type="number"
-                                                                className="form-control form-control-sm"
-                                                                readOnly
-                                                            />
-                                                            <button
-                                                                className="btn btn-link px-2"
-                                                                onClick={() => {
-                                                                    const input = document.querySelectorAll('input[type=number]')[index];
-                                                                    input.stepUp();
-                                                                }}
-                                                            >
-                                                                <i className="fas fa-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                        <div className="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                            <h6 className="mb-0">$ {course.price}</h6>
-                                                        </div>
-                                                        <div className="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                            <button className="btn btn-link text-muted" onClick={() => handleRemoveItem(cartItems[index].id)}>
-                                                                <i className="fas fa-times"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                ))}
+                                                    ) : (
+                                                        courses.map((course, index) => (
+                                                            <div className="row mb-4 d-flex justify-content-between align-items-center" key={index}>
+                                                                <div className="col-md-2 col-lg-2 col-xl-2">
+                                                                    <img
+                                                                        src={`http://localhost:8080/uploads/course/${course.img}`}
+                                                                        className="img-fluid rounded-3"
+                                                                        alt={course.title}
+                                                                    />
+                                                                </div>
+                                                                <div className="col-md-3 col-lg-3 col-xl-3">
+                                                                    <h6 className="text-muted">{course.title}</h6>
+                                                                    <h6 className="mb-0">{course.description}</h6>
+                                                                </div>
+                                                                <div className="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                                    <button
+                                                                        className="btn btn-link px-2"
+                                                                        onClick={() => {
+                                                                            const input = document.querySelectorAll('input[type=number]')[index];
+                                                                            input.stepDown();
+                                                                        }}
+                                                                    >
+                                                                        <i className="fas fa-minus"></i>
+                                                                    </button>
+                                                                    <input
+                                                                        id="form1"
+                                                                        min="0"
+                                                                        name="quantity"
+                                                                        value={cartItems[index].quantity}
+                                                                        type="number"
+                                                                        className="form-control form-control-sm"
+                                                                        readOnly
+                                                                    />
+                                                                    <button
+                                                                        className="btn btn-link px-2"
+                                                                        onClick={() => {
+                                                                            const input = document.querySelectorAll('input[type=number]')[index];
+                                                                            input.stepUp();
+                                                                        }}
+                                                                    >
+                                                                        <i className="fas fa-plus"></i>
+                                                                    </button>
+                                                                </div>
+                                                                <div className="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                                    <h6 className="mb-0">$ {course.price}</h6>
+                                                                </div>
+                                                                <div className="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                                    <button className="btn btn-link text-muted" onClick={() => handleRemoveItem(cartItems[index].id)}>
+                                                                        <i className="fas fa-times"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        ))
+                                                    )
+                                                )}
 
                                                 <hr className="my-4" />
 
