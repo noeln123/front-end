@@ -121,7 +121,7 @@ const HeaderMenu = () => {
                     {isDropdownOpen && (
                         <div ref={dropdownRef} className="dropdown-menu">
                             <ul>
-                                <li><Link className=' btn1-avt' to="/accoutInfor">
+                                <li><Link className=' btn1-avt' to="/accountInfor">
                                     <i class="fa-regular fa-user icon-avt"></i>
                                     Profile
                                 </Link></li>
