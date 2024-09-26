@@ -1,12 +1,30 @@
-.approved {
-    color: green;
-  }
-  
-  .rejected {
-    color: red;
-  }
-  
-  .pending {
-    color: orange;
-  }
-  
+/* Style viền cho các trạng thái khóa học */
+.card.border-success {
+  border: 2px solid green;
+}
+
+.card.border-danger {
+  border: 2px solid red;
+}
+
+.card.border-warning {
+  border: 2px solid orange;
+}
+
+/* Vị trí của icon trên thẻ khóa học */
+.icon-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.icon-approval, .icon-rejected, .icon-pending {
+  font-size: 1.5rem;
+}
+
+/* Tăng chiều cao của thẻ khóa học */
+.card {
+  position: relative;
+  /* min-height: 250px; */
+  padding-top: 40px; /* Dành khoảng trống cho icon */
+}

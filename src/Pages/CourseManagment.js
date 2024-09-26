@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../Resource/Css/CourseManagment.css';
 
-
 const CourseManagment = () => {
   const [key, setKey] = useState('approved');
   const [courses, setCourses] = useState([]);
@@ -196,6 +195,32 @@ const PendingCourses = ({ courses, setCourses }) => {
     }
   };
 
+  const handleReject = async (courseId) => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch(`http://localhost:8080/api/admin/rejectcourse/${courseId}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      const data = await response.json();
+      if (data.code === 1000) {
+        toast.success('Course has been rejected successfully!', {
+          autoClose: 3000,
+        });
+
+        // Update the course state after rejection
+        setCourses(prevCourses => prevCourses.map(course =>
+          course.id === courseId ? { ...course, state: 'REJECTED' } : course
+        ));
+      }
+    } catch (error) {
+      console.error('Error rejecting course:', error);
+      toast.error('Failed to reject the course');
+    }
+  };
+
   const handleDetail = (course) => {
     alert(`Detail for course: ${course.title}\nDescription: ${course.description}`);
   };
@@ -215,7 +240,7 @@ const PendingCourses = ({ courses, setCourses }) => {
           className="mr-2"
         />
         {/* Badges for AI and BETA */}
-        <Badge bg="dark" text="light" className="mr-1"><i class="fa-solid fa-wand-magic-sparkles"></i> AI</Badge>
+        <Badge bg="dark" text="light" className="mr-1"><i className="fa-solid fa-wand-magic-sparkles"></i> AI</Badge>
         <Badge bg="info" text="light">BETA</Badge>
       </div>
 
@@ -225,7 +250,8 @@ const PendingCourses = ({ courses, setCourses }) => {
             <li key={course.id} className="list-group-item d-flex justify-content-between align-items-center">
               {course.title}
               <div>
-                <Button variant="success" className="mr-2" onClick={() => handleAccept(course.id)}>Accept</Button>
+                <Button variant="success" className="me-2" onClick={() => handleAccept(course.id)}>Accept</Button>
+                <Button variant="danger" className="me-1" onClick={() => handleReject(course.id)}>Reject</Button> {/* Nút reject mới */}
                 <Button variant="info" onClick={() => handleDetail(course)}>Detail</Button>
               </div>
             </li>
