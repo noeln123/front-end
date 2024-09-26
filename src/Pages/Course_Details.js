@@ -98,7 +98,7 @@ const CourseDetail = () => {
     <>
       <HeaderMenu />
 
-      <div className="mt-5">
+      <div className="mt-5 grid-body">
         <div className="row">
           {/* Hiển thị thông báo */}
           {showAlert && (

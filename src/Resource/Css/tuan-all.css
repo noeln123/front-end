@@ -1284,3 +1284,190 @@ video {
 .icon-avt {
   padding: 0 10px;
 }
+
+
+
+/* Test */
+/* tuan-all.css */
+
+/* Container tổng quát */
+.account-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 90%;
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Phần bên trái - Avatar và thông tin cá nhân */
+.account-left {
+  width: 35%;
+  text-align: center;
+  padding-right: 20px;
+  border-right: 1px solid #e0e0e0;
+}
+
+/* Avatar */
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Nút chỉnh sửa avatar */
+.edit-avatar-button {
+  display: block;
+  margin: 10px auto 0;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.edit-avatar-button:hover {
+  background-color: #0056b3;
+}
+
+/* Tên người dùng dưới avatar */
+.avt-profile span {
+  display: block;
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Phần thông tin cơ bản */
+.personal-info {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.personal-info h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+}
+
+.personal-info p {
+  font-size: 14px;
+  color: #555;
+  margin: 6px 0;
+}
+
+.personal-info strong {
+  color: #333;
+}
+
+/* Phần bên phải - Thông tin liên hệ */
+.account-right {
+  width: 60%;
+  padding-left: 20px;
+}
+
+/* Tăng kích thước phông chữ cho phần thông tin liên hệ */
+.contact-info h3 {
+  margin-bottom: 15px;
+  font-size: 20px; /* Tăng kích thước phông chữ cho tiêu đề */
+  color: #333;
+  font-weight: bold;
+}
+
+.contact-info p {
+  font-size: 16px; /* Tăng kích thước phông chữ cho thông tin */
+  color: #555;
+  margin: 10px 0;
+}
+
+.contact-info strong {
+  color: #333;
+}
+
+.contact-info input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px; /* Tăng kích thước phông chữ cho input */
+  color: #555;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.contact-info input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+button {
+  /* padding: 10px 20px; */
+  background-color: #007bff;
+  /* color: white; */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px; /* Tăng kích thước cho button */
+  /* margin-top: 20px; */
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.6);
+}
+
+/* Định dạng responsive cho thiết bị di động */
+@media (max-width: 768px) {
+  .account-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .account-left,
+  .account-right {
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    border: none;
+  }
+
+  .personal-info {
+    text-align: center;
+  }
+
+  .contact-info {
+    text-align: center;
+  }
+
+  button {
+    margin-top: 10px;
+  }
+}
