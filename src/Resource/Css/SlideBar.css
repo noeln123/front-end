@@ -1,9 +1,50 @@
+.sidebar {
+  transition: width 0.3s ease;
+}
+
 .sidebar-open {
   width: 250px;
-  transition: width 0.3s;
 }
 
 .sidebar-closed {
-  width: 80px;
-  transition: width 0.3s;
+  width: 60px;
+}
+
+.content {
+  transition: margin-left 0.3s ease;
+}
+
+.content-open {
+  margin-left: 250px;
+}
+
+.content-closed {
+  margin-left: 60px;
+}
+
+/* Highlight active link */
+.active-link {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); /* Gradient màu sắc */
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng shadow */
+  transition: all 0.3s ease-in-out;
+  padding: 10px; /* Thêm khoảng cách cho đẹp */
+  margin: 5px 0; /* Khoảng cách giữa các mục */
+}
+
+.active-link:hover {
+  background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%); /* Hiệu ứng hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Shadow đậm hơn khi hover */
+  /* transform: translateY(-2px); Nhẹ nhàng nhấc lên khi hover */
+}
+
+.nav-link {
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Màu nền nhẹ khi hover */
+  padding-left: 8px;
 }

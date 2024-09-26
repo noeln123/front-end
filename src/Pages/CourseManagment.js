@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Tab, Tabs, Form } from 'react-bootstrap';
+import { Button, Tab, Tabs, Form, Badge } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import '../Resource/Css/CourseManagment.css';
+
 
 const CourseManagment = () => {
   const [key, setKey] = useState('approved');
@@ -55,7 +59,7 @@ const CourseManagment = () => {
 
       <Tabs activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
         <Tab eventKey="approved" title="Approved">
-          <ApprovedCourses courses={approvedCourses} />
+          <ApprovedCourses courses={approvedCourses} setCourses={setCourses} />
         </Tab>
         <Tab eventKey="pending" title="Pending">
           <PendingCourses courses={pendingCourses} setCourses={setCourses} />
@@ -69,7 +73,33 @@ const CourseManagment = () => {
   );
 };
 
-const ApprovedCourses = ({ courses }) => {
+const ApprovedCourses = ({ courses, setCourses }) => {
+  const handleReject = async (courseId) => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch(`http://localhost:8080/api/admin/rejectcourse/${courseId}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      const data = await response.json();
+      if (data.code === 1000) {
+        toast.success('Course has been rejected successfully!', {
+          autoClose: 3000,
+        });
+
+        // Update the course state after rejection
+        setCourses(prevCourses => prevCourses.map(course =>
+          course.id === courseId ? { ...course, state: 'REJECTED' } : course
+        ));
+      }
+    } catch (error) {
+      console.error('Error rejecting course:', error);
+      toast.error('Failed to reject the course');
+    }
+  };
+
   return (
     <div>
       <h4>Approved Courses</h4>
@@ -78,7 +108,7 @@ const ApprovedCourses = ({ courses }) => {
           courses.map((course) => (
             <li key={course.id} className="list-group-item d-flex justify-content-between align-items-center">
               {course.title}
-              <Button variant="danger">Delete</Button>
+              <Button variant="danger" onClick={() => handleReject(course.id)}>Delete</Button>
             </li>
           ))
         ) : (
@@ -90,6 +120,56 @@ const ApprovedCourses = ({ courses }) => {
 };
 
 const PendingCourses = ({ courses, setCourses }) => {
+  const [autoAccept, setAutoAccept] = useState(false); // State for auto accept toggle
+
+  // Fetch the current autoAccept setting from the API
+  useEffect(() => {
+    const fetchAutoAccept = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const response = await fetch('http://localhost:8080/api/admin/settings', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        const data = await response.json();
+        if (data.code === 1000) {
+          setAutoAccept(data.result.auto_accept); // Set the current state from API
+        }
+      } catch (error) {
+        console.error('Error fetching settings:', error);
+      }
+    };
+
+    fetchAutoAccept();
+  }, []);
+
+  // Handle the toggle change for auto accept
+  const handleToggleAutoAccept = async () => {
+    const token = localStorage.getItem('token');
+    const newAutoAccept = !autoAccept; // Toggle the current state
+    try {
+      const response = await fetch('http://localhost:8080/api/admin/settings/auto_accept', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ autoAccept: newAutoAccept })
+      });
+      const data = await response.json();
+      if (data.code === 1000) {
+        toast.success(`Auto accept is now ${newAutoAccept ? 'enabled' : 'disabled'}!`, {
+          autoClose: 3000,
+        });
+        setAutoAccept(newAutoAccept); // Update the state
+      }
+    } catch (error) {
+      console.error('Error updating auto accept setting:', error);
+      toast.error('Failed to update auto accept setting');
+    }
+  };
+
   const handleAccept = async (courseId) => {
     const token = localStorage.getItem('token');
     try {
@@ -123,6 +203,22 @@ const PendingCourses = ({ courses, setCourses }) => {
   return (
     <div>
       <h4>Pending Courses</h4>
+
+      {/* Toggle for auto accept with AI and BETA badges */}
+      <div className="d-flex align-items-center mb-3">
+        <Form.Check
+          type="switch"
+          id="auto-accept-switch"
+          label="Auto Accept"
+          checked={autoAccept}
+          onChange={handleToggleAutoAccept}
+          className="mr-2"
+        />
+        {/* Badges for AI and BETA */}
+        <Badge bg="dark" text="light" className="mr-1"><i class="fa-solid fa-wand-magic-sparkles"></i> AI</Badge>
+        <Badge bg="info" text="light">BETA</Badge>
+      </div>
+
       <ul className="list-group">
         {courses.length > 0 ? (
           courses.map((course) => (

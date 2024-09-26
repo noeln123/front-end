@@ -163,16 +163,7 @@ const CourseCreate = () => {
                 </div>
 
                 <div className="form-group mb-3">
-                  <label>Lecture Description</label>
-                  <textarea 
-                    className="form-control" 
-                    value={lecture.content} 
-                    onChange={(e) => handleLectureChange(index, 'content', e.target.value)} 
-                  />
-                </div>
-
-                <div className="form-group mb-3">
-                  <label>*Attached Video</label>
+                  <label>*Attached Video (*.mp4)</label>
                   <input 
                     type="file" 
                     className="form-control" 
@@ -180,6 +171,16 @@ const CourseCreate = () => {
                     onChange={(e) => handleLectureChange(index, 'video', e.target.files[0])} 
                   />
                 </div>
+
+                <div className="form-group mb-3">
+                  <label>Video Description (Optional)</label>
+                  <textarea 
+                    className="form-control" 
+                    value={lecture.content} 
+                    onChange={(e) => handleLectureChange(index, 'content', e.target.value)} 
+                  />
+                </div>
+
               </div>
             ))}
 
