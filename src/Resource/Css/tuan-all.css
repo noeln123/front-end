@@ -703,7 +703,10 @@
   display: flex;
   width: 25%;
 }
-
+.fa-star-half,.fa-star{
+  font-size: 12px;
+  color: rgba(255, 255, 0, 0.999);
+}
 
 .course-card {
   width: 100%;
@@ -733,6 +736,10 @@
 
 .details-visible {
   display: block;
+}
+
+.card{
+  padding-top: 0;
 }
 
 .details-hidden {
@@ -1194,7 +1201,10 @@
   text-decoration: none;
   font-size: 18px;
 }
-
+.backShop{
+  color: #000;
+  text-decoration: none;
+}
 .backToShop {
   padding: 0 20px;
   font-weight: 600;

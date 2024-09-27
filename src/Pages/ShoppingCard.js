@@ -4,6 +4,7 @@ import { HeaderMenu } from '../Component/Menu';
 import Footer from '../Component/Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
 
 const ShoppingCard = () => {
     const [cartItems, setCartItems] = useState([]);
@@ -110,7 +111,7 @@ const ShoppingCard = () => {
                 <section className="h-100 h-custom">
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col-12">
-                            <div className="card card-registration card-registration-2" style={{ borderRadius: '15px' }}>
+                            <div className="card card-registration card-registration-2" style={{ borderRadius: '15px', paddingTop: '0' }}>
                                 <div className="card-body p-0">
                                     <div className="row g-0">
                                         <div className="col-lg-8">
@@ -191,7 +192,7 @@ const ShoppingCard = () => {
                                                     <h6 className="mb-0">
                                                         <a href="#!" className="text-body">
                                                             <i className="fas fa-long-arrow-alt-left me-2"></i>
-                                                            <span className='backToShop'>Back</span>
+                                                            <Link className='backShop' to='/courses'><span className='backToShop'>Back</span></Link>
                                                         </a>
                                                     </h6>
                                                 </div>
