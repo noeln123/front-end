@@ -10,29 +10,54 @@ const CourseManagment = () => {
   const [key, setKey] = useState('approved');
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  
+  // Thêm trạng thái để tracking các khóa học trước đó
+  const [prevPendingCourses, setPrevPendingCourses] = useState([]);
 
-  // Fetch courses from the API
-  useEffect(() => {
-    const fetchCourses = async () => {
-      const token = localStorage.getItem('token');
-      try {
-        if (token) {
-          const response = await fetch('http://localhost:8080/api/admin/getallcourse', {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-          const data = await response.json();
-          if (data.code === 1000) {
-            setCourses(data.result);
+  console.log("start");
+
+  const POLLING_INTERVAL = 5000; // 5 giây
+
+  // Fetch courses từ API
+  const fetchCourses = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      if (token) {
+        const response = await fetch('http://localhost:8080/api/admin/getallcourse', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        const data = await response.json();
+        if (data.code === 1000) {
+          setCourses(data.result);
+          
+          // Nếu danh sách khóa học Pending thay đổi, thông báo người dùng
+          const pendingCourses = data.result.filter(course => course.state === 'PENDING');
+          console.log("pending" + JSON.stringify(pendingCourses));
+          if (JSON.stringify(pendingCourses) !== JSON.stringify(prevPendingCourses)) {
+            toast.info('New pending courses detected!');
+            setPrevPendingCourses(pendingCourses); // Cập nhật danh sách khóa học Pending trước đó
+            console.log("prev"+JSON.stringify(prevPendingCourses));
           }
         }
-      } catch (error) {
-        console.error('Error fetching courses:', error);
       }
-    };
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+    }
+  };
 
+  useEffect(() => {
+    // Gọi API lần đầu tiên khi component được render
     fetchCourses();
+
+    // Bắt đầu Polling sau mỗi 5 giây
+    const interval = setInterval(() => {
+      fetchCourses();
+    }, POLLING_INTERVAL);
+
+    // Dọn dẹp interval khi component bị hủy
+    return () => clearInterval(interval);
   }, []);
 
   // Filter courses by search term

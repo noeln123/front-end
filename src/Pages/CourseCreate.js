@@ -101,7 +101,7 @@ const CourseCreate = () => {
           <div className="card shadow p-4 mb-5">
             <h3>General Information</h3>
             <div className="form-group mb-3">
-              <label>*Course Title</label>
+              <label><span className="required-star">*</span>Course Title</label>
               <input 
                 type="text" 
                 className="form-control" 
@@ -121,7 +121,7 @@ const CourseCreate = () => {
             </div>
 
             <div className="form-group mb-3">
-              <label>*Course Price</label>
+              <label><span className="required-star">*</span>Course Price</label>
               <input 
                 type="number" 
                 className="form-control" 
@@ -133,7 +133,7 @@ const CourseCreate = () => {
 
             {/* Add course image */}
             <div className="form-group mb-3">
-              <label>*Select Course Image</label>
+              <label><span className="required-star">*</span>Select Course Image</label>
               <input 
                 type="file" 
                 className="form-control" 
@@ -153,7 +153,7 @@ const CourseCreate = () => {
             {lectures.map((lecture, index) => (
               <div key={index} className="lecture-section mb-4">
                 <div className="form-group mb-3">
-                  <label>*Lecture Title</label>
+                  <label><span className="required-star">*</span>Lecture Title</label>
                   <input 
                     type="text" 
                     className="form-control" 
@@ -163,7 +163,7 @@ const CourseCreate = () => {
                 </div>
 
                 <div className="form-group mb-3">
-                  <label>*Attached Video (*.mp4)</label>
+                  <label><span className="required-star">*</span>Attached Video (*.mp4)</label>
                   <input 
                     type="file" 
                     className="form-control" 
