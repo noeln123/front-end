@@ -1,30 +1,43 @@
+// src/CourseVideo.js
 import React, { useState } from "react";
 import { HeaderMenu } from "../Component/Menu";
 import Footer from "../Component/Footer";
 
 const CourseVideo = () => {
-  // State to track the current video source
   const [currentVideo, setCurrentVideo] = useState("video1.mp4");
-
-  // Function to handle video change
+  
   const handleVideoChange = (videoSrc) => {
     setCurrentVideo(videoSrc);
   };
+
+  const CommentList = () => {
+    const [comments, setComments] = useState([
+      { text: 'Comment của Tuấn', username: 'Tuấn' },
+      { text: 'Comment của Khải', username: 'Khải' }
+    ]);
+    const [newComment, setNewComment] = useState('');
+
+    const handleAddComment = () => {
+      if (newComment) {
+        setComments([...comments, { text: newComment, username: 'Bạn' }]);
+        setNewComment('');
+      }
+    };
 
   return (
     <>
       <HeaderMenu />
       <div className="course_listVideo">
         <div className="main-content">
-          {/* Video Player */}
           <video id="video-player" controls>
             <source src={currentVideo} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
+
+          <CommentList />
         </div>
         <div className="sidebar">
           <ul id="course-list">
-            {/* Course List */}
             <li>
               <a
                 href="#"
@@ -58,13 +71,12 @@ const CourseVideo = () => {
                 Khóa học 3
               </a>
             </li>
-            {/* Add more courses if needed */}
           </ul>
         </div>
       </div>
       <Footer />
     </>
   );
-};
+};}
 
 export default CourseVideo;

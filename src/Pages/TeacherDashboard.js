@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';  // Import Link
 import '../Resource/Css/TeacherDashboard.css';
 import { HeaderMenu } from '../Component/Menu';
+import { FaClock, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'; // Import icon
 
 const TeacherDashboard = () => {
   const [courses, setCourses] = useState([]);
@@ -48,22 +50,54 @@ const TeacherDashboard = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const getCourseBorderClass = (state) => {
+    switch (state) {
+      case "APPROVED":
+        return "border-success";
+      case "REJECTED":
+        return "border-danger";
+      case "PENDING":
+        return "border-warning";
+      default:
+        return "";
+    }
+  };
+
+  const getIconForState = (state) => {
+    switch (state) {
+      case "APPROVED":
+        return <FaCheckCircle className="icon-approval text-success" />;
+      case "REJECTED":
+        return <FaTimesCircle className="icon-rejected text-danger" />;
+      case "PENDING":
+        return <FaClock className="icon-pending text-warning" />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <HeaderMenu />
-      <div className=" mt-5">
-        {/* Bộ lọc trạng thái */}
-        <div className="d-flex justify-content-center mb-4">
-          <button className="btn btn-outline-primary mx-2">Approved ({approvedCount})</button>
-          <button className="btn btn-outline-danger mx-2">Rejected ({rejectedCount})</button>
-          <button className="btn btn-outline-warning mx-2">Pending ({pendingCount})</button>
+      <Link to="/teacher/course/create" className="btn btn-success">Create New Course</Link>
+      <div className="mt-5 container">
+        {/* Nút Create New Course */}
+        <div className="d-flex justify-content-between mb-4">
+          <div>
+            <button className="btn btn-outline-primary mx-2">Approved ({approvedCount})</button>
+            <button className="btn btn-outline-danger mx-2">Rejected ({rejectedCount})</button>
+            <button className="btn btn-outline-warning mx-2">Pending ({pendingCount})</button>
+          </div>
         </div>
 
         {/* Hiển thị khóa học */}
         <div className="row">
           {currentCourses.map((course) => (
             <div key={course.id} className="col-md-3 mb-4">
-              <div className="card h-100 shadow-sm">
+              <div className={`card h-100 shadow-sm ${getCourseBorderClass(course.state)}`}>
+                <div className="icon-container">
+                  {getIconForState(course.state)}
+                </div>
                 <div className="card-body">
                   <h5 className="card-title">{course.title}</h5>
                   <p className="card-text text-truncate" title={course.description}>

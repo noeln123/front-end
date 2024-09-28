@@ -16,6 +16,10 @@ import ForgotPass from './Pages/ForgotPass';
 import CheckPin from './Pages/CheckPin';
 import PasswordChangeSuccess from './Pages/PasswordChangeSuccess';
 
+import AccountInfo from './Pages/Profile'
+import AdminDashboard from './Pages/AdminDashboard';
+import GeneralManagment from './Pages/GeneralManagment';
+import CourseManagment from './Pages/CourseManagment';
 function App() {
   return (
     <Router>
@@ -35,6 +39,11 @@ function App() {
         <Route path="/checkPin" element={<CheckPin />} />
         <Route path="/password-change-success" element={<PasswordChangeSuccess />} />
 
+        <Route path="/accountInfor" element={<AccountInfo />} />
+        <Route path="/admin" element={<AdminDashboard />}>
+          <Route path="general-management" element={<GeneralManagment />} />
+          <Route path="course-management" element={<CourseManagment />} />
+        </Route>
       </Routes>
     </Router>
   );

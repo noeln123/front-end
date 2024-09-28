@@ -29,7 +29,10 @@ const CourseDetail = () => {
         setCourse(response.data.result);
 
         // Lấy danh sách feedbacks
-        const reviewsResponse = await axios.get(`http://localhost:8080/api/courses/${id}/feedbacks`);
+        const reviewsResponse = await axios.get(`http://localhost:8080/api/courses/${id}/feedbacks`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }});
         setReviews(reviewsResponse.data.result);
       } catch (error) {
         console.error('Error fetching course details or reviews:', error);
@@ -90,6 +93,24 @@ const CourseDetail = () => {
     }
   };
 
+  const renderStars = (rating) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5;
+
+    for (let i = 0; i < 5; i++) {
+      if (i < fullStars) {
+        stars.push(<i key={i} className="fa-solid fa-star"></i>);
+      } else if (i === fullStars && halfStar) {
+        stars.push(<i key={i} className="fa-solid fa-star-half"></i>);
+      } else {
+        stars.push(<i key={i} className="fa-regular fa-star"></i>);
+      }
+    }
+
+    return stars;
+  };
+
   if (!course) {
     return <p>Loading...</p>; // Hiển thị khi chưa có dữ liệu
   }
@@ -98,7 +119,7 @@ const CourseDetail = () => {
     <>
       <HeaderMenu />
 
-      <div className="mt-5">
+      <div className="mt-5 grid-body">
         <div className="row">
           {/* Hiển thị thông báo */}
           {showAlert && (
@@ -110,7 +131,7 @@ const CourseDetail = () => {
 
           {/* Left content */}
           <div className="col-md-8">
-            <div className="card mb-4 shadow-sm">
+            <div style={{paddingTop: '0'}} className="card mb-4 shadow-sm">
               <div className="card-body">
                 <h1 className="card-title">{course.title}</h1>
                 <p className="card-text">{course.description}</p>
@@ -138,15 +159,22 @@ const CourseDetail = () => {
                 <h2>Reviews</h2>
               </div>
               <div className="card-body">
-                <h5>Average Rating: {course.rate} / 5</h5>
+                <h5>Average Rating: {course.rate} / 5 {renderStars(course.rate)}</h5>
                 <ul className="list-group">
-                  {reviews.map((review, index) => (
-                    <li key={index} className="list-group-item">
-                      <strong>{review.student.fullName}:</strong> {review.rating} / 5
-                      <p>{review.comment}</p>
-                      <small className="text-muted">Posted on: {review.createdAt}</small>
-                    </li>
-                  ))}
+                  {reviews.length > 0 ? (
+                    reviews.map((review, index) => (
+                      <li key={index} className="list-group-item">
+                        <strong>
+                        <img src="/viet-img/anh_tay.jpg" alt="Avatar" className="avatar" style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '10px' }} />
+                          <span style={{paddingRight: '10px'}}>{review.student.username}</span>
+                          </strong> {renderStars(review.rating)}
+                        <p>{review.comment}</p>
+                        <small className="text-muted">Posted on: {review.createdAt}</small>
+                      </li>
+                    ))
+                  ) : (
+                    <li className="list-group-item">No reviews yet.</li>
+                  )}
                 </ul>
 
                 {/* Chỉ hiển thị form nếu người dùng đã đăng nhập */}

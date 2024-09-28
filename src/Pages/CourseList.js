@@ -102,7 +102,9 @@ const CourseList = () => {
                                 {currentCourses.map((course) => (
                                     <div key={course.id} className="col-md-4 mb-4 col-course">
                                         <div className='body_col-md4'>
-                                        <img src='/viet-img/404-error.jpg'/>
+                                        <img src={`http://localhost:8080/uploads/course/${course.img}`}
+                                            className="img-fluid" 
+                                        />
                                         <h2 className="course-title">{course.title}</h2>
                                         <p className="course-teacher"><span>Buy</span>{course.teacher}</p>
                                         <p className="course-price">{course.price} $</p>
