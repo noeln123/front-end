@@ -1556,6 +1556,66 @@ body {
   line-height: normal;
 }
 
+.body-password{
+  display: flex;
+  margin: 130px 0;
+  justify-content: center;
+}
+.newpass{
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  float: right;
+  justify-content: right;
+}
+.input-group,
+.btn-newpass
+{
+  width: 100%;
+  max-width: 100%;
+}
+.img-pass>img{
+  width: 85%;
+}
+.img-pass{
+  padding-right: 50px;
+}
+.form-pass>h1{
+  font-weight: 600;
+  font-size: 38px;
+  padding-bottom: 20px;
+}
+.form-pass>p{
+  padding-bottom: 20px;
+  font-size: 17px;
+  color: #000;
+}
+.input-group{
+  padding: 15px;
+  margin-bottom: 20px;
+}
+.btn-newpass{
+  border: none;
+  padding: 10px;
+  background-color: #a435f0;
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.input-pin{
+  padding: 15px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 100%;
+}
+
+
+
 :root {
   /* fonts */
   --font-inter: Inter;
