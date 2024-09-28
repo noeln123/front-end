@@ -20,6 +20,8 @@ import AccountInfo from './Pages/Profile'
 import AdminDashboard from './Pages/AdminDashboard';
 import GeneralManagment from './Pages/GeneralManagment';
 import CourseManagment from './Pages/CourseManagment';
+import CheckOutSuccess from './Pages/CheckoutSuccess';
+import CheckOutCancel from './Pages/CheckOutCancel';
 function App() {
   return (
     <Router>
@@ -44,6 +46,8 @@ function App() {
           <Route path="general-management" element={<GeneralManagment />} />
           <Route path="course-management" element={<CourseManagment />} />
         </Route>
+        <Route path="/checkout/success" element={<CheckOutSuccess/>}/>
+        <Route path="/checkout/cancel" element={<CheckOutCancel/>}/>
       </Routes>
     </Router>
   );
