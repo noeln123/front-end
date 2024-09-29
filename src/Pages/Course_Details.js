@@ -16,10 +16,6 @@ const CourseDetail = () => {
   const [token, setToken] = useState(localStorage.getItem('token')); // Check if user is logged in
   const [showAlert, setShowAlert] = useState(false); // State for alert visibility
 
-  const handlePurchase = () => {
-    // Simulate purchase
-    setIsPurchased(true);
-  };
 
   useEffect(() => {
     const fetchCourseDetail = async () => {
@@ -41,6 +37,36 @@ const CourseDetail = () => {
 
     fetchCourseDetail();
   }, [id, token]);
+
+
+  const handlePurchase = async () => {
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/order/create', // API tạo liên kết thanh toán
+        {
+          productName: course.title,
+          description: "#BTSDFAWB55",
+          price: (course.price*23000).toString(),
+          returnUrl: 'http://localhost:3000/checkout/success', // URL sau khi thanh toán thành công
+          cancelUrl: 'http://localhost:3000/checkout/cancel'   // URL nếu người dùng hủy thanh toán
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Nhận được checkoutUrl từ backend
+      const checkoutUrl = response.data.data.checkoutUrl;
+      console.log("cgecj:"+checkoutUrl);
+      // Chuyển hướng người dùng đến trang thanh toán
+      window.location.href = checkoutUrl;
+    } catch (error) {
+      console.error('Error creating payment link:', error);
+    }
+  };
+
 
   const handleAddToCart = async () => {
     const cartItem = {
