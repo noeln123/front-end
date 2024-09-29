@@ -12,10 +12,16 @@ import CourseDetail from './Pages/Course_Details'
 import CourseVideo from './Pages/Video_Course';
 import ShoppingCard from './Pages/ShoppingCard'
 import TeacherInfor from './Pages/TeacherInfor'
+import ForgotPass from './Pages/ForgotPass';
+import CheckPin from './Pages/CheckPin';
+import PasswordChangeSuccess from './Pages/PasswordChangeSuccess';
+
 import AccountInfo from './Pages/Profile'
 import AdminDashboard from './Pages/AdminDashboard';
 import GeneralManagment from './Pages/GeneralManagment';
 import CourseManagment from './Pages/CourseManagment';
+import CheckOutSuccess from './Pages/CheckoutSuccess';
+import CheckOutCancel from './Pages/CheckOutCancel';
 function App() {
   return (
     <Router>
@@ -31,11 +37,17 @@ function App() {
         <Route path="/courseVideo" element={<CourseVideo />} />
         <Route path="/cart" element={<ShoppingCard />} />
         <Route path="/teacherInfor" element={<TeacherInfor />} />
+        <Route path="/forgotPass" element={<ForgotPass />} />
+        <Route path="/checkPin" element={<CheckPin />} />
+        <Route path="/password-change-success" element={<PasswordChangeSuccess />} />
+
         <Route path="/accountInfor" element={<AccountInfo />} />
         <Route path="/admin" element={<AdminDashboard />}>
           <Route path="general-management" element={<GeneralManagment />} />
           <Route path="course-management" element={<CourseManagment />} />
         </Route>
+        <Route path="/checkout/success" element={<CheckOutSuccess/>}/>
+        <Route path="/checkout/cancel" element={<CheckOutCancel/>}/>
       </Routes>
     </Router>
   );

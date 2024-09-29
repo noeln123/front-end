@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Resource/Css/viet-all.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -77,7 +77,7 @@ const Login = () => {
                                     <span>Remember me</span>
                                 </div>
                                 <div>
-                                    <a href="">Forgot password?</a>
+                                    <Link to={"/forgotPass"}>Forgot password?</Link>
                                 </div>
                             </div>
                             <button className="button-signup" type="submit">
