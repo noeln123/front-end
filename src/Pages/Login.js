@@ -85,7 +85,7 @@ const Login = () => {
                                 <i className="fa-solid fa-arrow-right"></i>
                             </button>
                             <div className="inlogin">
-                                <span>Don't have an account? </span><a href=""> Sign Up</a>
+                                <span>Don't have an account? </span><Link to={"/signup"}> Sign Up</Link>
                             </div>
                         </form>
                     </div>
