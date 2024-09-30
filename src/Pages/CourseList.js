@@ -6,13 +6,15 @@ import { HeaderMenu } from '../Component/Menu';
 import Footer from '../Component/Footer';
 import '../Resource/Css/tuan-all.css';
 import { Link } from "react-router-dom";
+import { faStar, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const CourseList = () => {
     const [courses, setCourses] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [coursesPerPage] = useState(6);
 
-    
+
 
     useEffect(() => {
         const fetchCourses = async () => {
@@ -35,7 +37,7 @@ const CourseList = () => {
         fetchCourses();
     }, [currentPage]);
 
-    
+
 
     const indexOfLastCourse = currentPage * coursesPerPage;
     const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
@@ -93,52 +95,59 @@ const CourseList = () => {
                             <button type="submit" className="button_seach-categories">Show more +</button>
                         </div>
 
-                        
+
                     </div>
-                   <div className='course-body_container'>
-                   <div className="course-container">
-                        <div className="course-list" id="course-list">
-                            <div className="row">
-                                {currentCourses.map((course) => (
-                                    <div key={course.id} className="col-md-4 mb-4 col-course">
-                                        <div className='body_col-md4'>
-                                        <img src={`http://localhost:8080/uploads/course/${course.img}`}
-                                            className="img-fluid" 
-                                        />
-                                        <h2 className="course-title">{course.title}</h2>
-                                        <p className="course-teacher"><span>Buy</span>{course.teacher}</p>
-                                        <p className="course-price">{course.price} $</p>
-                                        <p className="course-desc">{course.description}</p>
-                                        {/* <a href="course_detail.html" class="course-btn_show-detail">See details</a> */}
-                                        <Link to={`/courseDetail/${course.id}`}  className="course-btn_show-detail">See details</Link>
+                    <div className='course-body_container'>
+                        <div className="course-container">
+                            <div className="course-list" id="course-list">
+                                <div className="row">
+                                    {currentCourses.map((course) => (
+                                        <div key={course.id} className="col-md-4 mb-4 col-course">
+                                            <div className='body_col-md4'>
+                                                <img src={`http://localhost:8080/uploads/course/${course.img}`}
+                                                    className="img-fluid"
+                                                />
+                                                <div className='title-obj'>
+                                                    <span className='name-obj'>Deleloper</span>
+                                                    <span className='star-rv'><FontAwesomeIcon icon={faStar} className='i-course' />( 4.8/5 Review )</span>
+                                                    
+                                                </div>
+                                                <h2 className="course-title">{course.title}</h2>
+                                                <p className="course-teacher"><span>Buy</span>{course.teacher}</p>
+                                                <p className="course-desc">{course.description}</p>
+                                                {/* <a href="course_detail.html" class="course-btn_show-detail">See details</a> */}
+                                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                                    <Link to={`/courseDetail/${course.id}`} className="course-btn_show-detail">See details <FontAwesomeIcon style={{paddingRight: '0'}} className='i-course' icon={faArrowRightLong} /></Link>
+                                                    <p className="course-price">{course.price} $</p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
+
                             </div>
-                                                       
+
                         </div>
-                        
+
+                        <div className="d-flex justify-content-center">
+                            <nav>
+                                <ul className="pagination">
+                                    {Array.from({ length: Math.ceil(courses.length / coursesPerPage) }, (_, i) => (
+                                        <li key={i + 1} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
+                                            <button onClick={() => paginate(i + 1)} className="page-link">
+                                                {i + 1}
+                                            </button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </nav>
+                        </div>
+
                     </div>
 
-                    <div className="d-flex justify-content-center">
-                        <nav>
-                            <ul className="pagination">
-                            {Array.from({ length: Math.ceil(courses.length / coursesPerPage) }, (_, i) => (
-                                <li key={i + 1} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
-                                <button onClick={() => paginate(i + 1)} className="page-link">
-                                    {i + 1}
-                                </button>
-                                </li>
-                            ))}
-                            </ul>
-                        </nav>
-                    </div>
 
-                   </div>
-                    
-                    
                 </div>
-                
+
             </div>
 
 
