@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';  // Import Link
 import '../Resource/Css/TeacherDashboard.css';
 import { HeaderMenu } from '../Component/Menu';
 import { FaClock, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'; // Import icon
@@ -79,15 +78,12 @@ const TeacherDashboard = () => {
   return (
     <>
       <HeaderMenu />
-      <Link to="/teacher/course/create" className="btn btn-success">Create New Course</Link>
-      <div className="mt-5 container">
-        {/* Nút Create New Course */}
-        <div className="d-flex justify-content-between mb-4">
-          <div>
-            <button className="btn btn-outline-primary mx-2">Approved ({approvedCount})</button>
-            <button className="btn btn-outline-danger mx-2">Rejected ({rejectedCount})</button>
-            <button className="btn btn-outline-warning mx-2">Pending ({pendingCount})</button>
-          </div>
+      <div className="mt-5">
+        {/* Bộ lọc trạng thái */}
+        <div className="d-flex justify-content-center mb-4">
+          <button className="btn btn-outline-primary mx-2">Approved ({approvedCount})</button>
+          <button className="btn btn-outline-danger mx-2">Rejected ({rejectedCount})</button>
+          <button className="btn btn-outline-warning mx-2">Pending ({pendingCount})</button>
         </div>
 
         {/* Hiển thị khóa học */}
