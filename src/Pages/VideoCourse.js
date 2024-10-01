@@ -1,14 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { HeaderMenu } from "../Component/Menu";
 import Footer from "../Component/Footer";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
-
-const courses = [
-  { id: 1, title: "Khóa học 1", videoSrc: "http://localhost:8080/uploads/video/video_20240926003741.mp4", duration: "10:00", content: "Nội dung khóa học 1" },
-  { id: 2, title: "Khóa học 2", videoSrc: "video2.mp4", duration: "15:30", content: "Nội dung khóa học 2" },
-  { id: 3, title: "Khóa học 3", videoSrc: "video3.mp4", duration: "20:45", content: "Nội dung khóa học 3" },
-];
+import { useParams } from "react-router-dom";
 
 const CommentList = ({ comments, onAddComment }) => {
   const [newComment, setNewComment] = useState('');
@@ -41,36 +34,72 @@ const CommentList = ({ comments, onAddComment }) => {
 };
 
 const CourseVideo = () => {
-  const [currentVideo, setCurrentVideo] = useState(courses[0]);
-  const [comments, setComments] = useState([]); // Khởi tạo là một mảng rỗng
-  const [openIndex, setOpenIndex] = useState(null);
+  const { id } = useParams(); // Lấy id từ URL
+  const [lectures, setLectures] = useState([]); // Khởi tạo một mảng lectures rỗng
+  const [currentVideo, setCurrentVideo] = useState(null); // Bài giảng hiện tại sẽ được đặt là null ban đầu
+  const [comments, setComments] = useState([]); // Bình luận cho bài giảng
+  const videoRef = useRef(null);
 
+  // Gọi API để lấy danh sách bài giảng
   useEffect(() => {
-    const fetchComments = async () => {
+    const fetchLectures = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/lecture/comment/${currentVideo.id}`);
+        const token = localStorage.getItem("token");
+        const response = await fetch(`http://localhost:8080/api/lecture/getall-lecture-by-courseid/${id}`,{
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         const data = await response.json();
-
-        // Kiểm tra dữ liệu trả về
-        if (Array.isArray(data)) {
-          setComments(data);
+        
+        if (data.code === 1000 && Array.isArray(data.result)) {
+          setLectures(data.result); // Lưu danh sách bài giảng vào state
+          setCurrentVideo(data.result[0]); // Đặt bài giảng đầu tiên làm video hiện tại
         } else {
-          console.warn("Dữ liệu bình luận không phải là mảng:", data);
-          setComments([]); // Đặt là mảng rỗng nếu không phải
+          console.error("Lỗi khi lấy danh sách bài giảng:", data);
         }
       } catch (error) {
-        console.error("Lỗi khi lấy bình luận:", error);
+        console.error("Lỗi khi gửi yêu cầu lấy bài giảng:", error);
       }
     };
 
-    fetchComments();
+    fetchLectures();
+  }, [id]); // Gọi lại API mỗi khi id thay đổi
+
+  // Gọi API để lấy bình luận cho bài giảng hiện tại
+  useEffect(() => {
+    if (currentVideo) {
+      const fetchComments = async () => {
+        try {
+          const token = localStorage.getItem('token');
+          const response = await fetch(`http://localhost:8080/api/lecture/comment/${currentVideo.id}`, {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          const data = await response.json();
+          setComments(data.result || []);
+        } catch (error) {
+          console.error("Lỗi khi lấy bình luận:", error);
+        }
+      };
+
+      fetchComments();
+    }
   }, [currentVideo]);
 
-  const handleVideoChange = (course) => {
-    setCurrentVideo(course);
-    setOpenIndex(null);
+  // Xử lý thay đổi video khi người dùng chọn bài giảng khác
+  const handleVideoChange = (lecture) => {
+    setCurrentVideo(lecture);
+    if (videoRef.current) {
+      videoRef.current.load(); // Tải lại video khi `src` thay đổi
+      videoRef.current.play(); // Tự động phát video mới nếu cần
+    }
   };
 
+  // Thêm bình luận mới
   const handleAddComment = async (newComment) => {
     const commentData = { msg: newComment, user_id: null }; // Thay null bằng user_id thực tế nếu có
 
@@ -94,50 +123,39 @@ const CourseVideo = () => {
     }
   };
 
-  const toggleDropdown = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
   return (
     <>
       <HeaderMenu />
       <div className="course_listVideo">
         <div className="main-content">
-          <video id="video-player" controls>
-            <source src={currentVideo.videoSrc} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <h2>{currentVideo.title}</h2>
-          <p>Thời gian: {currentVideo.duration}</p>
+          {currentVideo && (
+            <>
+              <video id="video-player" controls ref={videoRef}>
+                <source src={`http://localhost:8080/uploads/video/${currentVideo.video}`} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <h2>{currentVideo.title}</h2>
+              <p>Thời gian: {currentVideo.duration || 'N/A'}</p>
 
-          <CommentList comments={comments} onAddComment={handleAddComment} />
+              <CommentList comments={comments} onAddComment={handleAddComment} />
+            </>
+          )}
         </div>
         <div className="sidebar">
           <p style={{ fontSize: '18px', color: "#000", fontWeight: '600' }}>Course content</p>
           <ul id="course-list">
-            {courses.map((course, index) => (
-              <li key={course.id}>
-                <a className="text-titleVideo"
+            {lectures.map((lecture, index) => (
+              <li key={lecture.id}>
+                <a
+                  className="text-titleVideo"
                   href="#"
                   onClick={(e) => {
                     e.preventDefault(); // Ngăn chặn hành vi mặc định
-                    toggleDropdown(index);
+                    handleVideoChange(lecture);
                   }}
                 >
-                  {index + 1}. {course.title}
-                  <FontAwesomeIcon style={{ float: 'right' }} icon={openIndex === index ? faCaretUp : faCaretDown} />
+                  {index + 1}. {lecture.title}
                 </a>
-                {openIndex === index && (
-                  <div
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleVideoChange(course);
-                    }}
-                    className="drop-down_detail">
-                    <p>Nội dung: {course.content}</p>
-                    <p>Thời gian: {course.duration}</p>
-                  </div>
-                )}
               </li>
             ))}
           </ul>
