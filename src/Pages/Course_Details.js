@@ -35,8 +35,33 @@ const CourseDetail = () => {
       }
     };
 
+    const checkEnrollment = async () => {
+      try {
+        // Gọi API lấy danh sách các khóa học đã tham gia
+        const enrollmentResponse = await axios.get(`http://localhost:8080/api/enrollment`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        });
+
+        // Kiểm tra nếu courseId trùng với id trong useParams
+        const enrollments = enrollmentResponse.data.result;
+        const enrolledCourse = enrollments.find(enrollment => enrollment.courseId.toString() === id);
+
+        if (enrolledCourse) {
+          setIsPurchased(true); // Đã mua khóa học
+        }
+      } catch (error) {
+        console.error('Error fetching enrollments:', error);
+      }
+    };
+
+    checkEnrollment();
     fetchCourseDetail();
   }, [id, token]);
+
+
+  
 
 
   const handlePurchase = async () => {
