@@ -138,6 +138,12 @@ const HeaderMenu = () => {
                                         Teacher Dashboard</Link>
                                     </li>
                                 )}
+                                {userInfo?.role === "ADMIN" && (
+                                    <li><Link  className="link_menu btn1-avt" style={{margin: "0"}} to="/admin">
+                                        <i class="fa-solid fa-user-tie icon-avt"></i>
+                                        Admin Dashboard</Link>
+                                    </li>
+                                )}
                                 <li onClick={handleLogout}><button className='btn-logout btn1-avt'>
                                     <i class="fa-solid fa-right-to-bracket icon-avt"></i>
                                     Logout
