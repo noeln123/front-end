@@ -73,7 +73,7 @@ const Home = () => {
         <>
             <HeaderMenu />
             <div>
-
+        
                 <div className="grid-body">
                     <div className="header_body">
                         <img src="/tuan-img/header_body.png" alt="Header Body" className="img-header_body" />
@@ -109,7 +109,7 @@ const Home = () => {
                             <div className="course-wrapper">
                                 {currentCourses.map((course) => (
                                     <div className="course-card" key={course.id}>
-                                        <img src='/viet-img/khoa_hoc1.png' alt={course.name} className="course-image" />
+                                        <img src={`http://localhost:8080/uploads/course/${course.img}`} alt={course.name} className="course-image" />
                                         <h3 className="course-title">{course.title}</h3>
                                         <p className="course-author">By {course.teacherId}</p>
                                         <hr></hr>
@@ -123,7 +123,7 @@ const Home = () => {
                     </div>
                 </div>
             )}
-
+            
             <div className="grid-body home_teacher">
                 <div className="instructor-section">
                     <span className="badge">Skilled Introduce</span>

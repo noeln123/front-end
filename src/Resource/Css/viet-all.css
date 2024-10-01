@@ -1700,8 +1700,8 @@ body {
   background-color: rgba(60, 60, 60, 0.8);
 }
 .btn-backtocourse a {
-  color: white; /* Màu chữ trắng */
-  text-decoration: none; /* Loại bỏ gạch chân */
+  color: white;
+  text-decoration: none;
 }
 .btn-backtocourse:hover{
   background-color: #8a8a8a;
