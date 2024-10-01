@@ -25,8 +25,13 @@ const MyCourse = () => {
             const token = localStorage.getItem('token');
 
             try {
-                const response = await axios.get('http://localhost:8080/api/course');
-                setCourses(response.data.result);
+                const response = await axios.get('http://localhost:8080/api/enrollment', {
+                    headers: {
+                        Authorization: `Bearer ${token}` // Gửi token nếu cần
+                    }
+                });
+                console.log(response.data); // Xem dữ liệu trả về
+                setCourses(response.data.result); // Đảm bảo rằng response.data.result là đúng
             } catch (error) {
                 console.error('Error fetching courses', error);
                 alert('Failed to load courses');
@@ -62,36 +67,11 @@ const MyCourse = () => {
             <HeaderMenu />
             <div className="menu">
                 <div className="menu_title">
-                    <h1
-                        className={activeMenu === "menu1" ? "active1" : ""}
-                        onClick={() => handleMenuClick("menu1")}
-                    >
-                        All course
-                    </h1>
-                    <h1
-                        className={activeMenu === "menu2" ? "active1" : ""}
-                        onClick={() => handleMenuClick("menu2")}
-                    >
-                        My lists
-                    </h1>
-                    <h1
-                        className={activeMenu === "menu3" ? "active1" : ""}
-                        onClick={() => handleMenuClick("menu3")}
-                    >
-                        Wishlist
-                    </h1>
-                    <h1
-                        className={activeMenu === "menu4" ? "active1" : ""}
-                        onClick={() => handleMenuClick("menu4")}
-                    >
-                        Archived
-                    </h1>
-                    <h1
-                        className={activeMenu === "menu5" ? "active1" : ""}
-                        onClick={() => handleMenuClick("menu5")}
-                    >
-                        Learning tools
-                    </h1>
+                    <h1 className={activeMenu === "menu1" ? "active1" : ""} onClick={() => handleMenuClick("menu1")}>All course</h1>
+                    <h1 className={activeMenu === "menu2" ? "active1" : ""} onClick={() => handleMenuClick("menu2")}>My lists</h1>
+                    <h1 className={activeMenu === "menu3" ? "active1" : ""} onClick={() => handleMenuClick("menu3")}>Wishlist</h1>
+                    <h1 className={activeMenu === "menu4" ? "active1" : ""} onClick={() => handleMenuClick("menu4")}>Archived</h1>
+                    <h1 className={activeMenu === "menu5" ? "active1" : ""} onClick={() => handleMenuClick("menu5")}>Learning tools</h1>
                 </div>
             </div>
 
@@ -107,10 +87,11 @@ const MyCourse = () => {
                                             <img src={`http://localhost:8080/uploads/course/${course.img}`} alt={course.name} className="course-image" />
                                             <h3 className="course-title">{course.title}</h3>
                                             <p className="course-author">By {course.teacherId}</p>
-                                            <hr></hr>
+                                            <hr />
                                             <Link className="start-course-btn">Start Course</Link>
                                         </div>
                                     ))}
+
                                 </div>
                             ) : (
                                 <p style={{ textAlign: 'center', margin: '100px 0' }}>No courses available at the moment.</p>
