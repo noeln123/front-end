@@ -9,7 +9,7 @@ import SignUp from './Pages/Sign-up';
 import './App.css';
 import Home from './Pages/Home';
 import CourseDetail from './Pages/Course_Details'
-import CourseVideo from './Pages/Video_Course';
+import CourseVideo from './Pages/VideoCourse';
 import ShoppingCard from './Pages/ShoppingCard'
 import TeacherInfor from './Pages/TeacherInfor'
 import ForgotPass from './Pages/ForgotPass';
@@ -34,7 +34,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/mycourse" element={<MyCourse />} />
         <Route path="/courseDetail/:id" element={<CourseDetail />} />
-        <Route path="/courseVideo" element={<CourseVideo />} />
+        <Route path="/courseVideo/:id" element={<CourseVideo />} />
         <Route path="/cart" element={<ShoppingCard />} />
         <Route path="/teacherInfor" element={<TeacherInfor />} />
         <Route path="/forgotPass" element={<ForgotPass />} />
