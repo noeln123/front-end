@@ -41,10 +41,18 @@
   border: 1px solid #ccc;
   padding: 0 10px;
   border-radius: 8px;
-
+  overflow: hidden; /* Đảm bảo hình ảnh không bị tràn ra ngoài */
+  transition: transform 0.5s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+.body_col-md4:hover img {
+  transform: scale(1.05); /* Phóng to hình ảnh */
+}
 
+.body_col-md4:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  
+}
 .body_col-md4>img {
   width: 100%;
   margin-bottom: 20px;
@@ -549,6 +557,9 @@
 .course-price {
   font-weight: bold;
   color: #007bff;
+  margin-right: 20px;
+  top:0 ;
+
 }
 
 .course-desc {
@@ -557,10 +568,17 @@
 
 .course-btn_show-detail {
   text-decoration: none;
-  margin: 20px 0;
-  color: #007bff;
-  text-align: center;
   font-weight: 600;
+  background-color: #FFC224;
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  box-sizing: border-box;
+  color: #000;
+  padding: 3px 20px;
+  border-radius: 30px;
+  height: 35px;
+  margin: auto 0;
+  margin-bottom: 20px;
+  box-shadow: 2px 2px 2px  #000;
 }
 
 .row {
@@ -569,7 +587,7 @@
 }
 
 .course-btn_show-detail:hover {
-  color: #050067;
+  color: #2617b3;
 }
 
 
@@ -751,9 +769,6 @@
   margin: 0;
 }
 
-.course-btn_show-detail {
-  display: block;
-}
 
 .name_menu-detail {
   text-decoration: none;
@@ -1504,4 +1519,27 @@ button:focus {
   button {
     margin-top: 10px;
   }
+}
+
+
+.title-obj{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.name-obj{
+  background-color: #e0e0e0;
+  padding: 3px 15px;
+  font-size: 12px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+.star-rv{
+  font-size: 14px ;
+  color: #828282;
+}
+
+.i-course{
+  padding: 0 5px;
 }
