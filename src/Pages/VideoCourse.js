@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 
 const courses = [
-  { id: 1, title: "Khóa học 1", videoSrc: "video1.mp4", duration: "10:00", content: "Nội dung khóa học 1" },
+  { id: 1, title: "Khóa học 1", videoSrc: "http://localhost:8080/uploads/video/video_20240926003741.mp4", duration: "10:00", content: "Nội dung khóa học 1" },
   { id: 2, title: "Khóa học 2", videoSrc: "video2.mp4", duration: "15:30", content: "Nội dung khóa học 2" },
   { id: 3, title: "Khóa học 3", videoSrc: "video3.mp4", duration: "20:45", content: "Nội dung khóa học 3" },
 ];

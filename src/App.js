@@ -9,7 +9,7 @@ import SignUp from './Pages/Sign-up';
 import './App.css';
 import Home from './Pages/Home';
 import CourseDetail from './Pages/Course_Details'
-import CourseVideo from './Pages/Video_Course';
+import CourseVideo from './Pages/VideoCourse';
 import ShoppingCard from './Pages/ShoppingCard'
 import TeacherInfor from './Pages/TeacherInfor'
 import ForgotPass from './Pages/ForgotPass';
