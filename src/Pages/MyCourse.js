@@ -104,7 +104,7 @@ const MyCourse = () => {
                                 <div className="course-wrapper">
                                     {currentCourses.map((course) => (
                                         <div className="course-card" key={course.id}>
-                                            <img src='/viet-img/khoa_hoc1.png' alt={course.name} className="course-image" />
+                                            <img src={`http://localhost:8080/uploads/course/${course.img}`} alt={course.name} className="course-image" />
                                             <h3 className="course-title">{course.title}</h3>
                                             <p className="course-author">By {course.teacherId}</p>
                                             <hr></hr>
