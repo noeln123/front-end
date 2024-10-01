@@ -123,7 +123,7 @@ const Home = () => {
                     </div>
                 </div>
             )}
-            <div>Ques</div>
+            
             <div className="grid-body home_teacher">
                 <div className="instructor-section">
                     <span className="badge">Skilled Introduce</span>
