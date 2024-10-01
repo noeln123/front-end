@@ -69,8 +69,8 @@ const CourseDetail = () => {
       const response = await axios.post(
         'http://localhost:8080/order/create', // API tạo liên kết thanh toán
         {
-          productName: course.title,
-          description: "#BTSDFAWB55",
+          productId: course.id,
+          description: "#MSADMVHU22",
           price: (course.price*23000).toString(),
           returnUrl: 'http://localhost:3000/checkout/success', // URL sau khi thanh toán thành công
           cancelUrl: 'http://localhost:3000/checkout/cancel'   // URL nếu người dùng hủy thanh toán
@@ -287,7 +287,7 @@ const CourseDetail = () => {
                     </button>
                   </>
                 ) : (
-                  <Link className="btn btn-primary w-100" to="/courseVideo">
+                  <Link className="btn btn-primary w-100" to={`/courseVideo/${course.id}`}>
                     Start Now
                   </Link>
                 )}
