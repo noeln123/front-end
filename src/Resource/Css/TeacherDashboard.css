@@ -11,20 +11,31 @@
   border: 2px solid orange;
 }
 
-/* Vị trí của icon trên thẻ khóa học */
-.icon-container {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-}
 
 .icon-approval, .icon-rejected, .icon-pending {
   font-size: 1.5rem;
 }
 
-/* Tăng chiều cao của thẻ khóa học */
+
+
 .card {
   position: relative;
-  /* min-height: 250px; */
+}
 
+.icon-container {
+  position: absolute;
+  top: 10px;
+  left: 10px; /* Đặt icon vào góc trên trái */
+  font-size: 24px;
+}
+
+.card-body {
+  padding-top: 40px; /* Tạo khoảng trống cho icon ở trên */
+}
+
+.card-title {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
 }

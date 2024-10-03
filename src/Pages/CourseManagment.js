@@ -318,7 +318,7 @@ const PendingCourses = ({ courses, setCourses }) => {
   const handleAcceptLecture = async (lectureId) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`http://localhost:8080/api/admin/approvelecture/${lectureId}`, {
+      const response = await fetch(`http://localhost:8080/api/admin/approvallecture/${lectureId}`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -406,7 +406,7 @@ const PendingCourses = ({ courses, setCourses }) => {
       {selectedCourse && (
         <Modal show={showDetailModal} onHide={() => setShowDetailModal(false)} size="lg">
           <Modal.Header closeButton>
-            <Modal.Title>{selectedCourse.title}</Modal.Title>
+            <Modal.Title><h2>{selectedCourse.title}</h2></Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <h5>By {authorName}</h5>
@@ -415,21 +415,25 @@ const PendingCourses = ({ courses, setCourses }) => {
             {lectures.map((lecture) => (
               <Card className="mb-3" key={lecture.id}>
                 <Card.Body className="d-flex justify-content-between align-items-center">
-                  <div className="lecture-thumbnail">
-                    <video width="100" height="60" controls>
+                  <div className="lecture-thumbnail" style={{ flex: "0 0 170px" }}>
+                    <video style={{ width: "100%", height: "auto" }} controls>
                       <source src={`http://localhost:8080/uploads/videos/${lecture.video}`} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   </div>
-                  <div className="lecture-title">
+                  <div className="lecture-title" style={{ flex: 1, paddingLeft: "15px" }}>
                     <h6>{lecture.title}</h6>
                   </div>
                   <div className="lecture-actions">
-                    {lecture.state === 'PENDING' && (
-                      <Button variant="success" onClick={() => handleAcceptLecture(lecture.id)}>
-                        Accept
-                      </Button>
-                    )}
+                  {lecture.state === 'APPROVED' ? (
+                    <Button variant="success" disabled>
+                      Accepted
+                    </Button>
+                  ) : (
+                    <Button variant="success" onClick={() => handleAcceptLecture(lecture.id)}>
+                      Accept
+                    </Button>
+                  )}
                   </div>
                 </Card.Body>
               </Card>
