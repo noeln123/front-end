@@ -9,6 +9,7 @@ const HeaderMenu = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isNotificationOpen, setIsNotificationOpen] = useState(false); // Trạng thái cho thông báo
     const menuRef = useRef(null);
     const buttonRef = useRef(null);
     const userInfoRef = useRef(null);
@@ -48,9 +49,12 @@ const HeaderMenu = () => {
             if (userInfoRef.current && !userInfoRef.current.contains(event.target)) {
                 setIsDropdownOpen(false);
             }
+            if (isNotificationOpen && !event.target.closest('.notification-dropdown')) {
+                setIsNotificationOpen(false);
+            }
         };
 
-        if (isMenuOpen || isDropdownOpen) {
+        if (isMenuOpen || isDropdownOpen || isNotificationOpen) {
             document.addEventListener('click', closeMenuOnClickOutside);
         } else {
             document.removeEventListener('click', closeMenuOnClickOutside);
@@ -59,7 +63,7 @@ const HeaderMenu = () => {
         return () => {
             document.removeEventListener('click', closeMenuOnClickOutside);
         };
-    }, [isMenuOpen, isDropdownOpen]);
+    }, [isMenuOpen, isDropdownOpen, isNotificationOpen]);
 
     // Toggle the main menu
     const toggleMenu = () => {
@@ -68,7 +72,7 @@ const HeaderMenu = () => {
 
     // Toggle the user dropdown menu
     const toggleDropdown = () => {
-        setIsDropdownOpen((prev) => !prev);
+        setIsDropdownOpen(prev => !prev);
     };
 
     // Handle logout
@@ -78,23 +82,10 @@ const HeaderMenu = () => {
         navigate('/login');
     };
 
-    useEffect(() => {
-        if (isDropdownOpen && dropdownRef.current && userInfoRef.current) {
-            const dropdown = dropdownRef.current;
-            const userInfo = userInfoRef.current;
-            const dropdownRect = dropdown.getBoundingClientRect();
-            const windowWidth = window.innerWidth;
-
-            // Nếu dropdown tràn ra khỏi viền phải của trang
-            if (dropdownRect.right > windowWidth) {
-                dropdown.style.right = '0';
-                dropdown.style.left = 'auto';
-            } else {
-                dropdown.style.left = '0';
-                dropdown.style.right = 'auto';
-            }
-        }
-    }, [isDropdownOpen]);
+    // Toggle thông báo
+    const toggleNotification = () => {
+        setIsNotificationOpen(prev => !prev);
+    };
 
     return (
         <div className='menu'>
@@ -104,16 +95,23 @@ const HeaderMenu = () => {
             <Link className="link_menu btn-home" to="/">Home</Link>
             <Link className="link_menu" to="/courses">Course</Link>
 
-            {/* Thêm nút dẫn tới "Teacher Dashboard" nếu role là TEACHER */}
-
-
             <input type="text" placeholder="Search content" />
             <Link className="button-function btn-shopingCart" to='/cart'>
                 <FontAwesomeIcon icon={faCartShopping} className="icon-function" />
             </Link>
-            <a className="button-function" href="#">
+            <a className="button-function" onMouseEnter={toggleNotification} >
                 <FontAwesomeIcon icon={faBell} className="icon-function" />
             </a>
+            {isNotificationOpen && (
+                <div className="notification-dropdown">
+                    <ul>
+                        <li onClick={() => alert("Thông báo 1 đã được nhấp!")}>Thông báo 1</li>
+                        <li onClick={() => alert("Thông báo 2 đã được nhấp!")}>Thông báo 2</li>
+                        <li onClick={() => alert("Thông báo 3 đã được nhấp!")}>Thông báo 3</li>
+                    </ul>
+                </div>
+            )}
+            
             {userInfo ? (
                 <div ref={userInfoRef} className="user-info d-flex align-items-center" onClick={toggleDropdown}>
                     <img src="/viet-img/anh_tay.jpg" alt="Avatar" className="avatar" style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '10px' }} />
@@ -122,30 +120,30 @@ const HeaderMenu = () => {
                         <div ref={dropdownRef} className="dropdown-menu">
                             <ul>
                                 <li><Link className=' btn1-avt' to="/accountInfor">
-                                    <i class="fa-regular fa-user icon-avt"></i>
+                                    <i className="fa-regular fa-user icon-avt"></i>
                                     Profile
                                 </Link></li>
                                 <li><Link className=' btn1-avt' to="/mycourse">
-                                    <i class="fa-solid fa-book icon-avt"></i>
+                                    <i className="fa-solid fa-book icon-avt"></i>
                                     My Course</Link>
                                 </li>
                                 <li><Link className=' btn1-avt' to="/cart">
-                                    <i class="fa-solid fa-cart-shopping icon-avt"></i>
+                                    <i className="fa-solid fa-cart-shopping icon-avt"></i>
                                     Shopping Cart</Link></li>
                                 {userInfo?.role === "TEACHER" && (
-                                    <li><Link  className="link_menu btn1-avt" style={{margin: "0"}} to="/teacher">
-                                        <i class="fa-solid fa-gauge-high icon-avt"></i>
+                                    <li><Link className="link_menu btn1-avt" style={{ margin: "0" }} to="/teacher">
+                                        <i className="fa-solid fa-gauge-high icon-avt"></i>
                                         Teacher Dashboard</Link>
                                     </li>
                                 )}
                                 {userInfo?.role === "ADMIN" && (
-                                    <li><Link  className="link_menu btn1-avt" style={{margin: "0"}} to="/admin">
-                                        <i class="fa-solid fa-user-tie icon-avt"></i>
+                                    <li><Link className="link_menu btn1-avt" style={{ margin: "0" }} to="/admin">
+                                        <i className="fa-solid fa-user-tie icon-avt"></i>
                                         Admin Dashboard</Link>
                                     </li>
                                 )}
                                 <li onClick={handleLogout}><button className='btn-logout btn1-avt'>
-                                    <i class="fa-solid fa-right-to-bracket icon-avt"></i>
+                                    <i className="fa-solid fa-right-to-bracket icon-avt"></i>
                                     Logout
                                 </button></li>
                             </ul>

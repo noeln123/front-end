@@ -1573,3 +1573,33 @@ button:focus {
 .i-course{
   padding: 0 5px;
 }
+
+.notification-dropdown {
+  position: absolute;
+  top: 78px; /* Điều chỉnh khoảng cách từ trên xuống */
+  right: 30px; /* Điều chỉnh khoảng cách từ bên phải */
+  background-color: white; /* Màu nền */
+  border: 1px solid #ccc; /* Viền */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+  border-radius: 5px; /* Bo góc */
+  z-index: 1000; /* Đảm bảo danh sách ở trên cùng */
+  width: 200px; /* Chiều rộng của danh sách */
+  display: flex;
+  flex-direction: column; /* Đặt các mục thông báo theo cột */
+}
+
+.notification-dropdown ul {
+  list-style: none; /* Bỏ dấu đầu dòng */
+  padding: 0; /* Bỏ padding */
+  margin: 0; /* Bỏ margin */
+}
+
+.notification-dropdown li {
+  padding: 10px; /* Khoảng cách bên trong mỗi mục */
+  cursor: pointer; /* Con trỏ thành tay khi hover */
+  transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
+}
+
+.notification-dropdown li:hover {
+  background-color: #f0f0f0; /* Màu nền khi hover */
+}
