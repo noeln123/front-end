@@ -22,6 +22,8 @@ import GeneralManagment from './Pages/GeneralManagment';
 import CourseManagment from './Pages/CourseManagment';
 import CheckOutSuccess from './Pages/CheckoutSuccess';
 import CheckOutCancel from './Pages/CheckOutCancel';
+import ContactUs from './Pages/ContactUs';
+import AboutUs from './Pages/AboutUs';
 function App() {
   return (
     <Router>
@@ -40,6 +42,8 @@ function App() {
         <Route path="/forgotPass" element={<ForgotPass />} />
         <Route path="/checkPin" element={<CheckPin />} />
         <Route path="/password-change-success" element={<PasswordChangeSuccess />} />
+        <Route path="/contactUs" element={<ContactUs />} />
+        <Route path="/aboutUs" element={<AboutUs />} />
 
         <Route path="/accountInfor" element={<AccountInfo />} />
         <Route path="/admin" element={<AdminDashboard />}>

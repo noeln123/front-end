@@ -201,7 +201,7 @@
 
 .section {
   align-self: stretch;
-  overflow: hidden;
+  /* overflow: hidden; */
   justify-content: space-between;
   padding: 0 0 0 100px;
   box-sizing: border-box;
@@ -431,7 +431,7 @@
   line-height: 17.92px;
   text-transform: capitalize;
   font-weight: 600;
-  font-family: var(--font-poppins);
+  font-family: 'Helvetica';
   color: var(--color-black);
   text-align: center;
   display: flex;
@@ -496,7 +496,7 @@
   border: 1px solid var(--color-gainsboro-200);
   box-sizing: border-box;
   flex-direction: column;
-  padding: 29px var(--padding-21xl) var(--padding-22xl);
+  padding: 25px;
   gap: var(--gap-mini);
   min-width: 604px;
   font-size: 30px;
@@ -528,7 +528,7 @@
 
 .container2,
 .inner-container7,
-.main {
+.main-contact {
   max-width: 100%;
   display: flex;
   align-items: flex-start;
@@ -555,6 +555,7 @@
   font-size: var(--font-size-xl);
   color: var(--color-gray-100);
   font-family: var(--font-poppins);
+  margin: 80px auto;
 }
 
 .main {
@@ -1518,10 +1519,8 @@ h2 {
   margin-bottom: 15px;
 }
 
-p {
-  font-size: 14px;
+.awamileaug-drive-kensington {
   color: #666;
-  margin-bottom: 20px;
   line-height: 1.6;
 }
 
@@ -1786,3 +1785,7 @@ body {
   --br-3xs: 10px;
   --br-16xl: 35px;
 }
+
+
+
+
