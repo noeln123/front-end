@@ -28,7 +28,8 @@ const CourseDetail = () => {
         const reviewsResponse = await axios.get(`http://localhost:8080/api/courses/${id}/feedbacks`, {
           headers: {
             Authorization: `Bearer ${token}`,
-          }});
+          }
+        });
         setReviews(reviewsResponse.data.result);
       } catch (error) {
         console.error('Error fetching course details or reviews:', error);
@@ -61,7 +62,7 @@ const CourseDetail = () => {
   }, [id, token]);
 
 
-  
+
 
 
   const handlePurchase = async () => {
@@ -71,7 +72,7 @@ const CourseDetail = () => {
         {
           productId: course.id,
           description: "#MSADMVHU22",
-          price: (course.price*23000).toString(),
+          price: (course.price * 23000).toString(),
           returnUrl: 'http://localhost:3000/checkout/success', // URL sau khi thanh toán thành công
           cancelUrl: 'http://localhost:3000/checkout/cancel'   // URL nếu người dùng hủy thanh toán
         },
@@ -84,7 +85,7 @@ const CourseDetail = () => {
 
       // Nhận được checkoutUrl từ backend
       const checkoutUrl = response.data.data.checkoutUrl;
-      console.log("cgecj:"+checkoutUrl);
+      console.log("cgecj:" + checkoutUrl);
       // Chuyển hướng người dùng đến trang thanh toán
       window.location.href = checkoutUrl;
     } catch (error) {
@@ -182,7 +183,7 @@ const CourseDetail = () => {
 
           {/* Left content */}
           <div className="col-md-8">
-            <div style={{paddingTop: '0'}} className="card mb-4 shadow-sm">
+            <div style={{ paddingTop: '0' }} className="card mb-4 shadow-sm">
               <div className="card-body">
                 <h1 className="card-title">{course.title}</h1>
                 <p className="card-text">{course.description}</p>
@@ -216,9 +217,9 @@ const CourseDetail = () => {
                     reviews.map((review, index) => (
                       <li key={index} className="list-group-item">
                         <strong>
-                        <img src="/viet-img/anh_tay.jpg" alt="Avatar" className="avatar" style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '10px' }} />
-                          <span style={{paddingRight: '10px'}}>{review.student.username}</span>
-                          </strong> {renderStars(review.rating)}
+                          <img src="/viet-img/anh_tay.jpg" alt="Avatar" className="avatar" style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '10px' }} />
+                          <span style={{ paddingRight: '10px' }}>{review.student.username}</span>
+                        </strong> {renderStars(review.rating)}
                         <p>{review.comment}</p>
                         <small className="text-muted">Posted on: {review.createdAt}</small>
                       </li>
@@ -254,7 +255,7 @@ const CourseDetail = () => {
                         rows="3"
                       />
                     </div>
-                    <button className="btn btn-primary" onClick={handleReviewSubmit}>
+                    <button className="btn btn-primary btn-submit-review" onClick={handleReviewSubmit}>
                       Submit Review
                     </button>
                   </div>
@@ -266,41 +267,42 @@ const CourseDetail = () => {
           {/* Right content */}
           <div className="col-md-4">
             <div className="card mb-4 shadow-sm">
-              <iframe
-                width="100%"
-                height="250"
-                src="https://www.youtube.com/embed/GmWxyjJhYnY"
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+
               <div className="card-body text-center">
-                <h2 className="card-title">${course.price}</h2>
-                {!isPurchased ? (
-                  <>
-                    <button className="btn btn-warning mb-2 w-100" onClick={handleAddToCart}>
-                      Add to cart
-                    </button>
-                    <button className="btn btn-success mb-2 w-100" onClick={handlePurchase}>
-                      Buy Now
-                    </button>
-                  </>
-                ) : (
-                  <Link className="btn btn-primary w-100" to={`/courseVideo/${course.id}`}>
-                    Start Now
-                  </Link>
-                )}
-                <p className="mt-3">
+                <div className="price_course-detal">
+                  <p>This Course Fee:</p>
+                  <div className="body-price_course">
+                    <h2 className="card-title">${course.price}</h2>
+                    <h2 className="card-title price-sale">${course.price}</h2>
+                  </div>
+                </div>
+
+                <p className="mt-3" style={{ margin: '10px 0' }}>
                   30-day money-back guarantee
                 </p>
-                <h5>This course includes:</h5>
+                <p style={{ fontSize: '19px', fontWeight: 'bold' }}>This course includes:</p>
                 <ul className="list-unstyled">
                   <li>4 articles</li>
                   <li>Access on mobile and TV</li>
                   <li>Lifetime access</li>
                   <li>Certificate of completion</li>
                 </ul>
+                <div className="btn-course_details1">
+                  {!isPurchased ? (
+                    <>
+                      <button className="btn btn-warning mb-2 w-100" onClick={handleAddToCart}>
+                        Add to cart
+                      </button>
+                      <button className="btn btn-success mb-2 w-100" onClick={handlePurchase}>
+                        Buy Now
+                      </button>
+                    </>
+                  ) : (
+                    <Link className="btn btn-primary w-100" to={`/courseVideo/${course.id}`}>
+                      Start Now
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
           </div>

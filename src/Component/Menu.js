@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import "../Resource/Css/tuan-all.css";
+import "../Resource/Css/tuan2.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faBell, faBars } from '@fortawesome/free-solid-svg-icons';
 
@@ -9,14 +10,13 @@ const HeaderMenu = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [isNotificationOpen, setIsNotificationOpen] = useState(false); // Trạng thái cho thông báo
+    const [isNotificationOpen, setIsNotificationOpen] = useState(false);
     const menuRef = useRef(null);
     const buttonRef = useRef(null);
     const userInfoRef = useRef(null);
     const dropdownRef = useRef(null);
     const navigate = useNavigate();
 
-    // Fetch user info
     useEffect(() => {
         const token = localStorage.getItem('token');
 
@@ -39,7 +39,6 @@ const HeaderMenu = () => {
         }
     }, []);
 
-    // Handle closing menu and dropdown when clicking outside
     useEffect(() => {
         const closeMenuOnClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target) &&
@@ -49,7 +48,7 @@ const HeaderMenu = () => {
             if (userInfoRef.current && !userInfoRef.current.contains(event.target)) {
                 setIsDropdownOpen(false);
             }
-            if (isNotificationOpen && !event.target.closest('.notification-dropdown')) {
+            if (isNotificationOpen && !event.target.closest('.navbar__notiboard')) {
                 setIsNotificationOpen(false);
             }
         };
@@ -65,25 +64,27 @@ const HeaderMenu = () => {
         };
     }, [isMenuOpen, isDropdownOpen, isNotificationOpen]);
 
-    // Toggle the main menu
     const toggleMenu = () => {
         setIsMenuOpen(prevIsOpen => !prevIsOpen);
     };
 
-    // Toggle the user dropdown menu
     const toggleDropdown = () => {
+        if (isNotificationOpen) {
+            setIsNotificationOpen(false); // Đóng thông báo nếu đang mở
+        }
         setIsDropdownOpen(prev => !prev);
     };
 
-    // Handle logout
     const handleLogout = () => {
         localStorage.removeItem('token');
         setUserInfo(null);
         navigate('/login');
     };
 
-    // Toggle thông báo
     const toggleNotification = () => {
+        if (isDropdownOpen) {
+            setIsDropdownOpen(false); // Đóng dropdown nếu đang mở
+        }
         setIsNotificationOpen(prev => !prev);
     };
 
@@ -99,16 +100,74 @@ const HeaderMenu = () => {
             <Link className="button-function btn-shopingCart" to='/cart'>
                 <FontAwesomeIcon icon={faCartShopping} className="icon-function" />
             </Link>
-            <a className="button-function" onMouseEnter={toggleNotification} >
+            <a className="button-function" onMouseEnter={toggleNotification}>
                 <FontAwesomeIcon icon={faBell} className="icon-function" />
             </a>
             {isNotificationOpen && (
-                <div className="notification-dropdown">
-                    <ul>
-                        <li onClick={() => alert("Thông báo 1 đã được nhấp!")}>Thông báo 1</li>
-                        <li onClick={() => alert("Thông báo 2 đã được nhấp!")}>Thông báo 2</li>
-                        <li onClick={() => alert("Thông báo 3 đã được nhấp!")}>Thông báo 3</li>
+                <div className="navbar__notiboard">
+                    <div className="navbar__arrowup"></div>
+                    <div className="navbar__notiboard-header">
+                        <h3>Thông báo mới nhận</h3>
+                    </div>
+                    <ul className="navbar__notiboard-list">
+                        <li className="navbar__notiboard-item">
+                            <a href="#" className="navbar__notiboard-link">
+                                <img src="./assets (chứa file tĩnh)/img/tuixach1.png" alt="" className="navbar__notiboard-img" />
+                                <div className="navbar__notiboard-info">
+                                    <p className="navbar__notiboard-name">
+                                        Mỹ phẩm Ohuy chính hãng phẩm Ohuy chính hãng phẩm Ohuy chính hãng phẩm Ohuy chính hãng
+                                    </p>
+                                    <p className="navbar__notiboard-desc">
+                                        Đây là 1 đoạn mô tả của sản phẩm
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <li className="navbar__notiboard-item navbar__notiboard-item-viewed">
+                            <a href="#" className="navbar__notiboard-link">
+                                <img src="./assets (chứa file tĩnh)/img/tuixach1.png" alt="" className="navbar__notiboard-img" />
+                                <div className="navbar__notiboard-info">
+                                    <p className="navbar__notiboard-name">
+                                        Mỹ phẩm Ohuy chính hãng
+                                    </p>
+                                    <p className="navbar__notiboard-desc">
+                                        Đây là 1 đoạn mô tả của sản phẩm
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <li className="navbar__notiboard-item">
+                            <a href="#" className="navbar__notiboard-link">
+                                <img src="./assets (chứa file tĩnh)/img/tuixach1.png" alt="" className="navbar__notiboard-img" />
+                                <div className="navbar__notiboard-info">
+                                    <p className="navbar__notiboard-name">
+                                        Mỹ phẩm Ohuy chính hãng
+                                    </p>
+                                    <p className="navbar__notiboard-desc">
+                                        Đây là 1 đoạn mô tả của sản phẩm
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <li className="navbar__notiboard-item">
+                            <a href="#" className="navbar__notiboard-link">
+                                <img src="./assets (chứa file tĩnh)/img/tuixach1.png" alt="" className="navbar__notiboard-img" />
+                                <div className="navbar__notiboard-info">
+                                    <p className="navbar__notiboard-name">
+                                        Mỹ phẩm Ohuy chính hãng
+                                    </p>
+                                    <p className="navbar__notiboard-desc">
+                                        Đây là 1 đoạn mô tả của sản phẩm
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
                     </ul>
+                    <footer className="navbar__notiboard-footer">
+                        <a href="#" className="navbar__notiboard-footer-link">
+                            Xem tất cả
+                        </a>
+                    </footer>
                 </div>
             )}
             
@@ -119,15 +178,15 @@ const HeaderMenu = () => {
                     {isDropdownOpen && (
                         <div ref={dropdownRef} className="dropdown-menu">
                             <ul>
-                                <li><Link className=' btn1-avt' to="/accountInfor">
+                                <li><Link className='btn1-avt' to="/accountInfor">
                                     <i className="fa-regular fa-user icon-avt"></i>
                                     Profile
                                 </Link></li>
-                                <li><Link className=' btn1-avt' to="/mycourse">
+                                <li><Link className='btn1-avt' to="/mycourse">
                                     <i className="fa-solid fa-book icon-avt"></i>
                                     My Course</Link>
                                 </li>
-                                <li><Link className=' btn1-avt' to="/cart">
+                                <li><Link className='btn1-avt' to="/cart">
                                     <i className="fa-solid fa-cart-shopping icon-avt"></i>
                                     Shopping Cart</Link></li>
                                 {userInfo?.role === "TEACHER" && (
