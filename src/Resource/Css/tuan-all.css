@@ -1575,33 +1575,55 @@ button:focus {
 
 .notification-dropdown {
   position: absolute;
-  top: 78px;
-  right: 30px; /* Điều chỉnh khoảng cách từ bên phải */
-  background-color: white; /* Màu nền */
-  border: 1px solid #ccc; /* Viền */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
-  border-radius: 5px; /* Bo góc */
-  z-index: 1000; /* Đảm bảo danh sách ở trên cùng */
-  width: 250px; /* Chiều rộng của danh sách */
-  display: flex;
-  flex-direction: column; /* Đặt các mục thông báo theo cột */
+  box-sizing: border-box;
+  top: 60px; /* Khoảng cách từ nút thông báo */
+  right: 20px; /* Khoảng cách từ bên phải */
+  background-color: white; /* Nền trắng */
+  border: 1px solid #ccc; /* Đường viền xám nhẹ */
+  border-radius: 8px; /* Bo tròn các góc */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+  max-width: 350px; /* Chiều rộng */
+  z-index: 1000; /* Đảm bảo thông báo ở trên cùng */
+  animation: fadeIn 0.3s; /* Hiệu ứng hiện ra */
 }
 
 .notification-dropdown ul {
   list-style: none; /* Bỏ dấu đầu dòng */
-  padding: 0; /* Bỏ padding */
-  margin: 0; /* Bỏ margin */
+  margin: 0; /* Không có khoảng cách */
+  padding: 0; /* Không có padding */
 }
 
 .notification-dropdown li {
-  padding: 10px; /* Khoảng cách bên trong mỗi mục */
-  cursor: pointer; /* Con trỏ thành tay khi hover */
-  transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
+  padding: 10px; /* Khoảng cách bên trong */
+  cursor: pointer; /* Con trỏ tay khi di chuột */
+  transition: background-color 0.2s, transform 0.2s; 
+  overflow: hidden; /* Ẩn phần nội dung thừa */
+  font-size: 14px;
+  -webkit-line-clamp: 2;
+  
+}
+
+/* Nếu bạn muốn thêm hiệu ứng cuộn cho dropdown */
+.notification-dropdown {
+  max-height: 300px; /* Giới hạn chiều cao tối đa cho dropdown */
+  overflow-y: auto; /* Cho phép cuộn dọc */
 }
 
 .notification-dropdown li:hover {
-  background-color: #f0f0f0; /* Màu nền khi hover */
+ 
+  transform: scale(1.05);
+   background-color: #f0f0f0; /* Đổi màu nền khi hover */
 }
+
+@keyframes fadeIn {
+  from {
+      opacity: 0; /* Bắt đầu với độ trong suốt 0 */
+  }
+  to {
+      opacity: 1; /* Kết thúc với độ trong suốt 1 */
+  }
+}
+
 
 
 .price_course-detal {

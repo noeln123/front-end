@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import "../Resource/Css/tuan-all.css";
-import "../Resource/Css/tuan2.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faBell, faBars } from '@fortawesome/free-solid-svg-icons';
 
@@ -48,7 +47,7 @@ const HeaderMenu = () => {
             if (userInfoRef.current && !userInfoRef.current.contains(event.target)) {
                 setIsDropdownOpen(false);
             }
-            if (isNotificationOpen && !event.target.closest('.navbar__notiboard')) {
+            if (isNotificationOpen && !event.target.closest('.notification-dropdown')) {
                 setIsNotificationOpen(false);
             }
         };
@@ -104,70 +103,17 @@ const HeaderMenu = () => {
                 <FontAwesomeIcon icon={faBell} className="icon-function" />
             </a>
             {isNotificationOpen && (
-                <div className="navbar__notiboard">
-                    <div className="navbar__arrowup"></div>
-                    <div className="navbar__notiboard-header">
-                        <h3>Thông báo mới nhận</h3>
-                    </div>
-                    <ul className="navbar__notiboard-list">
-                        <li className="navbar__notiboard-item">
-                            <a href="#" className="navbar__notiboard-link">
-                                <img src="./assets (chứa file tĩnh)/img/tuixach1.png" alt="" className="navbar__notiboard-img" />
-                                <div className="navbar__notiboard-info">
-                                    <p className="navbar__notiboard-name">
-                                        Mỹ phẩm Ohuy chính hãng phẩm Ohuy chính hãng phẩm Ohuy chính hãng phẩm Ohuy chính hãng
-                                    </p>
-                                    <p className="navbar__notiboard-desc">
-                                        Đây là 1 đoạn mô tả của sản phẩm
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li className="navbar__notiboard-item navbar__notiboard-item-viewed">
-                            <a href="#" className="navbar__notiboard-link">
-                                <img src="./assets (chứa file tĩnh)/img/tuixach1.png" alt="" className="navbar__notiboard-img" />
-                                <div className="navbar__notiboard-info">
-                                    <p className="navbar__notiboard-name">
-                                        Mỹ phẩm Ohuy chính hãng
-                                    </p>
-                                    <p className="navbar__notiboard-desc">
-                                        Đây là 1 đoạn mô tả của sản phẩm
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li className="navbar__notiboard-item">
-                            <a href="#" className="navbar__notiboard-link">
-                                <img src="./assets (chứa file tĩnh)/img/tuixach1.png" alt="" className="navbar__notiboard-img" />
-                                <div className="navbar__notiboard-info">
-                                    <p className="navbar__notiboard-name">
-                                        Mỹ phẩm Ohuy chính hãng
-                                    </p>
-                                    <p className="navbar__notiboard-desc">
-                                        Đây là 1 đoạn mô tả của sản phẩm
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li className="navbar__notiboard-item">
-                            <a href="#" className="navbar__notiboard-link">
-                                <img src="./assets (chứa file tĩnh)/img/tuixach1.png" alt="" className="navbar__notiboard-img" />
-                                <div className="navbar__notiboard-info">
-                                    <p className="navbar__notiboard-name">
-                                        Mỹ phẩm Ohuy chính hãng
-                                    </p>
-                                    <p className="navbar__notiboard-desc">
-                                        Đây là 1 đoạn mô tả của sản phẩm
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
+                <div className="notification-dropdown">
+                    <ul>
+                        <li onClick={() => alert("Thông báo 1 đã được nhấp!")}> <div style={{display:" flex"}}>
+                            <span>🎉 🎉 <span style={{fontWeight: 'bold'}}>From May 15 to May 20</span>, all pre-registered accounts will receive  <span style={{fontWeight: 'bold'}}> a 20% discount voucher</span>  for all courses. Sincerely announce! 🎁</span>                        
+                            <span><img src={`http://localhost:8080/uploads/`}
+                                                    className="img-fluid"
+                                                /></span>
+                            </div></li>
+                        <li onClick={() => alert("Thông báo 2 đã được nhấp!")}> 🎈 🎈<span style={{fontWeight: 'bold'}}>Welcome everyone to EduLeap!</span> The best online learning application today.</li>
+                        <li onClick={() => alert("Thông báo 3 đã được nhấp!")}> 🎀 Actively participate in group activities to receive good deals and many attractive gifts.</li>
                     </ul>
-                    <footer className="navbar__notiboard-footer">
-                        <a href="#" className="navbar__notiboard-footer-link">
-                            Xem tất cả
-                        </a>
-                    </footer>
                 </div>
             )}
             
