@@ -39,3 +39,38 @@
   font-weight: bold;
   text-align: left;
 }
+
+
+.reject-reason-container {
+  padding: 10px;
+  border: 2px solid red;
+  background-color: #ffe6e6; /* Màu nền nhẹ để làm nổi bật */
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.reject-reason-text {
+  color: red;
+  font-size: 1.2rem; /* Tăng kích thước chữ */
+}
+
+.no-bold {
+  font-weight: normal; /* Bỏ in đậm */
+}
+
+.modal-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  width: auto;
+  max-width: 100%; /* Đảm bảo modal không vượt quá chiều ngang màn hình */
+}
+
+.custom-modal .modal-content {
+  overflow-y: auto; /* Thêm cuộn dọc nếu nội dung quá dài */
+}
+
+.custom-modal .modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5); /* Hiển thị nền mờ cho modal */
+}

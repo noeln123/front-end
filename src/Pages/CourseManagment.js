@@ -417,12 +417,14 @@ const PendingCourses = ({ courses, setCourses }) => {
                 <Card.Body className="d-flex justify-content-between align-items-center">
                   <div className="lecture-thumbnail" style={{ flex: "0 0 170px" }}>
                     <video style={{ width: "100%", height: "auto" }} controls>
-                      <source src={`http://localhost:8080/uploads/videos/${lecture.video}`} type="video/mp4" />
+                      <source src={`http://localhost:8080/uploads/video/${lecture.video}`} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   </div>
                   <div className="lecture-title" style={{ flex: 1, paddingLeft: "15px" }}>
-                    <h6>{lecture.title}</h6>
+                  {lecture.title.length > 40
+                              ? `${lecture.title.substring(0, 40)}...` 
+                              : lecture.title}
                   </div>
                   <div className="lecture-actions">
                   {lecture.state === 'APPROVED' ? (

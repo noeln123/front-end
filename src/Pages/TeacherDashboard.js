@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../Resource/Css/TeacherDashboard.css';
 import { HeaderMenu } from '../Component/Menu';
-import { FaClock, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'; // Import icon
+import { FaClock, FaCheckCircle, FaTimesCircle, FaExclamationCircle, FaPlus } from 'react-icons/fa'; // Import icon
+import { Modal, Button, Card } from 'react-bootstrap'; // Import Bootstrap Modal
+import { Link } from 'react-router-dom';
 
 const TeacherDashboard = () => {
   const [courses, setCourses] = useState([]);
@@ -11,6 +13,14 @@ const TeacherDashboard = () => {
   const [approvedCount, setApprovedCount] = useState(0);
   const [rejectedCount, setRejectedCount] = useState(0);
   const [pendingCount, setPendingCount] = useState(0);
+
+  const [selledCourses, setSelledCourses] = useState(0);
+  const [totalIncome, setTotalIncome] = useState(0);
+
+  // State to handle modal visibility and selected course
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [lectures, setLectures] = useState([]); // Store lectures of selected course
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -40,6 +50,29 @@ const TeacherDashboard = () => {
       }
     };
 
+    const fetchSelledCoursesAndIncome = async () => {
+      try {
+        let token = localStorage.getItem("token")
+        // Placeholder APIs, replace these URLs with actual API endpoints.
+        const selledResponse = await axios.get('http://localhost:8080/api/course/selled-courses',{
+          headers:{
+            Authorization: `Bearer ${token}`
+          }
+        });
+        const incomeResponse = await axios.get('http://localhost:8080/api/course/total-income',{
+          headers:{
+            Authorization: `Bearer ${token}`
+          }
+        });
+        
+        setSelledCourses(selledResponse.data.total || 1); // Sample response structure
+        setTotalIncome(incomeResponse.data.income || 0); // Sample response structure
+      } catch (error) {
+        console.error('Error fetching selled courses or income:', error);
+      }
+    };
+
+    fetchSelledCoursesAndIncome();
     fetchCourses();
   }, []);
 
@@ -75,10 +108,73 @@ const TeacherDashboard = () => {
     }
   };
 
+  // Function to handle modal display and fetch lectures for the selected course
+  const handleViewDetail = async (course) => {
+    setSelectedCourse(course);
+    setShowModal(true);
+
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`http://localhost:8080/api/lecture/getall-lecture-by-courseid/${course.id}`,{
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (response.data.code === 1000) {
+        setLectures(response.data.result);
+      } else {
+        setLectures([]);
+      }
+    } catch (error) {
+      console.error('Error fetching lectures:', error);
+      setLectures([]);
+    }
+  };
+
+  // Function to close modal
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setLectures([]); // Reset lectures when modal is closed
+  };
+
   return (
     <>
       <HeaderMenu />
       <div className="mt-5">
+
+        {/* Top box containing 3 small boxes */}
+        <div className="row mb-4">
+          <div className="col-md-2 mb-3">
+            <Card className="h-100 shadow-lg text-center">
+              <Card.Body>
+                <Link to={"/teacher/course/create"} className="btn-lg" variant="primary">
+                  <FaPlus size={100} />
+                  {/* <div>Create Course</div> */}
+                </Link>
+              </Card.Body>
+            </Card>
+          </div>
+
+          <div className="col-md-5 mb-3">
+            <Card className="h-100 shadow-lg text-center">
+              <Card.Body>
+                <h4>Selled Courses</h4>
+                <h2>{selledCourses}</h2>
+              </Card.Body>
+            </Card>
+          </div>
+
+          <div className="col-md-5 mb-3">
+            <Card className="h-100 shadow-lg text-center">
+              <Card.Body>
+                <h4>Total Income</h4>
+                <h2>${totalIncome}</h2>
+              </Card.Body>
+            </Card>
+          </div>
+        </div>
+
+
         {/* Bộ lọc trạng thái */}
         <div className="d-flex justify-content-center mb-4">
           <button className="btn btn-outline-primary mx-2">Approved ({approvedCount})</button>
@@ -102,6 +198,12 @@ const TeacherDashboard = () => {
                   <p className="card-text">
                     <strong>Price:</strong> ${course.price}
                   </p>
+
+                  {course.state === "REJECTED" && (
+                    <button className="btn btn-danger mt-2" onClick={() => handleViewDetail(course)}>
+                      View Detail
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -122,6 +224,70 @@ const TeacherDashboard = () => {
             </ul>
           </nav>
         </div>
+
+        {/* Modal for viewing details of rejected course */}
+        {selectedCourse && (
+          <Modal show={showModal} onHide={handleCloseModal} dialogClassName="custom-modal">
+            <Modal.Header closeButton>
+              <Modal.Title><b>{selectedCourse.title}</b></Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div className="reject-reason-container mb-3">
+                <p className="reject-reason-text">
+                  <FaTimesCircle /> Reject Reason: {selectedCourse.reject_reason || "No reason provided"}
+                </p>
+              </div>
+
+              {lectures.length > 0 ? (
+                lectures.map((lecture) => (
+                  <Card className="mb-3" key={lecture.id}>
+                    <Card.Body>
+                      <div className="row">
+                        <div className="col-md-4">
+                          <Card.Img as="video" controls>
+                            <source src={`http://localhost:8080/pending/video/${lecture.video}`} type="video/mp4" />
+                            Your browser does not support the video tag.
+                          </Card.Img>
+                        </div>
+                        <div className="col-md-5">
+                          <Card.Title className='no-bold'>
+                            {lecture.title.length > 40
+                              ? `${lecture.title.substring(0, 40)}...` 
+                              : lecture.title}
+                          </Card.Title>
+                        </div>
+                        <div className="col-md-3 d-flex align-items-center">
+                          {lecture.state === "PENDING" && (
+                            <p className="text-warning">
+                              <FaExclamationCircle /> Pending
+                            </p>
+                          )}
+                          {lecture.state === "APPROVED" && (
+                            <p className="text-success">
+                              <FaCheckCircle /> Approved
+                            </p>
+                          )}
+                          {lecture.state === "REJECTED" && (
+                            <p className="text-danger">
+                              <FaExclamationCircle /> {lecture.reject_reason || "No reject reason"}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                ))
+              ) : (
+                <p>No lectures available for this course.</p>
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseModal}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        )}
       </div>
     </>
   );
