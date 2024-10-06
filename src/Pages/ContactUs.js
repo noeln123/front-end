@@ -9,6 +9,7 @@ const ContactUs = () => {
     return (
         <>
             <HeaderMenu />
+            <div className="grid-body">
             <section className="container2">
                 <div className="inner-container7">
                     <div className="address-container">
@@ -133,6 +134,7 @@ const ContactUs = () => {
                     ></iframe>
                 </div>
             </section>
+            </div>
             <Footer />
         </>
     );

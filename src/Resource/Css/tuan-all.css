@@ -1572,7 +1572,6 @@ button:focus {
 .i-course{
   padding: 0 5px;
 }
-
 .notification-dropdown {
   position: absolute;
   box-sizing: border-box;
@@ -1583,6 +1582,8 @@ button:focus {
   border-radius: 8px; /* Bo tròn các góc */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng */
   max-width: 350px; /* Chiều rộng */
+  max-height: 300px; /* Giới hạn chiều cao tối đa cho dropdown */
+  overflow: hidden; /* Ẩn phần nội dung thừa */
   z-index: 1000; /* Đảm bảo thông báo ở trên cùng */
   animation: fadeIn 0.3s; /* Hiệu ứng hiện ra */
 }
@@ -1597,30 +1598,25 @@ button:focus {
   padding: 10px; /* Khoảng cách bên trong */
   cursor: pointer; /* Con trỏ tay khi di chuột */
   transition: background-color 0.2s, transform 0.2s; 
-  overflow: hidden; /* Ẩn phần nội dung thừa */
   font-size: 14px;
-  -webkit-line-clamp: 2;
-  
-}
-
-/* Nếu bạn muốn thêm hiệu ứng cuộn cho dropdown */
-.notification-dropdown {
-  max-height: 300px; /* Giới hạn chiều cao tối đa cho dropdown */
-  overflow-y: auto; /* Cho phép cuộn dọc */
+  display: -webkit-box; /* Sử dụng flexbox để giới hạn dòng */
+  -webkit-box-orient: vertical; /* Đặt chiều hướng của box là dọc */
+  -webkit-line-clamp: 2; /* Giới hạn số dòng hiển thị là 2 */
+  overflow: hidden; /* Ẩn phần nội dung thừa */
+  text-overflow: ellipsis; /* Thêm dấu "..." nếu văn bản quá dài */
 }
 
 .notification-dropdown li:hover {
- 
-  transform: scale(1.05);
-   background-color: #f0f0f0; /* Đổi màu nền khi hover */
+  transform: scale(1.02); /* Phóng to khi hover */
+  background-color: #f0f0f0; /* Đổi màu nền khi hover */
 }
 
 @keyframes fadeIn {
   from {
-      opacity: 0; /* Bắt đầu với độ trong suốt 0 */
+    opacity: 0; /* Bắt đầu với độ trong suốt 0 */
   }
   to {
-      opacity: 1; /* Kết thúc với độ trong suốt 1 */
+    opacity: 1; /* Kết thúc với độ trong suốt 1 */
   }
 }
 
