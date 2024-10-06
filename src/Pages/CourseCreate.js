@@ -49,9 +49,24 @@ const CourseCreate = () => {
         // Create lectures
         for (const lecture of lectures) {
           let videoName = 'None';
+
+          const lectureCreateResponse = await axios.post(`http://localhost:8080/api/lecture/${courseId}`, {
+            title: lecture.title,
+            content: lecture.content,
+            video: videoName
+          }, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+
+          let lectureId = lectureCreateResponse.data.result.id;
+
           if (lecture.video) {
             const lectureFormData = new FormData();
+            lectureFormData.append('title', lecture.title);
             lectureFormData.append('file', lecture.video);
+            lectureFormData.append('lecture_id', lectureId);
 
             const uploadResponse = await axios.post(
               `http://localhost:8080/api/upload-video`,
@@ -70,16 +85,6 @@ const CourseCreate = () => {
               throw new Error('Failed to upload video');
             }
           }
-
-          await axios.post(`http://localhost:8080/api/lecture/${courseId}`, {
-            title: lecture.title,
-            content: lecture.content,
-            video: videoName
-          }, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
         }
 
         alert('Course created successfully!');
