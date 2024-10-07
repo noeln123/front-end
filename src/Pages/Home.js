@@ -5,7 +5,7 @@ import "../Resource/Css/tuan-all.css";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import { Carousel, Button } from 'react-bootstrap';
-import "../Resource/Css/tuan-all.css";
+// import "../Resource/Css/tuan-all.css";
 import '../Resource/Css/viet-all.css';
 import { useNavigate } from 'react-router-dom';
 
