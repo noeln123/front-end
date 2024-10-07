@@ -1,34 +1,45 @@
-import { HeaderMenu } from "../Component/Menu"
+import { HeaderMenu } from "../Component/Menu";
 import axios from 'axios';
-import Footer from "../Component/Footer"
+import Footer from "../Component/Footer";
 import "../Resource/Css/tuan-all.css";
 import { Link } from "react-router-dom";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+// import React, { useState, useEffect } from 'react';
 import { Carousel, Button } from 'react-bootstrap';
-// import "../Resource/Css/tuan-all.css";
 import '../Resource/Css/viet-all.css';
 import { useNavigate } from 'react-router-dom';
+import Counter from "../Component/ComponentCounter";
 
 const Home = () => {
     const [courses, setCourses] = useState([]);
-    const [wishList, setWishList] = useState([]);
     const [activeMenu, setActiveMenu] = useState('menu1');
-    const [currentPage, setCurrentPage] = useState(1);
-    const coursesPerPage = 3; // Số lượng khóa học hiển thị mỗi trang
-   
+    const counterRef = useRef(null);
+    const [startCounting, setStartCounting] = useState(false);
 
-    const toggleWishList = (course) => {
-        setWishList((prevList) =>
-            prevList.includes(course)
-                ? prevList.filter((item) => item !== course)
-                : [...prevList, course]
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setStartCounting(true);
+                    observer.disconnect();
+                }
+            },
+            { threshold: 0.1 }
         );
-    };
+
+        if (counterRef.current) {
+            observer.observe(counterRef.current);
+        }
+
+        return () => {
+            if (counterRef.current) {
+                observer.unobserve(counterRef.current);
+            }
+        };
+    }, []);
 
     useEffect(() => {
         const fetchCourses = async () => {
-            const token = localStorage.getItem('token');
-
             try {
                 const response = await axios.get('http://localhost:8080/api/course');
                 setCourses(response.data.result);
@@ -41,39 +52,10 @@ const Home = () => {
         fetchCourses();
     }, []); // Chỉ gọi fetchCourses một lần khi component mount
 
-
-
-    const [startIndex, setStartIndex] = useState(0);
-    const coursesToShow = 4; // Number of courses to display at a time
-
-    const handleNext = () => {
-        if (startIndex + coursesToShow < courses.length) {
-            setStartIndex(startIndex + coursesToShow);
-        }
-    };
-
-    const handlePrev = () => {
-        if (startIndex > 0) {
-            setStartIndex(startIndex - coursesToShow);
-        }
-    }
-
-    const indexOfLastCourse = currentPage * coursesPerPage;
-    const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
-    const currentCourses = courses.slice(indexOfFirstCourse, indexOfLastCourse);
-
-    const navigate = useNavigate();
-
-    const handleButtonClick = () => {
-        // Điều hướng đến trang TeacherInfo khi bấm nút
-        navigate('/teacherInfo');
-    };
-
     return (
         <>
             <HeaderMenu />
             <div>
-        
                 <div className="grid-body">
                     <div className="header_body">
                         <img src="/tuan-img/header_body.png" alt="Header Body" className="img-header_body" />
@@ -107,7 +89,7 @@ const Home = () => {
                     <div className="course-container list_course">
                         {courses.length > 0 ? (
                             <div className="course-wrapper">
-                                {currentCourses.map((course) => (
+                                {courses.map((course) => (
                                     <div className="course-card" key={course.id}>
                                         <img src={`http://localhost:8080/uploads/course/${course.img}`} alt={course.name} className="course-image" />
                                         <h3 className="course-title">{course.title}</h3>
@@ -122,7 +104,34 @@ const Home = () => {
                         )}
                     </div>
                 </div>
-            )}  
+            )}
+
+            <div ref={counterRef} className="counter-section">
+                <h2>We have trained:</h2>
+                <div className="bodem grid-body">
+                    <p>
+                        <strong>
+                             
+                        {startCounting && <Counter endNumber={1500} duration={2000} />} ++ 
+                            
+                            <p><i class="fa-solid fa-graduation-cap"></i>  Students</p>
+                        </strong>
+                    </p>
+                    <p>
+                        <strong>
+                        {startCounting && <Counter endNumber={300} duration={2000} />} ++ 
+                        <p><i class="fa-solid fa-scroll"></i>  Courses</p>
+                        </strong>
+                    </p>
+                    <p>
+                        <strong>
+                        {startCounting && <Counter endNumber={50} duration={2000} />} ++ 
+                        <p><i class="fa-solid fa-person-chalkboard"></i>  Teachers</p>
+                        </strong>
+                    </p>
+                </div>
+            </div>
+
             <div className="grid-body home_teacher">
                 <div className="instructor-section">
                     <span className="badge">Skilled Introduce</span>
@@ -130,7 +139,7 @@ const Home = () => {
                     <p>when an unknown printer took a galley of type and scrambled makespecimen book has survived not only five centuries</p>
                     <Link className="btn-teacherInfor" to="/teacherInfor">See All Instructors →</Link>
                 </div>
-                <div className="profile-container home" >
+                <div className="profile-container home">
                     {Array.from({ length: 4 }).map((_, index) => (
                         <div className="select" key={index}>
                             <div className="img-teacher">
@@ -155,6 +164,7 @@ const Home = () => {
 
             <Footer />
         </>
-    )
-}
+    );
+};
+
 export default Home;

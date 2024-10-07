@@ -651,8 +651,7 @@
 }
 
 .contact1-body {
-  margin-top: 20px;
-  background-color: rgba(174, 174, 174, 0.1);
+  background: linear-gradient(to right, #f7f9fc, #dedede);
   padding: 50px 50px;
   text-align: center;
 }
@@ -1730,4 +1729,41 @@ button:focus {
   animation: shake 0.5s; /* Thời gian hiệu ứng là 0.5 giây */
 }
 
+.counter-section {
+  text-align: center;
+  padding: 40px 20px;
+  /* background: linear-gradient(to right, #f7f9fc, #dedede); */
+  /* border-radius: 10px; */
+  margin: 20px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
 
+.counter-section h2 {
+  font-size: 2.5rem;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: bold;
+}
+
+.counter-section p {
+  font-size: 1.5rem;
+  margin: 10px 0;
+  color: #000000;
+}
+
+.counter-section strong {
+  font-size: 2.5rem;
+  color: #5a52e0; /* Màu xanh lá cho số lượng */
+  transition: transform 0.3s;
+}
+
+.counter-section strong:hover {
+  transform: scale(1.1); /* Hiệu ứng phóng to khi hover */
+}
+
+.bodem{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 100px;
+}
