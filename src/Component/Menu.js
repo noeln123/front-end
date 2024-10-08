@@ -9,13 +9,13 @@ const HeaderMenu = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isNotificationOpen, setIsNotificationOpen] = useState(false);
     const menuRef = useRef(null);
     const buttonRef = useRef(null);
     const userInfoRef = useRef(null);
     const dropdownRef = useRef(null);
     const navigate = useNavigate();
 
-    // Fetch user info
     useEffect(() => {
         const token = localStorage.getItem('token');
 
@@ -38,7 +38,6 @@ const HeaderMenu = () => {
         }
     }, []);
 
-    // Handle closing menu and dropdown when clicking outside
     useEffect(() => {
         const closeMenuOnClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target) &&
@@ -48,9 +47,12 @@ const HeaderMenu = () => {
             if (userInfoRef.current && !userInfoRef.current.contains(event.target)) {
                 setIsDropdownOpen(false);
             }
+            if (isNotificationOpen && !event.target.closest('.notification-dropdown')) {
+                setIsNotificationOpen(false);
+            }
         };
 
-        if (isMenuOpen || isDropdownOpen) {
+        if (isMenuOpen || isDropdownOpen || isNotificationOpen) {
             document.addEventListener('click', closeMenuOnClickOutside);
         } else {
             document.removeEventListener('click', closeMenuOnClickOutside);
@@ -59,42 +61,31 @@ const HeaderMenu = () => {
         return () => {
             document.removeEventListener('click', closeMenuOnClickOutside);
         };
-    }, [isMenuOpen, isDropdownOpen]);
+    }, [isMenuOpen, isDropdownOpen, isNotificationOpen]);
 
-    // Toggle the main menu
     const toggleMenu = () => {
         setIsMenuOpen(prevIsOpen => !prevIsOpen);
     };
 
-    // Toggle the user dropdown menu
     const toggleDropdown = () => {
-        setIsDropdownOpen((prev) => !prev);
+        if (isNotificationOpen) {
+            setIsNotificationOpen(false); // Đóng thông báo nếu đang mở
+        }
+        setIsDropdownOpen(prev => !prev);
     };
 
-    // Handle logout
     const handleLogout = () => {
         localStorage.removeItem('token');
         setUserInfo(null);
         navigate('/login');
     };
 
-    useEffect(() => {
-        if (isDropdownOpen && dropdownRef.current && userInfoRef.current) {
-            const dropdown = dropdownRef.current;
-            const userInfo = userInfoRef.current;
-            const dropdownRect = dropdown.getBoundingClientRect();
-            const windowWidth = window.innerWidth;
-
-            // Nếu dropdown tràn ra khỏi viền phải của trang
-            if (dropdownRect.right > windowWidth) {
-                dropdown.style.right = '0';
-                dropdown.style.left = 'auto';
-            } else {
-                dropdown.style.left = '0';
-                dropdown.style.right = 'auto';
-            }
+    const toggleNotification = () => {
+        if (isDropdownOpen) {
+            setIsDropdownOpen(false); // Đóng dropdown nếu đang mở
         }
-    }, [isDropdownOpen]);
+        setIsNotificationOpen(prev => !prev);
+    };
 
     return (
         <div className='menu'>
@@ -104,16 +95,28 @@ const HeaderMenu = () => {
             <Link className="link_menu btn-home" to="/">Home</Link>
             <Link className="link_menu" to="/courses">Course</Link>
 
-            {/* Thêm nút dẫn tới "Teacher Dashboard" nếu role là TEACHER */}
-
-
             <input type="text" placeholder="Search content" />
             <Link className="button-function btn-shopingCart" to='/cart'>
                 <FontAwesomeIcon icon={faCartShopping} className="icon-function" />
             </Link>
-            <a className="button-function" href="#">
+            <a className="button-function" onMouseEnter={toggleNotification}>
                 <FontAwesomeIcon icon={faBell} className="icon-function" />
             </a>
+            {isNotificationOpen && (
+                <div className="notification-dropdown">
+                    <ul>
+                        <li onClick={() => alert("Thông báo 1 đã được nhấp!")}> <div style={{display:" flex"}}>
+                            <span>🎉 🎉 <span style={{fontWeight: 'bold'}}>From May 15 to May 20</span>, all pre-registered accounts will receive  <span style={{fontWeight: 'bold'}}> a 20% discount voucher</span>  for all courses. Sincerely announce! 🎁</span>                        
+                            <span><img src={`http://localhost:8080/uploads/`}
+                                                    className="img-fluid"
+                                                /></span>
+                            </div></li>
+                        <li onClick={() => alert("Thông báo 2 đã được nhấp!")}> 🎈 🎈<span style={{fontWeight: 'bold'}}>Welcome everyone to EduLeap!</span> The best online learning application today.</li>
+                        <li onClick={() => alert("Thông báo 3 đã được nhấp!")}> 🎀 Actively participate in group activities to receive good deals and many attractive gifts.</li>
+                    </ul>
+                </div>
+            )}
+            
             {userInfo ? (
                 <div ref={userInfoRef} className="user-info d-flex align-items-center" onClick={toggleDropdown}>
                     <img src="/viet-img/anh_tay.jpg" alt="Avatar" className="avatar" style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '10px' }} />
@@ -121,31 +124,31 @@ const HeaderMenu = () => {
                     {isDropdownOpen && (
                         <div ref={dropdownRef} className="dropdown-menu">
                             <ul>
-                                <li><Link className=' btn1-avt' to="/accountInfor">
-                                    <i class="fa-regular fa-user icon-avt"></i>
+                                <li><Link className='btn1-avt' to="/accountInfor">
+                                    <i className="fa-regular fa-user icon-avt"></i>
                                     Profile
                                 </Link></li>
-                                <li><Link className=' btn1-avt' to="/mycourse">
-                                    <i class="fa-solid fa-book icon-avt"></i>
+                                <li><Link className='btn1-avt' to="/mycourse">
+                                    <i className="fa-solid fa-book icon-avt"></i>
                                     My Course</Link>
                                 </li>
-                                <li><Link className=' btn1-avt' to="/cart">
-                                    <i class="fa-solid fa-cart-shopping icon-avt"></i>
+                                <li><Link className='btn1-avt' to="/cart">
+                                    <i className="fa-solid fa-cart-shopping icon-avt"></i>
                                     Shopping Cart</Link></li>
                                 {userInfo?.role === "TEACHER" && (
-                                    <li><Link  className="link_menu btn1-avt" style={{margin: "0"}} to="/teacher">
-                                        <i class="fa-solid fa-gauge-high icon-avt"></i>
+                                    <li><Link className="link_menu btn1-avt" style={{ margin: "0" }} to="/teacher">
+                                        <i className="fa-solid fa-gauge-high icon-avt"></i>
                                         Teacher Dashboard</Link>
                                     </li>
                                 )}
                                 {userInfo?.role === "ADMIN" && (
-                                    <li><Link  className="link_menu btn1-avt" style={{margin: "0"}} to="/admin">
-                                        <i class="fa-solid fa-user-tie icon-avt"></i>
+                                    <li><Link className="link_menu btn1-avt" style={{ margin: "0" }} to="/admin">
+                                        <i className="fa-solid fa-user-tie icon-avt"></i>
                                         Admin Dashboard</Link>
                                     </li>
                                 )}
                                 <li onClick={handleLogout}><button className='btn-logout btn1-avt'>
-                                    <i class="fa-solid fa-right-to-bracket icon-avt"></i>
+                                    <i className="fa-solid fa-right-to-bracket icon-avt"></i>
                                     Logout
                                 </button></li>
                             </ul>

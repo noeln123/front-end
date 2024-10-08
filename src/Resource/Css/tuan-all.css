@@ -97,7 +97,7 @@
   position: absolute;
   top: 100%;
   /* Align the top of the dropdown with the bottom of the button */
-  left: -50px;
+  /* left: -50px; */
   /* Align the left of the dropdown with the left of the button */
   background-color: #333;
   color: white;
@@ -651,8 +651,7 @@
 }
 
 .contact1-body {
-  margin-top: 20px;
-  background-color: rgba(174, 174, 174, 0.1);
+  background: linear-gradient(to right, #f7f9fc, #dedede);
   padding: 50px 50px;
   text-align: center;
 }
@@ -1187,12 +1186,11 @@
   position: absolute;
   top: 100%;
   /* Hiển thị ngay dưới user info */
-  left: 0;
+  right: 0;
   /* Mặc định căn trái */
   background-color: #fff;
   border: 1px solid #ccc;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 10px;
   z-index: 1000;
   min-width: 150px;
 }
@@ -1572,4 +1570,200 @@ button:focus {
 
 .i-course{
   padding: 0 5px;
+}
+.notification-dropdown {
+  position: absolute;
+  box-sizing: border-box;
+  top: 60px; /* Khoảng cách từ nút thông báo */
+  right: 20px; /* Khoảng cách từ bên phải */
+  background-color: white; /* Nền trắng */
+  border: 1px solid #ccc; /* Đường viền xám nhẹ */
+  border-radius: 8px; /* Bo tròn các góc */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+  max-width: 350px; /* Chiều rộng */
+  max-height: 300px; /* Giới hạn chiều cao tối đa cho dropdown */
+  overflow: hidden; /* Ẩn phần nội dung thừa */
+  z-index: 1000; /* Đảm bảo thông báo ở trên cùng */
+  animation: fadeIn 0.3s; /* Hiệu ứng hiện ra */
+}
+
+.notification-dropdown ul {
+  list-style: none; /* Bỏ dấu đầu dòng */
+  margin: 0; /* Không có khoảng cách */
+  padding: 0; /* Không có padding */
+}
+
+.notification-dropdown li {
+  padding: 10px; /* Khoảng cách bên trong */
+  cursor: pointer; /* Con trỏ tay khi di chuột */
+  transition: background-color 0.2s, transform 0.2s; 
+  font-size: 14px;
+  display: -webkit-box; /* Sử dụng flexbox để giới hạn dòng */
+  -webkit-box-orient: vertical; /* Đặt chiều hướng của box là dọc */
+  -webkit-line-clamp: 2; /* Giới hạn số dòng hiển thị là 2 */
+  overflow: hidden; /* Ẩn phần nội dung thừa */
+  text-overflow: ellipsis; /* Thêm dấu "..." nếu văn bản quá dài */
+}
+
+.notification-dropdown li:hover {
+  transform: scale(1.02); /* Phóng to khi hover */
+  background-color: #f0f0f0; /* Đổi màu nền khi hover */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Bắt đầu với độ trong suốt 0 */
+  }
+  to {
+    opacity: 1; /* Kết thúc với độ trong suốt 1 */
+  }
+}
+
+
+
+.price_course-detal {
+  background-color: #5952E0;
+  color: #fff;
+  padding: 10px 20px;
+  margin: 10px 20px;
+  text-align: left;
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.7);
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+@keyframes shake {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(3deg); }
+  40% { transform: rotate(-3deg); }
+  60% { transform: rotate(1.5deg); }
+  80% { transform: rotate(-1.5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.price_course-detal:hover {
+  animation: shake 0.4s; /* Thời gian hiệu ứng là 0.4 giây */
+}
+
+.price_course-detal > p {
+  color: #fff;
+}
+
+
+.list-unstyled>li{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin: 10px 20px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.btn-course_details1{
+  margin: 20px 0;
+}
+.body-price_course{
+  display: flex;
+  justify-content: center;
+}
+
+.body-price_course>h2{
+  padding: 0 10px;
+  font-size: 22px;
+}
+
+.price-sale{
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.2);
+}
+.btn-course_details1>button {
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+  margin: 10px 0;
+  max-width: 285px;
+}
+
+.btn-course_details1 .btn {
+  position: relative;
+  overflow: hidden; /* Để hiệu ứng không bị tràn ra ngoài */
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.btn-course_details1 .btn:hover {
+  transform: scale(1.05); /* Phóng to nút khi hover */
+  background-color: #ffc107; /* Thay đổi màu nền khi hover */
+}
+
+.btn-course_details1 .btn:active {
+  transform: scale(0.95); /* Nhấn vào thì nút sẽ nhỏ lại một chút */
+  transition: transform 0.1s; /* Hiệu ứng nhấn nhanh */
+}
+
+.btn-course_details1 .btn.add-to-cart {
+  background-color: #ffc107; /* Màu nền cho nút Add to Cart */
+  color: #fff;
+}
+
+.btn-course_details1 .btn.buy-now {
+  background-color: #28a745; /* Màu nền cho nút Buy Now */
+  color: #fff;
+}
+
+/* Hiệu ứng nhấp nháy */
+.btn-course_details1 .btn.add-to-cart:focus,
+.btn-course_details1 .btn.buy-now:focus {
+  box-shadow: 0 0 5px rgba(255, 255, 0, 0.5), 0 0 10px rgba(255, 255, 0, 0.3);
+  animation: pulse 1s infinite; /* Hiệu ứng nhấp nháy */
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+
+.btn-submit-review {
+  position: relative;
+  transition: transform 0.2s;
+}
+
+/* Hiệu ứng khi hover */
+.btn-submit-review:hover {
+  animation: shake 0.5s; /* Thời gian hiệu ứng là 0.5 giây */
+}
+
+.counter-section {
+  text-align: center;
+  padding: 40px 20px;
+  /* background: linear-gradient(to right, #f7f9fc, #dedede); */
+  /* border-radius: 10px; */
+  margin: 20px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.counter-section h2 {
+  font-size: 2.5rem;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: bold;
+}
+
+.counter-section p {
+  font-size: 1.5rem;
+  margin: 10px 0;
+  color: #000000;
+}
+
+.counter-section strong {
+  font-size: 2.5rem;
+  color: #5a52e0; /* Màu xanh lá cho số lượng */
+  transition: transform 0.3s;
+}
+
+.counter-section strong:hover {
+  transform: scale(1.1); /* Hiệu ứng phóng to khi hover */
+}
+
+.bodem{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 100px;
 }

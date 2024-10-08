@@ -131,7 +131,7 @@ const CourseVideo = () => {
           {currentVideo && (
             <>
               <video id="video-player" controls ref={videoRef}>
-                <source src={`http://localhost:8080/uploads/video/${currentVideo.video}`} type="video/mp4" />
+                <source src={`http://localhost:8080/uploads/videos/${currentVideo.video}`} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
               <h2>{currentVideo.title}</h2>
