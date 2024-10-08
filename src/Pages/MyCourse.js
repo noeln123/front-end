@@ -25,13 +25,13 @@ const MyCourse = () => {
             const token = localStorage.getItem('token');
 
             try {
-                const response = await axios.get('http://localhost:8080/api/enrollment', {
+                const response = await axios.get('http://localhost:8080/api/course/my-courses', {
                     headers: {
                         Authorization: `Bearer ${token}` // Gửi token nếu cần
                     }
                 });
-                console.log(response.data); // Xem dữ liệu trả về
-                setCourses(response.data.result); // Đảm bảo rằng response.data.result là đúng
+                console.log(response.data);
+                setCourses(response.data.result); 
             } catch (error) {
                 console.error('Error fetching courses', error);
                 alert('Failed to load courses');

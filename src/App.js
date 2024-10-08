@@ -23,6 +23,7 @@ import CourseManagment from './Pages/CourseManagment';
 import CheckOutSuccess from './Pages/CheckoutSuccess';
 import CheckOutCancel from './Pages/CheckOutCancel';
 import ContactUs from './Pages/ContactUs';
+import CourseEdit from './Pages/CourseEdit';
 // import AboutUs from './Pages/AboutUs';
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/mycourse" element={<MyCourse />} />
         <Route path="/courseDetail/:id" element={<CourseDetail />} />
         <Route path="/courseVideo/:id" element={<CourseVideo />} />
+        <Route path="teacher/course/edit/:id" element={<CourseEdit />} />
         <Route path="/cart" element={<ShoppingCard />} />
         <Route path="/teacherInfor" element={<TeacherInfor />} />
         <Route path="/forgotPass" element={<ForgotPass />} />

@@ -23,7 +23,7 @@ const CheckOutSuccess = () => {
             }
           });
           const data = await response.json();
-          if (data.code === 1000 && data.result) {
+          if (data.code === 1000) {
             setProductId(data.result.productId);
           } else {
             throw new Error('Invalid response code');
@@ -40,7 +40,7 @@ const CheckOutSuccess = () => {
             method: "GET"
           });
           const data = await response.json();
-          if (data.code === 1000 && data.result) {
+          if (data.code === 1000) {
             setPrice(data.result.price);
             setProductName(data.result.title);
           } else {

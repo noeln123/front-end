@@ -22,6 +22,9 @@ const TeacherDashboard = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [lectures, setLectures] = useState([]); // Store lectures of selected course
 
+  const [showRetryConfirmationModal, setShowRetryConfirmationModal] = useState(false);
+
+
   useEffect(() => {
     const fetchCourses = async () => {
       const token = localStorage.getItem('token');
@@ -136,6 +139,10 @@ const TeacherDashboard = () => {
     setShowModal(false);
     setLectures([]); // Reset lectures when modal is closed
   };
+
+  const handleConfirmRetry = () => {
+    setShowRetryConfirmationModal(true);
+  }
 
   return (
     <>
@@ -282,11 +289,34 @@ const TeacherDashboard = () => {
               )}
             </Modal.Body>
             <Modal.Footer>
+              <Button variant='primary' onClick={handleConfirmRetry}>
+                Retry 0/3
+              </Button>
               <Button variant="secondary" onClick={handleCloseModal}>
                 Close
               </Button>
             </Modal.Footer>
           </Modal>
+        )}
+
+
+        {showRetryConfirmationModal && (
+        <Modal show={showRetryConfirmationModal} onHide={() => setShowRetryConfirmationModal(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Confirm Retry</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Are you sure you want to retry edit </p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowRetryConfirmationModal(false)}>
+              Cancel
+            </Button>
+            <Link to={`course/edit/${selectedCourse.id}`} className='btn btn-primary'>
+              Yes, Retry
+            </Link>
+          </Modal.Footer>
+        </Modal> 
         )}
       </div>
     </>
